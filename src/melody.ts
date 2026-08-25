@@ -2,6 +2,7 @@ import type { ExerciseNote } from './exerciseNotes';
 
 export const MELODY_COUNTS = [2, 3, 4, 5, 6, 7, 8] as const;
 export const DEFAULT_MELODY_COUNT = 2;
+export const DEFAULT_REVERSE_COUNT = 3;
 export const CORE_MELODY_MAX = 4;
 
 export type MelodyPhrase = {
@@ -69,6 +70,37 @@ export function placeRank(
 
 export function guessComplete(guess: (number | null)[]): guess is number[] {
   return guess.every((value) => value != null);
+}
+
+export function reverseRanks(ranks: number[]): number[] {
+  return ranks.slice().reverse();
+}
+
+export function ranksEqual(left: number[], right: number[]): boolean {
+  return left.length === right.length && left.every((value, index) => value === right[index]);
+}
+
+export function isRankPalindrome(ranks: number[]): boolean {
+  return ranksEqual(ranks, reverseRanks(ranks));
+}
+
+export function pickReversePhrase(
+  scale: ExerciseNote[],
+  count: number,
+  exceptKey?: string,
+): MelodyPhrase {
+  let phrase = pickPhrase(scale, count, exceptKey);
+  for (let i = 0; i < 24 && isRankPalindrome(phrase.ranks); i += 1) {
+    phrase = pickPhrase(scale, count, phraseKey(phrase));
+  }
+  return phrase;
+}
+
+export function reversedPhrase(phrase: MelodyPhrase): MelodyPhrase {
+  return {
+    notes: [...phrase.notes].reverse(),
+    ranks: reverseRanks(phrase.ranks),
+  };
 }
 
 export function scoreContour(

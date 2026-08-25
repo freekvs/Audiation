@@ -10,13 +10,15 @@ import {
 } from '../exerciseNotes';
 import {
   CORE_MELODY_MAX,
-  DEFAULT_MELODY_COUNT,
+  DEFAULT_REVERSE_COUNT,
   MELODY_COUNTS,
   emptyGuess,
   guessComplete,
   phraseKey,
-  pickPhrase,
+  pickReversePhrase,
   placeRank,
+  ranksEqual,
+  reversedPhrase,
   scoreContour,
   type MelodyPhrase,
 } from '../melody';
@@ -44,22 +46,24 @@ type Props = {
 const PLAY_MS = 720;
 const GAP_MS = 260;
 
-export function MelodyScreen({ onBack }: Props) {
+export function ReverseScreen({ onBack }: Props) {
   const { compact } = useCompactLayout();
   const { naming } = useNaming();
   const [phase, setPhase] = useState<Phase>('idle');
   const [octave, setOctave] = useState<ExerciseOctave>(DEFAULT_EXERCISE_OCTAVE);
-  const [count, setCount] = useState(DEFAULT_MELODY_COUNT);
+  const [count, setCount] = useState(DEFAULT_REVERSE_COUNT);
   const [phrase, setPhrase] = useState<MelodyPhrase>(() =>
-    pickPhrase(DEFAULT_EXERCISE_OCTAVE.notes, DEFAULT_MELODY_COUNT),
+    pickReversePhrase(DEFAULT_EXERCISE_OCTAVE.notes, DEFAULT_REVERSE_COUNT),
   );
   const [guess, setGuess] = useState<(number | null)[]>(() =>
-    emptyGuess(DEFAULT_MELODY_COUNT),
+    emptyGuess(DEFAULT_REVERSE_COUNT),
   );
   const [playIndex, setPlayIndex] = useState<number | null>(null);
   const [progress, setProgress] = useState<MelodyProgress>(emptyMelodyProgress);
   const { droneEnabled, setDroneEnabled } = useDrone(octave.octave, false);
   const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
+
+  const target = reversedPhrase(phrase);
 
   const clearTimers = () => {
     for (const timer of timers.current) {
@@ -69,7 +73,7 @@ export function MelodyScreen({ onBack }: Props) {
   };
 
   useEffect(() => {
-    void loadMelodyProgress().then(setProgress);
+    void loadMelodyProgress('reverse').then(setProgress);
   }, []);
 
   useEffect(() => {
@@ -83,7 +87,7 @@ export function MelodyScreen({ onBack }: Props) {
     void playHz(hz).catch(() => undefined);
   };
 
-  const schedulePhrase = (next: MelodyPhrase, thenPlace: boolean) => {
+  const schedulePhrase = (next: MelodyPhrase, thenPlace: boolean, thenCheck: boolean) => {
     next.notes.forEach((note, index) => {
       const start = index * (PLAY_MS + GAP_MS);
       timers.current.push(
@@ -99,6 +103,8 @@ export function MelodyScreen({ onBack }: Props) {
             setPlayIndex(null);
             if (thenPlace) {
               setPhase('placing');
+            } else if (thenCheck) {
+              setPhase('check');
             }
           } else {
             setPlayIndex(null);
@@ -111,15 +117,15 @@ export function MelodyScreen({ onBack }: Props) {
   const startRound = () => {
     clearTimers();
     stopTone();
-    const next = pickPhrase(octave.notes, count, phraseKey(phrase));
+    const next = pickReversePhrase(octave.notes, count, phraseKey(phrase));
     setPhrase(next);
     setGuess(emptyGuess(next.notes.length));
     setPlayIndex(null);
     setPhase('playing');
-    schedulePhrase(next, true);
+    schedulePhrase(next, true, false);
   };
 
-  const replayPhrase = () => {
+  const replayHeard = () => {
     if (phase === 'playing') {
       return;
     }
@@ -128,17 +134,18 @@ export function MelodyScreen({ onBack }: Props) {
     setPlayIndex(null);
     const keepPhase = phase;
     setPhase('playing');
-    schedulePhrase(phrase, keepPhase === 'placing' || keepPhase === 'idle');
-    if (keepPhase === 'check') {
-      timers.current.push(
-        setTimeout(
-          () => {
-            setPhase('check');
-          },
-          phrase.notes.length * (PLAY_MS + GAP_MS) - GAP_MS,
-        ),
-      );
+    schedulePhrase(phrase, keepPhase === 'placing', keepPhase === 'check');
+  };
+
+  const replayReverse = () => {
+    if (phase === 'playing') {
+      return;
     }
+    clearTimers();
+    stopTone();
+    setPlayIndex(null);
+    setPhase('playing');
+    schedulePhrase(target, false, true);
   };
 
   const check = () => {
@@ -148,10 +155,10 @@ export function MelodyScreen({ onBack }: Props) {
     clearTimers();
     stopTone();
     setPlayIndex(null);
-    const result = scoreContour(guess, phrase.ranks);
+    const result = scoreContour(guess, target.ranks);
     const next = recordMelodyRound(progress, phrase.notes.length, result.all);
     setProgress(next);
-    void saveMelodyProgress(next);
+    void saveMelodyProgress(next, 'reverse');
     setPhase('check');
   };
 
@@ -162,7 +169,7 @@ export function MelodyScreen({ onBack }: Props) {
     clearTimers();
     stopTone();
     setOctave(next);
-    setPhrase(pickPhrase(next.notes, count));
+    setPhrase(pickReversePhrase(next.notes, count));
     setGuess(emptyGuess(count));
     setPlayIndex(null);
     setPhase('idle');
@@ -175,7 +182,7 @@ export function MelodyScreen({ onBack }: Props) {
     clearTimers();
     stopTone();
     setCount(next);
-    setPhrase(pickPhrase(octave.notes, next));
+    setPhrase(pickReversePhrase(octave.notes, next));
     setGuess(emptyGuess(next));
     setPlayIndex(null);
     setPhase('idle');
@@ -188,8 +195,12 @@ export function MelodyScreen({ onBack }: Props) {
     setGuess((current) => placeRank(current, col, row));
   };
 
-  const score = phase === 'check' && guessComplete(guess) ? scoreContour(guess, phrase.ranks) : null;
-  const names = phrase.notes.map((note) => relativeLabel(note, naming)).join(' → ');
+  const score =
+    phase === 'check' && guessComplete(guess) ? scoreContour(guess, target.ranks) : null;
+  const placedForward =
+    phase === 'check' && guessComplete(guess) && ranksEqual(guess, phrase.ranks) && !score?.all;
+  const heardNames = phrase.notes.map((note) => relativeLabel(note, naming)).join(' → ');
+  const reverseNames = target.notes.map((note) => relativeLabel(note, naming)).join(' → ');
   const filled = guessComplete(guess);
   const advice = melodyAdvice(progress, count);
   const statsLine = formatMelodyStats(progress);
@@ -198,25 +209,25 @@ export function MelodyScreen({ onBack }: Props) {
     phase === 'playing'
       ? 'Luister'
       : phase === 'placing'
-        ? 'Zet de lijn'
+        ? 'Zet achterstevoren'
         : phase === 'check'
           ? 'Controle'
-          : 'Melodie';
+          : 'Omkeren';
 
   const body =
     phase === 'idle'
-      ? `Je hoort ${count} tonen uit C-majeur in octaaf ${octave.label}. Daarna stilte. Zet per toon een punt: links is eerder, onder is lager. Geen notenbalk — alleen de lijn.`
+      ? `Je hoort ${count} tonen uit C-majeur in octaaf ${octave.label}. Stilte. Tik de lijn achterstevoren: de laatste toon eerst. Geen notenbalk.`
       : phase === 'playing'
-        ? 'Luister. Onthoud de lijn, niet de namen.'
+        ? 'Luister vooruit. In je hoofd draai je de lijn om. Geen namen.'
         : phase === 'placing'
-          ? droneEnabled
-            ? 'De drone blijft. Tik de lijn tegen de tonica en de kwint. Elk punt een eigen hoogte.'
-            : count === 2
-              ? 'Tik welke toon hoger was. Boven is hoger. Elk punt een eigen hoogte.'
-              : 'Tik per kolom de hoogte. Boven is hoger, links is eerder. Elk punt een eigen hoogte.'
+          ? count === 2
+            ? 'Tik eerst de laatste toon, dan de eerste. Boven is hoger.'
+            : 'Tik de omgekeerde lijn. Links is de laatste toon die je hoorde. Boven is hoger.'
           : score?.all
-            ? `Die lijn klopt. ${names}.`
-            : `${score?.correct ?? 0} van ${phrase.notes.length} hoogtes goed. De groene lijn is hoe het was. ${names}.`;
+            ? `Dat is de omkering. Je hoorde ${heardNames}. Achterstevoren: ${reverseNames}.`
+            : placedForward
+              ? `Dat was de lijn vooruit, niet achterstevoren. Achterstevoren begint met de laatste toon. Je hoorde ${heardNames}. Omgekeerd: ${reverseNames}.`
+              : `${score?.correct ?? 0} van ${phrase.notes.length} hoogtes goed. De groene lijn is de omkering. Je hoorde ${heardNames}. Omgekeerd: ${reverseNames}.`;
 
   const showOptions = phase === 'idle' || phase === 'check';
 
@@ -246,7 +257,7 @@ export function MelodyScreen({ onBack }: Props) {
         <View style={styles.optionBlock}>
           <Text style={styles.optionTitle}>Noten</Text>
           <Text style={styles.optionHint}>
-            2 tot {CORE_MELODY_MAX} is de oefening. 5 tot 8 is lastig voor het geheugen.
+            3 is de oefening. 2 is makkelijker. 4 is de volgende stap. 5 tot 8 is lastig.
           </Text>
           <View style={styles.chipRow}>
             {MELODY_COUNTS.map((item) => {
@@ -323,7 +334,7 @@ export function MelodyScreen({ onBack }: Props) {
       <ContourGrid
         count={phrase.notes.length}
         guess={guess}
-        truth={phase === 'check' ? phrase.ranks : null}
+        truth={phase === 'check' ? target.ranks : null}
         playIndex={playIndex}
         locked={phase !== 'placing'}
         allHit={score?.all ?? false}
@@ -331,8 +342,8 @@ export function MelodyScreen({ onBack }: Props) {
       />
 
       <View style={styles.timeRow}>
-        {phrase.notes.map((note, index) => (
-          <Text key={note.id} style={styles.timeLabel}>
+        {(phase === 'check' ? target.notes : phrase.notes).map((note, index) => (
+          <Text key={`${note.id}-${index}`} style={styles.timeLabel}>
             {phase === 'check' ? relativeLabel(note, naming) : String(index + 1)}
           </Text>
         ))}
@@ -341,14 +352,16 @@ export function MelodyScreen({ onBack }: Props) {
       {phase === 'check' ? (
         <Text style={styles.reveal}>
           {phrase.notes.map((note) => namedTone(note, naming)).join(' · ')}
+          {'  →  '}
+          {target.notes.map((note) => namedTone(note, naming)).join(' · ')}
         </Text>
       ) : null}
 
       {phase === 'placing' || phase === 'check' ? (
         <Pressable
           accessibilityRole="button"
-          accessibilityLabel="Speel de melodie opnieuw"
-          onPress={replayPhrase}
+          accessibilityLabel="Speel de gehoorde melodie opnieuw"
+          onPress={replayHeard}
           style={({ pressed }) => [
             styles.button,
             styles.buttonSecondary,
@@ -359,10 +372,25 @@ export function MelodyScreen({ onBack }: Props) {
         </Pressable>
       ) : null}
 
+      {phase === 'check' ? (
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel="Speel de omkering"
+          onPress={replayReverse}
+          style={({ pressed }) => [
+            styles.button,
+            styles.buttonSecondary,
+            pressed && styles.pressed,
+          ]}
+        >
+          <Text style={[styles.buttonText, styles.buttonSecondaryText]}>Hoor omkering</Text>
+        </Pressable>
+      ) : null}
+
       {phase === 'placing' ? (
         <Pressable
           accessibilityRole="button"
-          accessibilityLabel="Controleer de lijn"
+          accessibilityLabel="Controleer de omkering"
           onPress={check}
           disabled={!filled}
           style={({ pressed }) => [
@@ -378,12 +406,12 @@ export function MelodyScreen({ onBack }: Props) {
       ) : (
         <Pressable
           accessibilityRole="button"
-          accessibilityLabel={phase === 'idle' ? 'Start oefening' : 'Volgende melodie'}
+          accessibilityLabel={phase === 'idle' ? 'Start oefening' : 'Volgende omkering'}
           onPress={startRound}
           style={({ pressed }) => [styles.button, pressed && styles.pressed]}
         >
           <Text style={styles.buttonText}>
-            {phase === 'idle' ? 'Start' : 'Volgende melodie'}
+            {phase === 'idle' ? 'Start' : 'Volgende omkering'}
           </Text>
         </Pressable>
       )}

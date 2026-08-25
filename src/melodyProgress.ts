@@ -5,8 +5,18 @@ import { CORE_MELODY_MAX } from './melody';
 export const UP_STREAK = 5;
 export const DOWN_MISSES = 3;
 
-const STORAGE_KEY = 'audiation.melodyProgress.v1';
-const FILE_NAME = 'audiation-melody-progress-v1.json';
+export type ProgressStore = 'melody' | 'reverse';
+
+const STORES: Record<ProgressStore, { storageKey: string; fileName: string }> = {
+  melody: {
+    storageKey: 'audiation.melodyProgress.v1',
+    fileName: 'audiation-melody-progress-v1.json',
+  },
+  reverse: {
+    storageKey: 'audiation.reverseProgress.v1',
+    fileName: 'audiation-reverse-progress-v1.json',
+  },
+};
 
 export type CountStats = {
   consecutiveCorrect: number;
@@ -156,28 +166,35 @@ function parseProgress(raw: string | null | undefined): MelodyProgress {
   }
 }
 
-export async function loadMelodyProgress(): Promise<MelodyProgress> {
+export async function loadMelodyProgress(
+  store: ProgressStore = 'melody',
+): Promise<MelodyProgress> {
+  const { storageKey, fileName } = STORES[store];
   if (Platform.OS === 'web') {
     try {
-      return parseProgress(globalThis.localStorage?.getItem(STORAGE_KEY));
+      return parseProgress(globalThis.localStorage?.getItem(storageKey));
     } catch {
       return emptyMelodyProgress();
     }
   }
 
   const { File, Paths } = await import('expo-file-system');
-  const file = new File(Paths.document, FILE_NAME);
+  const file = new File(Paths.document, fileName);
   if (!file.exists) {
     return emptyMelodyProgress();
   }
   return parseProgress(await file.text());
 }
 
-export async function saveMelodyProgress(progress: MelodyProgress): Promise<void> {
+export async function saveMelodyProgress(
+  progress: MelodyProgress,
+  store: ProgressStore = 'melody',
+): Promise<void> {
+  const { storageKey, fileName } = STORES[store];
   const raw = JSON.stringify(progress);
   if (Platform.OS === 'web') {
     try {
-      globalThis.localStorage?.setItem(STORAGE_KEY, raw);
+      globalThis.localStorage?.setItem(storageKey, raw);
     } catch {
       // privé-modus
     }
@@ -185,7 +202,7 @@ export async function saveMelodyProgress(progress: MelodyProgress): Promise<void
   }
 
   const { File, Paths } = await import('expo-file-system');
-  const file = new File(Paths.document, FILE_NAME);
+  const file = new File(Paths.document, fileName);
   if (!file.exists) {
     file.create();
   }

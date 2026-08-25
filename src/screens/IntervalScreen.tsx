@@ -16,6 +16,7 @@ import {
   type ListenControls,
   type PitchVerdict,
 } from '../audio/pitch';
+import { useDrone } from '../audio/drone';
 import { playHz, stopTone } from '../audio/toneUri';
 import {
   DEFAULT_EXERCISE_OCTAVE,
@@ -35,6 +36,7 @@ import { PIANO_OCTAVES } from '../notes';
 import { PianoKeyboard } from '../PianoKeyboard';
 import { COLORS } from '../theme';
 import { AppScreen, useCompactLayout } from '../ui/AppScreen';
+import { DroneSwitch } from '../ui/DroneSwitch';
 
 type Phase = 'idle' | 'playing' | 'holding' | 'singing' | 'check';
 
@@ -117,6 +119,7 @@ export function IntervalScreen({ onBack }: Props) {
     ...RecordingPresets.HIGH_QUALITY,
     isMeteringEnabled: true,
   });
+  const { droneEnabled, setDroneEnabled } = useDrone(octave.octave, phase === 'singing');
   const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
   const listenControls = useRef<ListenControls>({ cancelled: false });
   const replayRef = useRef<ReturnType<typeof createAudioPlayer> | null>(null);
@@ -376,9 +379,11 @@ export function IntervalScreen({ onBack }: Props) {
             ? 'Dit is het anker. De naam staat erbij; houd vooral de klank vast.'
             : 'Dit is het anker. Onthoud deze toon innerlijk.'
         : phase === 'holding'
-          ? pianoEnabled
-            ? 'Het is stil. Houd de afstand in je hoofd. Tik de tweede toon op het octaaf, of speel hem op je eigen instrument.'
-            : 'Het is stil. Houd de afstand in je hoofd. Zing de tweede toon, of speel hem op een instrument.'
+          ? droneEnabled
+            ? 'De drone blijft. Plaats de afstand tegen de tonica en de kwint.'
+            : pianoEnabled
+              ? 'Het is stil. Houd de afstand in je hoofd. Tik de tweede toon op het octaaf, of speel hem op je eigen instrument.'
+              : 'Het is stil. Houd de afstand in je hoofd. Zing de tweede toon, of speel hem op een instrument.'
           : phase === 'singing'
             ? 'Zing of neurie de tweede toon, ongeveer twee seconden. De eerste blijft het anker in je hoofd.'
             : verdict
@@ -528,6 +533,10 @@ export function IntervalScreen({ onBack }: Props) {
             </Pressable>
           </View>
         </View>
+      ) : null}
+
+      {phase === 'idle' || phase === 'check' ? (
+        <DroneSwitch value={droneEnabled} onValueChange={setDroneEnabled} />
       ) : null}
 
       {phase === 'idle' || phase === 'check' ? (

@@ -1,4 +1,4 @@
-export type ScreenId = 'home' | 'holdTone' | 'interval' | 'melody' | 'piano' | 'calibrate';
+export type ScreenId = 'home' | 'holdTone' | 'interval' | 'melody' | 'reverse' | 'piano' | 'calibrate';
 
 export type PracticeLevel = 'easy' | 'next' | 'open' | 'soon';
 
@@ -55,22 +55,31 @@ export const PRACTICE_PATH: PracticeItem[] = [
     step: 3,
     title: 'Melodie',
     body: 'De lijn van 2 tot 4 tonen in C-majeur. Tik de hoogtes. Geen namen, geen notenbalk.',
+    level: 'open',
+    levelLabel: 'Open',
+  },
+  {
+    kind: 'exercise',
+    screen: 'reverse',
+    step: 4,
+    title: 'Omkeren',
+    body: 'Je hoort 3 tonen. Tik de lijn achterstevoren. Begint met de laatste toon.',
     level: 'next',
     levelLabel: 'Volgende stap',
   },
   {
     kind: 'soon',
     id: 'rhythm',
-    step: 4,
+    step: 5,
     title: 'Ritme',
-    body: 'Tijd tussen tonen. Komt als de lijn vastzit.',
+    body: 'Tijd tussen tonen. Komt als de omkering vastzit.',
     level: 'soon',
     levelLabel: 'Straks',
   },
   {
     kind: 'soon',
     id: 'harmony',
-    step: 5,
+    step: 6,
     title: 'Harmonie',
     body: 'Tonentegelijk: drieklanken. Na mineur en meer toonsoorten.',
     level: 'soon',

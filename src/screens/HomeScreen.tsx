@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 import {
@@ -17,6 +18,7 @@ type Props = {
 
 export function HomeScreen({ onOpen }: Props) {
   const { compact } = useCompactLayout();
+  const [moreOpen, setMoreOpen] = useState(false);
 
   return (
     <AppScreen>
@@ -37,9 +39,45 @@ export function HomeScreen({ onOpen }: Props) {
         <Text style={styles.explainBlock}>
           <Text style={styles.explainLead}>Hoe. </Text>
           Eerst één toon in de stilte. Dan de afstand tussen twee tonen. Dan de
-          lijn van een korte melodie. Daarna ritme en harmonie. Namen (Do of 1)
-          komen ná het horen. Zingen of een instrument is een check, niet het doel.
+          lijn van een korte melodie. Dan die lijn achterstevoren. Daarna ritme
+          en harmonie. Namen (Do of 1) komen ná het horen. Zingen of een
+          instrument is een check, niet het doel.
         </Text>
+      </View>
+
+      <View style={styles.explain}>
+        <Pressable
+          accessibilityRole="button"
+          accessibilityState={{ expanded: moreOpen }}
+          accessibilityLabel="Meer over audiation"
+          onPress={() => setMoreOpen((open) => !open)}
+          style={({ pressed }) => [styles.moreHead, pressed && styles.cardPressed]}
+        >
+          <Text style={styles.sectionTitle}>Meer over audiation</Text>
+          <Text style={styles.moreToggle}>{moreOpen ? 'Sluit' : 'Open'}</Text>
+        </Pressable>
+        {moreOpen ? (
+          <View style={styles.moreBody}>
+            <Text style={styles.explainBlock}>
+              <Text style={styles.explainLead}>Gevoel. </Text>
+              Je ervaart muziek met gevoel. Dat is hoe muziek bij je binnenkomt.
+              Gevoel is echt, en het wisselt.
+            </Text>
+            <Text style={styles.explainBlock}>
+              <Text style={styles.explainLead}>Karakter. </Text>
+              Het karakter van een noot, een interval of een harmonie komt uit
+              het gebruik. Dezelfde C speelt ergens anders een andere rol.
+              Karakter is variabel.
+            </Text>
+            <Text style={styles.explainBlock}>
+              <Text style={styles.explainLead}>Identiteit. </Text>
+              Wat stabiel blijft is de identiteit van die drie. Audiation is die
+              identiteit herkennen, ook als het stil is.
+            </Text>
+          </View>
+        ) : (
+          <Text style={styles.sectionHint}>Gevoel, karakter en identiteit.</Text>
+        )}
       </View>
 
       <View style={styles.section}>
@@ -168,6 +206,21 @@ const styles = StyleSheet.create({
   explainLead: {
     fontWeight: '700',
     color: COLORS.text,
+  },
+  moreHead: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 12,
+    minHeight: 44,
+  },
+  moreToggle: {
+    fontSize: 13,
+    fontWeight: '700',
+    color: COLORS.accent,
+  },
+  moreBody: {
+    gap: 10,
   },
   section: {
     gap: 10,

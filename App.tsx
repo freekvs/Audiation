@@ -14,6 +14,7 @@ import { HomeScreen } from './src/screens/HomeScreen';
 import { IntervalScreen } from './src/screens/IntervalScreen';
 import { MelodyScreen } from './src/screens/MelodyScreen';
 import { PianoScreen } from './src/screens/PianoScreen';
+import { ReverseScreen } from './src/screens/ReverseScreen';
 
 export default function App() {
   const [screen, setScreen] = useState<ScreenId>('home');
@@ -44,6 +45,8 @@ export default function App() {
         <IntervalScreen onBack={() => setScreen('home')} />
       ) : screen === 'melody' ? (
         <MelodyScreen onBack={() => setScreen('home')} />
+      ) : screen === 'reverse' ? (
+        <ReverseScreen onBack={() => setScreen('home')} />
       ) : screen === 'piano' ? (
         <PianoScreen onBack={() => setScreen('home')} />
       ) : screen === 'calibrate' ? (
