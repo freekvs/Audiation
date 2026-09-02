@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { ReactNode } from 'react';
+import { ReactNode, useMemo, useRef, useState } from 'react';
 import {
   Pressable,
   SafeAreaView,
@@ -10,7 +10,10 @@ import {
   useWindowDimensions,
 } from 'react-native';
 
+import { useT } from '../i18n';
 import { COLORS, CONTENT_MAX_WIDTH } from '../theme';
+import { BetaWatermark } from './BetaWatermark';
+import { ScrollLockContext } from './scrollLock';
 
 type Props = {
   children: ReactNode;
@@ -20,11 +23,33 @@ type Props = {
 export function AppScreen({ children, onBack }: Props) {
   const { width, height } = useWindowDimensions();
   const compact = width < 380;
+  const t = useT();
+  const lockCount = useRef(0);
+  const [scrollEnabled, setScrollEnabled] = useState(true);
+  const scrollLock = useMemo(
+    () => ({
+      lock: () => {
+        lockCount.current += 1;
+        setScrollEnabled(false);
+      },
+      unlock: () => {
+        lockCount.current = Math.max(0, lockCount.current - 1);
+        if (lockCount.current === 0) {
+          setScrollEnabled(true);
+        }
+      },
+    }),
+    [],
+  );
 
   return (
+    <ScrollLockContext.Provider value={scrollLock}>
     <SafeAreaView style={styles.safeArea}>
       <StatusBar style="light" />
+      <BetaWatermark />
       <ScrollView
+        scrollEnabled={scrollEnabled}
+        nestedScrollEnabled={false}
         contentContainerStyle={styles.scrollContent}
         keyboardShouldPersistTaps="handled"
       >
@@ -32,11 +57,11 @@ export function AppScreen({ children, onBack }: Props) {
           {onBack ? (
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Terug naar start"
+              accessibilityLabel={t.common.backA11y}
               onPress={onBack}
               style={styles.backButton}
             >
-              <Text style={styles.backText}>Naar start</Text>
+              <Text style={styles.backText}>{t.common.back}</Text>
             </Pressable>
           ) : null}
           {children}
@@ -48,6 +73,7 @@ export function AppScreen({ children, onBack }: Props) {
         </View>
       </ScrollView>
     </SafeAreaView>
+    </ScrollLockContext.Provider>
   );
 }
 

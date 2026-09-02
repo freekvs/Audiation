@@ -19,10 +19,11 @@ import {
 import { useDrone } from '../audio/drone';
 import { playHz, stopTone } from '../audio/toneUri';
 import {
-  DEFAULT_EXERCISE_OCTAVE,
+  exerciseOctave,
   EXERCISE_OCTAVES,
   type ExerciseOctave,
 } from '../exerciseNotes';
+import { useExercisePrefs } from '../exercisePrefs';
 import {
   describeInterval,
   maxIntervalSpan,
@@ -31,6 +32,7 @@ import {
   type IntervalPair,
   type OctaveWay,
 } from '../intervals';
+import { fmt, useT, type Strings } from '../i18n';
 import { namedTone, relativeLabel, useNaming, type NamingSystem } from '../naming';
 import { PIANO_OCTAVES } from '../notes';
 import { PianoKeyboard } from '../PianoKeyboard';
@@ -68,49 +70,56 @@ function verdictText(
   verdict: PitchVerdict | null,
   naming: NamingSystem,
   answer: AnswerKind,
+  t: Strings,
 ): string {
-  const interval = describeInterval(pair, naming);
+  const interval = describeInterval(pair, naming, t.intervals);
   const second = namedTone(pair.to, naming);
   if (answer === 'piano') {
     if (verdict?.quality === 'hit') {
-      return `Dat was de tweede toon. Het interval was ${interval}.`;
+      return fmt(t.interval.pianoHit, { interval });
     }
     if (verdict?.quality === 'close') {
-      return `Bijna: je zat een toets ernaast. De tweede toon was ${second}. Het interval was ${interval}.`;
+      return fmt(t.interval.pianoClose, { second, interval });
     }
-    return `Dat was niet de tweede toon. Die was ${second}. Het interval was ${interval}.`;
+    return fmt(t.interval.pianoMiss, { second, interval });
   }
   if (!verdict || verdict.quality === 'unavailable') {
-    return `Inzingen lukt nu niet. Het interval was ${interval}. Controleer of de microfoon is toegestaan, of sla zingen over.`;
+    return fmt(t.interval.unavailable, { interval });
   }
   if (verdict.quality === 'silent') {
-    return `Geen zangtoon herkend. Zing of speel de tweede toon (${second}). Het interval was ${interval}.`;
+    return fmt(t.interval.silent, { second, interval });
   }
   if (verdict.quality === 'hit') {
-    return `Je zong in de buurt van de tweede toon. Het interval was ${interval}.`;
+    return fmt(t.interval.hit, { interval });
   }
   if (verdict.quality === 'close') {
-    return `Bijna: je zat dicht bij de tweede toon. Het interval was ${interval}.`;
+    return fmt(t.interval.close, { interval });
   }
-  return `Te ver van de tweede toon. Het interval was ${interval}. Dat kan het oor of de stem zijn.`;
+  return fmt(t.interval.miss, { interval });
 }
 
 export function IntervalScreen({ onBack }: Props) {
   const { compact, height } = useCompactLayout();
   const { naming } = useNaming();
+  const t = useT();
+  const { prefs, update } = useExercisePrefs();
   const [phase, setPhase] = useState<Phase>('idle');
   const [playStep, setPlayStep] = useState<0 | 1 | 2>(0);
-  const [octave, setOctave] = useState<ExerciseOctave>(DEFAULT_EXERCISE_OCTAVE);
-  const [span, setSpan] = useState(1);
-  const [way, setWay] = useState<OctaveWay>('up');
-  const [showAnchor, setShowAnchor] = useState(false);
-  const [answerOctave, setAnswerOctave] = useState(DEFAULT_EXERCISE_OCTAVE.octave);
+  const [octave, setOctave] = useState<ExerciseOctave>(() => exerciseOctave(prefs.interval.octave));
+  const [span, setSpan] = useState(prefs.interval.span);
+  const [way, setWay] = useState<OctaveWay>(prefs.interval.way);
+  const [showAnchor, setShowAnchor] = useState(prefs.interval.showAnchor);
+  const [answerOctave, setAnswerOctave] = useState(prefs.interval.octave);
   const [pair, setPair] = useState<IntervalPair>(() =>
-    pickInterval({ homeOctave: DEFAULT_EXERCISE_OCTAVE.octave, span: 1, way: 'up' }),
+    pickInterval({
+      homeOctave: prefs.interval.octave,
+      span: prefs.interval.span,
+      way: prefs.interval.way,
+    }),
   );
   const [canCheck, setCanCheck] = useState(false);
-  const [singEnabled, setSingEnabled] = useState(false);
-  const [pianoEnabled, setPianoEnabled] = useState(false);
+  const [singEnabled, setSingEnabled] = useState(prefs.interval.singEnabled);
+  const [pianoEnabled, setPianoEnabled] = useState(prefs.interval.pianoEnabled);
   const [answer, setAnswer] = useState<AnswerKind>(null);
   const [verdict, setVerdict] = useState<PitchVerdict | null>(null);
   const [recordingUri, setRecordingUri] = useState<string | null>(null);
@@ -142,6 +151,17 @@ export function IntervalScreen({ onBack }: Props) {
       }
     };
   }, []);
+
+  useEffect(() => {
+    update('interval', {
+      octave: octave.octave,
+      span,
+      way,
+      showAnchor,
+      singEnabled,
+      pianoEnabled,
+    });
+  }, [octave, span, way, showAnchor, singEnabled, pianoEnabled, update]);
 
   const playNote = (hz: number) => {
     void playHz(hz).catch(() => undefined);
@@ -211,12 +231,22 @@ export function IntervalScreen({ onBack }: Props) {
       except: pair,
     });
     setPair(next);
+    setAnswerOctave(secondOctaves(octave.octave, span, way)[0] ?? octave.octave);
+    beginInterval(next);
+  };
+
+  const repeatRound = () => {
+    listenControls.current.cancelled = true;
+    clearTimers();
+    beginInterval(pair);
+  };
+
+  const beginInterval = (next: IntervalPair) => {
     setCanCheck(false);
     setVerdict(null);
     setAnswer(null);
     setRecordingUri(null);
     setMicLevel(0);
-    setAnswerOctave(secondOctaves(octave.octave, span, way)[0] ?? octave.octave);
     setPhase('playing');
     schedulePair(next, true);
   };
@@ -357,38 +387,42 @@ export function IntervalScreen({ onBack }: Props) {
   const title =
     phase === 'playing'
       ? playStep === 2
-        ? 'Tweede toon'
-        : 'Eerste toon'
+        ? t.interval.titleSecond
+        : t.interval.titleFirst
       : phase === 'holding'
-        ? 'Houd de afstand vast'
+        ? t.interval.titleHold
         : phase === 'singing'
-          ? 'Zing de tweede toon'
+          ? t.interval.titleSing
           : phase === 'check'
-            ? 'Controle'
-            : 'Interval vasthouden';
+            ? t.common.control
+            : t.practice.interval.title;
 
   const body =
     phase === 'idle'
-      ? `Je hoort twee tonen uit C-majeur, na elkaar. De eerste komt uit ${octave.label}. Stilte: houd de afstand innerlijk vast. De tweede toon mag je zingen of op een instrument naspelen.`
+      ? fmt(t.interval.idle, { octave: octave.label })
       : phase === 'playing'
         ? playStep === 2
           ? span >= 2
-            ? `De tweede toon ligt in een ${way === 'up' ? 'hoger' : 'lager'} octaaf. Hoor de afstand, geen namen.`
-            : 'Hoor hoe ver de tweede toon van de eerste ligt. Geen namen, alleen de sprong.'
+            ? fmt(t.interval.playingOtherOctave, {
+                way: way === 'up' ? t.interval.wayUp : t.interval.wayDown,
+              })
+            : t.interval.playingSame
           : showAnchor
-            ? 'Dit is het anker. De naam staat erbij; houd vooral de klank vast.'
-            : 'Dit is het anker. Onthoud deze toon innerlijk.'
+            ? t.interval.playingAnchorNamed
+            : t.interval.playingAnchor
         : phase === 'holding'
           ? droneEnabled
-            ? 'De drone blijft. Plaats de afstand tegen de tonica en de kwint.'
+            ? t.interval.holdingDrone
             : pianoEnabled
-              ? 'Het is stil. Houd de afstand in je hoofd. Tik de tweede toon op het octaaf, of speel hem op je eigen instrument.'
-              : 'Het is stil. Houd de afstand in je hoofd. Zing de tweede toon, of speel hem op een instrument.'
+              ? t.interval.holdingPiano
+              : t.interval.holdingSilent
           : phase === 'singing'
-            ? 'Zing of neurie de tweede toon, ongeveer twee seconden. De eerste blijft het anker in je hoofd.'
+            ? t.interval.singing
             : verdict
-              ? verdictText(pair, verdict, naming, answer)
-              : `Dit was ${describeInterval(pair, naming)}. Was het dezelfde afstand als in je hoofd?`;
+              ? verdictText(pair, verdict, naming, answer, t)
+              : fmt(t.interval.checkAsk, {
+                  interval: describeInterval(pair, naming, t.intervals),
+                });
 
   const answerOctaves = secondOctaves(octave.octave, span, way);
   const pianoOctave = PIANO_OCTAVES.find((item) => item.octave === answerOctave);
@@ -408,7 +442,7 @@ export function IntervalScreen({ onBack }: Props) {
 
       {phase === 'idle' || phase === 'check' ? (
         <View style={styles.octaveBlock}>
-          <Text style={styles.optionTitle}>Eerste toon</Text>
+          <Text style={styles.optionTitle}>{t.interval.firstTone}</Text>
           <View style={styles.octaveRow}>
             {EXERCISE_OCTAVES.map((item) => {
               const selected = item.octave === octave.octave;
@@ -416,7 +450,7 @@ export function IntervalScreen({ onBack }: Props) {
                 <Pressable
                   key={item.label}
                   accessibilityRole="button"
-                  accessibilityLabel={`Eerste toon in octaaf ${item.label}`}
+                  accessibilityLabel={fmt(t.interval.firstToneA11y, { label: item.label })}
                   accessibilityState={{ selected }}
                   onPress={() => applyHomeOctave(item)}
                   style={({ pressed }) => [
@@ -442,10 +476,8 @@ export function IntervalScreen({ onBack }: Props) {
 
       {phase === 'idle' || phase === 'check' ? (
         <View style={styles.octaveBlock}>
-          <Text style={styles.optionTitle}>Octaven</Text>
-          <Text style={styles.optionHint}>
-            1 is hetzelfde octaaf. 2 tot 7: de tweede toon staat in een ander octaaf.
-          </Text>
+          <Text style={styles.optionTitle}>{t.interval.octaves}</Text>
+          <Text style={styles.optionHint}>{t.interval.octavesHint}</Text>
           <View style={styles.octaveRow}>
             {[1, 2, 3, 4, 5, 6, 7].map((item) => {
               const allowed = item <= maxSpan;
@@ -454,7 +486,7 @@ export function IntervalScreen({ onBack }: Props) {
                 <Pressable
                   key={item}
                   accessibilityRole="button"
-                  accessibilityLabel={`${item} octaven`}
+                  accessibilityLabel={fmt(t.interval.octavesA11y, { n: item })}
                   accessibilityState={{ selected, disabled: !allowed }}
                   disabled={!allowed}
                   onPress={() => applySpan(item)}
@@ -482,14 +514,12 @@ export function IntervalScreen({ onBack }: Props) {
 
       {span >= 2 && (phase === 'idle' || phase === 'check') ? (
         <View style={styles.octaveBlock}>
-          <Text style={styles.optionTitle}>Tweede toon</Text>
-          <Text style={styles.optionHint}>
-            Het octaaf van de tweede toon, ten opzichte van de eerste.
-          </Text>
+          <Text style={styles.optionTitle}>{t.interval.secondTone}</Text>
+          <Text style={styles.optionHint}>{t.interval.secondHint}</Text>
           <View style={styles.octaveRow}>
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Tweede toon een octaaf hoger"
+              accessibilityLabel={t.interval.octaveUpA11y}
               accessibilityState={{ selected: way === 'up', disabled: !canGoUp }}
               disabled={!canGoUp}
               onPress={() => applyWay('up')}
@@ -506,12 +536,12 @@ export function IntervalScreen({ onBack }: Props) {
                   way === 'up' && styles.octaveChipTextSelected,
                 ]}
               >
-                Octaaf hoger
+                {t.interval.octaveUp}
               </Text>
             </Pressable>
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Tweede toon een octaaf lager"
+              accessibilityLabel={t.interval.octaveDownA11y}
               accessibilityState={{ selected: way === 'down', disabled: !canGoDown }}
               disabled={!canGoDown}
               onPress={() => applyWay('down')}
@@ -528,7 +558,7 @@ export function IntervalScreen({ onBack }: Props) {
                   way === 'down' && styles.octaveChipTextSelected,
                 ]}
               >
-                Octaaf lager
+                {t.interval.octaveDown}
               </Text>
             </Pressable>
           </View>
@@ -542,13 +572,11 @@ export function IntervalScreen({ onBack }: Props) {
       {phase === 'idle' || phase === 'check' ? (
         <View style={styles.optionRow}>
           <View style={styles.optionCopy}>
-            <Text style={styles.optionTitle}>Eerste toon tonen</Text>
-            <Text style={styles.optionHint}>
-              Makkelijker. Je ziet de naam van het anker terwijl je luistert.
-            </Text>
+            <Text style={styles.optionTitle}>{t.interval.showAnchor}</Text>
+            <Text style={styles.optionHint}>{t.interval.showAnchorHint}</Text>
           </View>
           <Switch
-            accessibilityLabel="Eerste toon tonen in- of uitschakelen"
+            accessibilityLabel={t.interval.showAnchorA11y}
             value={showAnchor}
             onValueChange={setShowAnchor}
             trackColor={{ false: COLORS.cardLine, true: COLORS.hit }}
@@ -560,14 +588,11 @@ export function IntervalScreen({ onBack }: Props) {
       {phase === 'idle' || phase === 'check' ? (
         <View style={styles.optionRow}>
           <View style={styles.optionCopy}>
-            <Text style={styles.optionTitle}>Inzingen</Text>
-            <Text style={styles.optionHint}>
-              Optioneel. Na de stilte zing je de tweede toon. Je mag die toon ook op een
-              instrument naspelen.
-            </Text>
+            <Text style={styles.optionTitle}>{t.interval.singTitle}</Text>
+            <Text style={styles.optionHint}>{t.interval.singHint}</Text>
           </View>
           <Switch
-            accessibilityLabel="Inzingen in- of uitschakelen"
+            accessibilityLabel={t.interval.singA11y}
             value={singEnabled}
             onValueChange={(value) => {
               void enableSinging(value);
@@ -581,14 +606,11 @@ export function IntervalScreen({ onBack }: Props) {
       {phase === 'idle' || phase === 'check' ? (
         <View style={styles.optionRow}>
           <View style={styles.optionCopy}>
-            <Text style={styles.optionTitle}>Kies op de piano</Text>
-            <Text style={styles.optionHint}>
-              Optioneel. Na de stilte verschijnt een octaaf. Tik de tweede toon. Een eigen
-              instrument mag altijd.
-            </Text>
+            <Text style={styles.optionTitle}>{t.interval.pianoTitle}</Text>
+            <Text style={styles.optionHint}>{t.interval.pianoHint}</Text>
           </View>
           <Switch
-            accessibilityLabel="Piano-octaaf in- of uitschakelen"
+            accessibilityLabel={t.interval.pianoA11y}
             value={pianoEnabled}
             onValueChange={setPianoEnabled}
             trackColor={{ false: COLORS.cardLine, true: COLORS.hit }}
@@ -629,9 +651,11 @@ export function IntervalScreen({ onBack }: Props) {
           </View>
         ) : null}
         {phase === 'check' ? (
-          <Text style={styles.reveal}>{describeInterval(pair, naming)}</Text>
+          <Text style={styles.reveal}>{describeInterval(pair, naming, t.intervals)}</Text>
         ) : showAnchor && (phase === 'playing' || phase === 'holding' || phase === 'singing') ? (
-          <Text style={styles.anchorLabel}>Anker: {namedTone(pair.from, naming)}</Text>
+          <Text style={styles.anchorLabel}>
+            {fmt(t.interval.anchor, { tone: namedTone(pair.from, naming) })}
+          </Text>
         ) : (
           <Text style={styles.revealHidden}> </Text>
         )}
@@ -653,7 +677,7 @@ export function IntervalScreen({ onBack }: Props) {
                   <Pressable
                     key={item}
                     accessibilityRole="button"
-                    accessibilityLabel={`Antwoord-octaaf C${item}`}
+                    accessibilityLabel={fmt(t.interval.answerOctaveA11y, { n: item })}
                     accessibilityState={{ selected }}
                     onPress={() => setAnswerOctave(item)}
                     style={({ pressed }) => [
@@ -689,18 +713,23 @@ export function IntervalScreen({ onBack }: Props) {
       {phase === 'check' && (recordingUri || verdict?.sungHz) ? (
         <View style={styles.compare}>
           <Text style={styles.compareLine}>
-            Tweede toon: {namedTone(pair.to, naming)} · {Math.round(pair.to.hz)} Hz
+            {fmt(t.interval.secondReveal, {
+              tone: namedTone(pair.to, naming),
+              hz: Math.round(pair.to.hz),
+            })}
           </Text>
           <Text style={styles.compareLine}>
-            {answer === 'piano' ? 'Jouw toets' : 'Gemeten zang'}:{' '}
+            {answer === 'piano' ? t.interval.yourKey : t.interval.measuredSing}:{' '}
             {verdict?.sungHz
               ? `${hzToNoteLabel(verdict.sungHz)} · ${Math.round(verdict.sungHz)} Hz`
-              : 'geen toon herkend'}
+              : t.common.noPitch}
           </Text>
           {verdict?.cents != null ? (
             <Text style={styles.compareHint}>
-              {Math.round(Math.abs(verdict.cents))} cent naast{' '}
-              {relativeLabel(pair.to, naming)}
+              {fmt(t.common.centsBeside, {
+                cents: Math.round(Math.abs(verdict.cents)),
+                label: relativeLabel(pair.to, naming),
+              })}
             </Text>
           ) : null}
         </View>
@@ -709,7 +738,7 @@ export function IntervalScreen({ onBack }: Props) {
       {phase === 'check' ? (
         <Pressable
           accessibilityRole="button"
-          accessibilityLabel="Speel het interval opnieuw"
+            accessibilityLabel={t.interval.hearIntervalA11y}
           onPress={replayPair}
           style={({ pressed }) => [
             styles.button,
@@ -717,14 +746,14 @@ export function IntervalScreen({ onBack }: Props) {
             pressed && styles.buttonPressed,
           ]}
         >
-          <Text style={[styles.buttonText, styles.buttonSecondaryText]}>Hoor interval</Text>
+          <Text style={[styles.buttonText, styles.buttonSecondaryText]}>{t.interval.hearInterval}</Text>
         </Pressable>
       ) : null}
 
       {phase === 'check' && recordingUri ? (
         <Pressable
           accessibilityRole="button"
-          accessibilityLabel="Speel je opgenomen zang"
+            accessibilityLabel={t.interval.hearSingingA11y}
           onPress={playRecording}
           style={({ pressed }) => [
             styles.button,
@@ -732,7 +761,7 @@ export function IntervalScreen({ onBack }: Props) {
             pressed && styles.buttonPressed,
           ]}
         >
-          <Text style={[styles.buttonText, styles.buttonSecondaryText]}>Hoor je zang</Text>
+          <Text style={[styles.buttonText, styles.buttonSecondaryText]}>{t.interval.hearSinging}</Text>
         </Pressable>
       ) : null}
 
@@ -741,7 +770,7 @@ export function IntervalScreen({ onBack }: Props) {
           {singEnabled ? (
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Zing de tweede toon"
+              accessibilityLabel={t.interval.singButtonA11y}
               onPress={() => {
                 void sing();
               }}
@@ -752,12 +781,12 @@ export function IntervalScreen({ onBack }: Props) {
                 pressed && canCheck && styles.buttonPressed,
               ]}
             >
-              <Text style={styles.buttonText}>Zing de tweede toon</Text>
+              <Text style={styles.buttonText}>{t.interval.singButton}</Text>
             </Pressable>
           ) : null}
           <Pressable
             accessibilityRole="button"
-            accessibilityLabel="Controleer het interval"
+            accessibilityLabel={t.interval.checkA11y}
             onPress={check}
             disabled={!canCheck}
             style={({ pressed }) => [
@@ -768,22 +797,43 @@ export function IntervalScreen({ onBack }: Props) {
             ]}
           >
             <Text style={[styles.buttonText, styles.buttonSecondaryText]}>
-              {singEnabled || pianoEnabled ? 'Alleen controleren' : 'Controleer'}
+              {singEnabled || pianoEnabled ? t.interval.checkOnly : t.common.check}
             </Text>
           </Pressable>
         </View>
       ) : phase === 'playing' || phase === 'singing' ? (
         <View style={styles.buttonPlaceholder} />
+      ) : phase === 'check' ? (
+        <View style={styles.actions}>
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel={t.interval.againA11y}
+            onPress={repeatRound}
+            style={({ pressed }) => [
+              styles.button,
+              styles.buttonSecondary,
+              pressed && styles.buttonPressed,
+            ]}
+          >
+            <Text style={[styles.buttonText, styles.buttonSecondaryText]}>{t.common.again}</Text>
+          </Pressable>
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel={t.interval.nextA11y}
+            onPress={startRound}
+            style={({ pressed }) => [styles.button, pressed && styles.buttonPressed]}
+          >
+            <Text style={styles.buttonText}>{t.interval.next}</Text>
+          </Pressable>
+        </View>
       ) : (
         <Pressable
           accessibilityRole="button"
-          accessibilityLabel={phase === 'idle' ? 'Start oefening' : 'Volgend interval'}
+          accessibilityLabel={t.common.startA11y}
           onPress={startRound}
           style={({ pressed }) => [styles.button, pressed && styles.buttonPressed]}
         >
-          <Text style={styles.buttonText}>
-            {phase === 'idle' ? 'Start' : 'Volgend interval'}
-          </Text>
+          <Text style={styles.buttonText}>{t.common.start}</Text>
         </Pressable>
       )}
     </AppScreen>

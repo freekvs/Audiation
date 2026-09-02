@@ -1,5 +1,6 @@
 import { Switch, StyleSheet, Text, View } from 'react-native';
 
+import { useT } from '../i18n';
 import { COLORS } from '../theme';
 
 type Props = {
@@ -8,17 +9,15 @@ type Props = {
 };
 
 export function DroneSwitch({ value, onValueChange }: Props) {
+  const t = useT();
   return (
     <View style={styles.optionRow}>
       <View style={styles.optionCopy}>
-        <Text style={styles.optionTitle}>Dronegeluid</Text>
-        <Text style={styles.optionHint}>
-          Optioneel. Zachte strings: tonica, kwint (Sol) en de tonica een octaaf
-          lager. Zo kun je de afstand plaatsen.
-        </Text>
+        <Text style={styles.optionTitle}>{t.drone.title}</Text>
+        <Text style={styles.optionHint}>{t.drone.hint}</Text>
       </View>
       <Switch
-        accessibilityLabel="Dronegeluid in- of uitschakelen"
+        accessibilityLabel={t.drone.a11y}
         value={value}
         onValueChange={onValueChange}
         trackColor={{ false: COLORS.cardLine, true: COLORS.hit }}

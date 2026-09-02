@@ -4,13 +4,13 @@ import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { useDrone } from '../audio/drone';
 import { playHz, stopTone } from '../audio/toneUri';
 import {
-  DEFAULT_EXERCISE_OCTAVE,
+  exerciseOctave,
   EXERCISE_OCTAVES,
   type ExerciseOctave,
 } from '../exerciseNotes';
+import { useExercisePrefs } from '../exercisePrefs';
 import {
   CORE_MELODY_MAX,
-  DEFAULT_REVERSE_COUNT,
   MELODY_COUNTS,
   emptyGuess,
   guessComplete,
@@ -31,6 +31,7 @@ import {
   saveMelodyProgress,
   type MelodyProgress,
 } from '../melodyProgress';
+import { fmt, useT } from '../i18n';
 import { namedTone, relativeLabel, useNaming } from '../naming';
 import { COLORS } from '../theme';
 import { AppScreen, useCompactLayout } from '../ui/AppScreen';
@@ -49,15 +50,15 @@ const GAP_MS = 260;
 export function ReverseScreen({ onBack }: Props) {
   const { compact } = useCompactLayout();
   const { naming } = useNaming();
+  const t = useT();
+  const { prefs, update } = useExercisePrefs();
   const [phase, setPhase] = useState<Phase>('idle');
-  const [octave, setOctave] = useState<ExerciseOctave>(DEFAULT_EXERCISE_OCTAVE);
-  const [count, setCount] = useState(DEFAULT_REVERSE_COUNT);
+  const [octave, setOctave] = useState<ExerciseOctave>(() => exerciseOctave(prefs.reverse.octave));
+  const [count, setCount] = useState(prefs.reverse.count);
   const [phrase, setPhrase] = useState<MelodyPhrase>(() =>
-    pickReversePhrase(DEFAULT_EXERCISE_OCTAVE.notes, DEFAULT_REVERSE_COUNT),
+    pickReversePhrase(exerciseOctave(prefs.reverse.octave).notes, prefs.reverse.count),
   );
-  const [guess, setGuess] = useState<(number | null)[]>(() =>
-    emptyGuess(DEFAULT_REVERSE_COUNT),
-  );
+  const [guess, setGuess] = useState<(number | null)[]>(() => emptyGuess(prefs.reverse.count));
   const [playIndex, setPlayIndex] = useState<number | null>(null);
   const [progress, setProgress] = useState<MelodyProgress>(emptyMelodyProgress);
   const { droneEnabled, setDroneEnabled } = useDrone(octave.octave, false);
@@ -82,6 +83,10 @@ export function ReverseScreen({ onBack }: Props) {
       stopTone();
     };
   }, []);
+
+  useEffect(() => {
+    update('reverse', { octave: octave.octave, count });
+  }, [octave, count, update]);
 
   const playNote = (hz: number) => {
     void playHz(hz).catch(() => undefined);
@@ -119,6 +124,16 @@ export function ReverseScreen({ onBack }: Props) {
     stopTone();
     const next = pickReversePhrase(octave.notes, count, phraseKey(phrase));
     setPhrase(next);
+    beginReverse(next);
+  };
+
+  const repeatRound = () => {
+    clearTimers();
+    stopTone();
+    beginReverse(phrase);
+  };
+
+  const beginReverse = (next: MelodyPhrase) => {
     setGuess(emptyGuess(next.notes.length));
     setPlayIndex(null);
     setPhase('playing');
@@ -202,32 +217,37 @@ export function ReverseScreen({ onBack }: Props) {
   const heardNames = phrase.notes.map((note) => relativeLabel(note, naming)).join(' → ');
   const reverseNames = target.notes.map((note) => relativeLabel(note, naming)).join(' → ');
   const filled = guessComplete(guess);
-  const advice = melodyAdvice(progress, count);
-  const statsLine = formatMelodyStats(progress);
+  const advice = melodyAdvice(progress, count, t.melody);
+  const statsLine = formatMelodyStats(progress, t.melody);
 
   const title =
     phase === 'playing'
-      ? 'Luister'
+      ? t.common.listen
       : phase === 'placing'
-        ? 'Zet achterstevoren'
+        ? t.reverse.titlePlace
         : phase === 'check'
-          ? 'Controle'
-          : 'Omkeren';
+          ? t.common.control
+          : t.practice.reverse.title;
 
   const body =
     phase === 'idle'
-      ? `Je hoort ${count} tonen uit C-majeur in octaaf ${octave.label}. Stilte. Tik de lijn achterstevoren: de laatste toon eerst. Geen notenbalk.`
+      ? fmt(t.reverse.idle, { count, octave: octave.label })
       : phase === 'playing'
-        ? 'Luister vooruit. In je hoofd draai je de lijn om. Geen namen.'
+        ? t.reverse.playing
         : phase === 'placing'
           ? count === 2
-            ? 'Tik eerst de laatste toon, dan de eerste. Boven is hoger.'
-            : 'Tik de omgekeerde lijn. Links is de laatste toon die je hoorde. Boven is hoger.'
+            ? t.reverse.placingTwo
+            : t.reverse.placing
           : score?.all
-            ? `Dat is de omkering. Je hoorde ${heardNames}. Achterstevoren: ${reverseNames}.`
+            ? fmt(t.reverse.hit, { heard: heardNames, reverse: reverseNames })
             : placedForward
-              ? `Dat was de lijn vooruit, niet achterstevoren. Achterstevoren begint met de laatste toon. Je hoorde ${heardNames}. Omgekeerd: ${reverseNames}.`
-              : `${score?.correct ?? 0} van ${phrase.notes.length} hoogtes goed. De groene lijn is de omkering. Je hoorde ${heardNames}. Omgekeerd: ${reverseNames}.`;
+              ? fmt(t.reverse.forward, { heard: heardNames, reverse: reverseNames })
+              : fmt(t.reverse.miss, {
+                  correct: score?.correct ?? 0,
+                  total: phrase.notes.length,
+                  heard: heardNames,
+                  reverse: reverseNames,
+                });
 
   const showOptions = phase === 'idle' || phase === 'check';
 
@@ -255,10 +275,8 @@ export function ReverseScreen({ onBack }: Props) {
 
       {showOptions ? (
         <View style={styles.optionBlock}>
-          <Text style={styles.optionTitle}>Noten</Text>
-          <Text style={styles.optionHint}>
-            3 is de oefening. 2 is makkelijker. 4 is de volgende stap. 5 tot 8 is lastig.
-          </Text>
+          <Text style={styles.optionTitle}>{t.melody.notes}</Text>
+          <Text style={styles.optionHint}>{t.reverse.notesHint}</Text>
           <View style={styles.chipRow}>
             {MELODY_COUNTS.map((item) => {
               const selected = item === count;
@@ -268,7 +286,9 @@ export function ReverseScreen({ onBack }: Props) {
                   key={item}
                   accessibilityRole="button"
                   accessibilityLabel={
-                    recommended ? `${item} noten, aanbevolen` : `${item} noten`
+                    recommended
+                      ? fmt(t.melody.notesA11yAdvice, { n: item })
+                      : fmt(t.melody.notesA11y, { n: item })
                   }
                   accessibilityState={{ selected }}
                   onPress={() => chooseCount(item)}
@@ -298,7 +318,7 @@ export function ReverseScreen({ onBack }: Props) {
 
       {showOptions ? (
         <View style={styles.optionBlock}>
-          <Text style={styles.optionTitle}>Octaaf</Text>
+          <Text style={styles.optionTitle}>{t.common.octave}</Text>
           <View style={styles.chipRow}>
             {EXERCISE_OCTAVES.map((item) => {
               const selected = item.octave === octave.octave;
@@ -306,7 +326,7 @@ export function ReverseScreen({ onBack }: Props) {
                 <Pressable
                   key={item.label}
                   accessibilityRole="button"
-                  accessibilityLabel={`Kies octaaf ${item.label}`}
+                  accessibilityLabel={fmt(t.piano.octaveA11y, { label: item.label })}
                   accessibilityState={{ selected }}
                   onPress={() => chooseOctave(item)}
                   style={({ pressed }) => [
@@ -360,7 +380,7 @@ export function ReverseScreen({ onBack }: Props) {
       {phase === 'placing' || phase === 'check' ? (
         <Pressable
           accessibilityRole="button"
-          accessibilityLabel="Speel de gehoorde melodie opnieuw"
+          accessibilityLabel={t.reverse.hearAgainA11y}
           onPress={replayHeard}
           style={({ pressed }) => [
             styles.button,
@@ -368,14 +388,14 @@ export function ReverseScreen({ onBack }: Props) {
             pressed && styles.pressed,
           ]}
         >
-          <Text style={[styles.buttonText, styles.buttonSecondaryText]}>Hoor opnieuw</Text>
+          <Text style={[styles.buttonText, styles.buttonSecondaryText]}>{t.melody.hearAgain}</Text>
         </Pressable>
       ) : null}
 
       {phase === 'check' ? (
         <Pressable
           accessibilityRole="button"
-          accessibilityLabel="Speel de omkering"
+          accessibilityLabel={t.reverse.hearReverseA11y}
           onPress={replayReverse}
           style={({ pressed }) => [
             styles.button,
@@ -383,14 +403,14 @@ export function ReverseScreen({ onBack }: Props) {
             pressed && styles.pressed,
           ]}
         >
-          <Text style={[styles.buttonText, styles.buttonSecondaryText]}>Hoor omkering</Text>
+          <Text style={[styles.buttonText, styles.buttonSecondaryText]}>{t.reverse.hearReverse}</Text>
         </Pressable>
       ) : null}
 
       {phase === 'placing' ? (
         <Pressable
           accessibilityRole="button"
-          accessibilityLabel="Controleer de omkering"
+          accessibilityLabel={t.reverse.checkA11y}
           onPress={check}
           disabled={!filled}
           style={({ pressed }) => [
@@ -399,20 +419,41 @@ export function ReverseScreen({ onBack }: Props) {
             pressed && filled && styles.pressed,
           ]}
         >
-          <Text style={styles.buttonText}>Controleer</Text>
+          <Text style={styles.buttonText}>{t.common.check}</Text>
         </Pressable>
       ) : phase === 'playing' ? (
         <View style={styles.buttonPlaceholder} />
+      ) : phase === 'check' ? (
+        <View style={styles.actions}>
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel={t.reverse.againA11y}
+            onPress={repeatRound}
+            style={({ pressed }) => [
+              styles.button,
+              styles.buttonSecondary,
+              pressed && styles.pressed,
+            ]}
+          >
+            <Text style={[styles.buttonText, styles.buttonSecondaryText]}>{t.common.again}</Text>
+          </Pressable>
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel={t.reverse.nextA11y}
+            onPress={startRound}
+            style={({ pressed }) => [styles.button, pressed && styles.pressed]}
+          >
+            <Text style={styles.buttonText}>{t.reverse.next}</Text>
+          </Pressable>
+        </View>
       ) : (
         <Pressable
           accessibilityRole="button"
-          accessibilityLabel={phase === 'idle' ? 'Start oefening' : 'Volgende omkering'}
+          accessibilityLabel={t.common.startA11y}
           onPress={startRound}
           style={({ pressed }) => [styles.button, pressed && styles.pressed]}
         >
-          <Text style={styles.buttonText}>
-            {phase === 'idle' ? 'Start' : 'Volgende omkering'}
-          </Text>
+          <Text style={styles.buttonText}>{t.common.start}</Text>
         </Pressable>
       )}
     </AppScreen>
@@ -522,6 +563,9 @@ const styles = StyleSheet.create({
   },
   buttonPlaceholder: {
     minHeight: 48,
+  },
+  actions: {
+    gap: 10,
   },
   button: {
     backgroundColor: COLORS.accent,

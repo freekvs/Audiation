@@ -16,15 +16,13 @@ import {
   type PitchVerdict,
 } from '../audio/pitch';
 import { playHz, stopTone } from '../audio/toneUri';
-import {
-  DEFAULT_EXERCISE_OCTAVE,
-  EXERCISE_OCTAVES,
-  type ExerciseNote,
-  type ExerciseOctave,
-} from '../exerciseNotes';
+import { exerciseOctave, EXERCISE_OCTAVES, type ExerciseNote, type ExerciseOctave } from '../exerciseNotes';
+import { useExercisePrefs } from '../exercisePrefs';
+import { fmt, useT, type Strings } from '../i18n';
 import { namedTone, relativeLabel, useNaming, type NamingSystem } from '../naming';
 import { COLORS } from '../theme';
 import { AppScreen, useCompactLayout } from '../ui/AppScreen';
+import { ChoiceHelp } from '../ui/ChoiceHelp';
 
 type Phase = 'idle' | 'playing' | 'holding' | 'singing' | 'check';
 
@@ -56,34 +54,37 @@ function verdictText(
   note: ExerciseNote,
   verdict: PitchVerdict | null,
   naming: NamingSystem,
+  copy: Strings['hold'],
 ): string {
   const label = namedTone(note, naming);
   const degree = relativeLabel(note, naming);
   if (!verdict || verdict.quality === 'unavailable') {
-    return `Inzingen lukt nu niet. De toon was ${label}. Controleer of de microfoon is toegestaan, of sla zingen over.`;
+    return fmt(copy.unavailable, { label });
   }
   if (verdict.quality === 'silent') {
-    return `Geen zangtoon herkend. De toon was ${label}. Probeer iets luider, of sla zingen over.`;
+    return fmt(copy.silent, { label });
   }
   if (verdict.quality === 'hit') {
-    return `Je zong in de buurt van ${degree}. De toon was ${label}.`;
+    return fmt(copy.hit, { degree, label });
   }
   if (verdict.quality === 'close') {
-    return `Bijna: je zat dicht bij ${degree}. De toon was ${label}.`;
+    return fmt(copy.close, { degree, label });
   }
-  return `Te ver van ${label}. Dat kan het oor of de stem zijn.`;
+  return fmt(copy.miss, { label });
 }
 
 export function HoldToneScreen({ onBack }: Props) {
   const { compact } = useCompactLayout();
   const { naming } = useNaming();
+  const t = useT();
+  const { prefs, update } = useExercisePrefs();
   const [phase, setPhase] = useState<Phase>('idle');
-  const [octave, setOctave] = useState<ExerciseOctave>(DEFAULT_EXERCISE_OCTAVE);
+  const [octave, setOctave] = useState<ExerciseOctave>(() => exerciseOctave(prefs.holdTone.octave));
   const [note, setNote] = useState<ExerciseNote>(
-    () => pickNote(DEFAULT_EXERCISE_OCTAVE.notes),
+    () => pickNote(exerciseOctave(prefs.holdTone.octave).notes),
   );
   const [canCheck, setCanCheck] = useState(false);
-  const [singEnabled, setSingEnabled] = useState(false);
+  const [singEnabled, setSingEnabled] = useState(prefs.holdTone.singEnabled);
   const [verdict, setVerdict] = useState<PitchVerdict | null>(null);
   const [recordingUri, setRecordingUri] = useState<string | null>(null);
   const [micLevel, setMicLevel] = useState(0);
@@ -114,6 +115,10 @@ export function HoldToneScreen({ onBack }: Props) {
     };
   }, []);
 
+  useEffect(() => {
+    update('holdTone', { octave: octave.octave, singEnabled });
+  }, [octave, singEnabled, update]);
+
   const play = (next: ExerciseNote) => {
     void playHz(next.hz).catch(() => undefined);
   };
@@ -139,6 +144,16 @@ export function HoldToneScreen({ onBack }: Props) {
     clearTimers();
     const next = pickNote(octave.notes, note.id);
     setNote(next);
+    beginHold(next);
+  };
+
+  const repeatRound = () => {
+    listenControls.current.cancelled = true;
+    clearTimers();
+    beginHold(note);
+  };
+
+  const beginHold = (next: ExerciseNote) => {
     setCanCheck(false);
     setVerdict(null);
     setRecordingUri(null);
@@ -252,31 +267,31 @@ export function HoldToneScreen({ onBack }: Props) {
 
   const title =
     phase === 'playing'
-      ? 'Luister'
+      ? t.common.listen
       : phase === 'holding'
-        ? 'Houd de toon vast'
+        ? t.hold.titleHold
         : phase === 'singing'
-          ? 'Zing de toon'
+          ? t.hold.titleSing
           : phase === 'check'
-            ? 'Controle'
-            : 'Toon vasthouden';
+            ? t.common.control
+            : t.practice.holdTone.title;
 
   const body =
     phase === 'idle'
       ? singEnabled
-        ? `Je hoort een toon uit C-majeur in octaaf ${octave.label}. Daarna stilte: houd hem innerlijk vast. Daarna zing je hem. Octaaf lager of hoger telt mee.`
-        : `Je hoort een toon uit C-majeur in octaaf ${octave.label}. Daarna wordt het stil. Houd die toon innerlijk vast. Tik Controleer als je hem nog hoort.`
+        ? fmt(t.hold.idleSing, { octave: octave.label })
+        : fmt(t.hold.idleSilent, { octave: octave.label })
       : phase === 'playing'
-        ? 'Luister. Onthoud de toon, niet de naam.'
+        ? t.hold.playing
         : phase === 'holding'
           ? singEnabled
-            ? 'Het is stil. Houd dezelfde toon in je hoofd. Daarna kun je zingen.'
-            : 'Het is stil. Houd dezelfde toon in je hoofd.'
+            ? t.hold.holdingSing
+            : t.hold.holdingSilent
           : phase === 'singing'
-            ? 'Zing of neurie dezelfde toon, ongeveer twee seconden. Daarna hoor je jezelf kort terug; dat is de meting, geen extra oefening.'
+            ? t.hold.singing
             : verdict
-              ? verdictText(note, verdict, naming)
-              : `Dit was ${namedTone(note, naming)}. Was het dezelfde toon als in je hoofd?`;
+              ? verdictText(note, verdict, naming, t.hold)
+              : fmt(t.hold.checkAsk, { tone: namedTone(note, naming) });
 
   return (
     <AppScreen onBack={onBack}>
@@ -284,8 +299,16 @@ export function HoldToneScreen({ onBack }: Props) {
       <Text style={styles.subtitle}>{body}</Text>
 
       {phase === 'idle' || phase === 'check' ? (
+        <ChoiceHelp
+          label={t.help.cMajorTitle}
+          body={t.help.cMajor}
+          a11y={fmt(t.help.moreA11y, { term: t.help.cMajorTitle })}
+        />
+      ) : null}
+
+      {phase === 'idle' || phase === 'check' ? (
         <View style={styles.octaveBlock}>
-          <Text style={styles.optionTitle}>Octaaf</Text>
+          <Text style={styles.optionTitle}>{t.common.octave}</Text>
           <View style={styles.octaveRow}>
             {EXERCISE_OCTAVES.map((item) => {
               const selected = item.octave === octave.octave;
@@ -293,7 +316,7 @@ export function HoldToneScreen({ onBack }: Props) {
                 <Pressable
                   key={item.label}
                   accessibilityRole="button"
-                  accessibilityLabel={`Kies octaaf ${item.label}`}
+                  accessibilityLabel={fmt(t.piano.octaveA11y, { label: item.label })}
                   accessibilityState={{ selected }}
                   onPress={() => chooseOctave(item)}
                   style={({ pressed }) => [
@@ -320,13 +343,11 @@ export function HoldToneScreen({ onBack }: Props) {
       {phase === 'idle' || phase === 'check' ? (
         <View style={styles.optionRow}>
           <View style={styles.optionCopy}>
-            <Text style={styles.optionTitle}>Inzingen</Text>
-            <Text style={styles.optionHint}>
-              Optioneel. Na de stilte zing je de toon; de app luistert of je in de buurt zit.
-            </Text>
+            <Text style={styles.optionTitle}>{t.hold.singTitle}</Text>
+            <Text style={styles.optionHint}>{t.hold.singHint}</Text>
           </View>
           <Switch
-            accessibilityLabel="Inzingen in- of uitschakelen"
+            accessibilityLabel={t.hold.singA11y}
             value={singEnabled}
             onValueChange={(value) => {
               void enableSinging(value);
@@ -369,22 +390,29 @@ export function HoldToneScreen({ onBack }: Props) {
       {phase === 'check' && (recordingUri || verdict?.sungHz) ? (
         <View style={styles.compare}>
           <Text style={styles.compareLine}>
-            Oefentoets: {namedTone(note, naming)} · {Math.round(note.hz)} Hz
+            {fmt(t.hold.exerciseTone, {
+              tone: namedTone(note, naming),
+              hz: Math.round(note.hz),
+            })}
           </Text>
           <Text style={styles.compareLine}>
-            Gemeten zang:{' '}
-            {verdict?.sungHz
-              ? `${hzToNoteLabel(verdict.sungHz)} · ${Math.round(verdict.sungHz)} Hz`
-              : 'geen toon herkend'}
+            {fmt(t.hold.measuredSing, {
+              value: verdict?.sungHz
+                ? `${hzToNoteLabel(verdict.sungHz)} · ${Math.round(verdict.sungHz)} Hz`
+                : t.common.noPitch,
+            })}
           </Text>
           {verdict?.cents != null ? (
             <Text style={styles.compareHint}>
-              {Math.round(Math.abs(verdict.cents))} cent naast {relativeLabel(note, naming)}
+              {fmt(t.common.centsBeside, {
+                cents: Math.round(Math.abs(verdict.cents)),
+                label: relativeLabel(note, naming),
+              })}
             </Text>
           ) : null}
           <Pressable
             accessibilityRole="button"
-            accessibilityLabel="Speel de oefentoets"
+            accessibilityLabel={t.hold.hearExerciseA11y}
             onPress={() => play(note)}
             style={({ pressed }) => [
               styles.button,
@@ -392,12 +420,12 @@ export function HoldToneScreen({ onBack }: Props) {
               pressed && styles.buttonPressed,
             ]}
           >
-            <Text style={[styles.buttonText, styles.buttonSecondaryText]}>Hoor oefentoets</Text>
+            <Text style={[styles.buttonText, styles.buttonSecondaryText]}>{t.hold.hearExercise}</Text>
           </Pressable>
           {recordingUri ? (
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Speel je opgenomen zang"
+              accessibilityLabel={t.hold.hearSingingA11y}
               onPress={playRecording}
               style={({ pressed }) => [
                 styles.button,
@@ -405,7 +433,7 @@ export function HoldToneScreen({ onBack }: Props) {
                 pressed && styles.buttonPressed,
               ]}
             >
-              <Text style={[styles.buttonText, styles.buttonSecondaryText]}>Hoor je zang</Text>
+              <Text style={[styles.buttonText, styles.buttonSecondaryText]}>{t.hold.hearSinging}</Text>
             </Pressable>
           ) : null}
         </View>
@@ -416,7 +444,7 @@ export function HoldToneScreen({ onBack }: Props) {
           {singEnabled ? (
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Zing de toon"
+              accessibilityLabel={t.hold.singButtonA11y}
               onPress={() => {
                 void sing();
               }}
@@ -427,12 +455,12 @@ export function HoldToneScreen({ onBack }: Props) {
                 pressed && canCheck && styles.buttonPressed,
               ]}
             >
-              <Text style={styles.buttonText}>Zing de toon</Text>
+              <Text style={styles.buttonText}>{t.hold.singButton}</Text>
             </Pressable>
           ) : null}
           <Pressable
             accessibilityRole="button"
-            accessibilityLabel="Controleer de toon"
+            accessibilityLabel={t.hold.checkA11y}
             onPress={check}
             disabled={!canCheck}
             style={({ pressed }) => [
@@ -443,22 +471,43 @@ export function HoldToneScreen({ onBack }: Props) {
             ]}
           >
             <Text style={[styles.buttonText, styles.buttonSecondaryText]}>
-              {singEnabled ? 'Sla zingen over' : 'Controleer'}
+              {singEnabled ? t.hold.skipSing : t.common.check}
             </Text>
           </Pressable>
         </View>
       ) : phase === 'playing' || phase === 'singing' ? (
         <View style={styles.buttonPlaceholder} />
+      ) : phase === 'check' ? (
+        <View style={styles.actions}>
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel={t.hold.againA11y}
+            onPress={repeatRound}
+            style={({ pressed }) => [
+              styles.button,
+              styles.buttonSecondary,
+              pressed && styles.buttonPressed,
+            ]}
+          >
+            <Text style={[styles.buttonText, styles.buttonSecondaryText]}>{t.common.again}</Text>
+          </Pressable>
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel={t.hold.nextA11y}
+            onPress={startRound}
+            style={({ pressed }) => [styles.button, pressed && styles.buttonPressed]}
+          >
+            <Text style={styles.buttonText}>{t.hold.next}</Text>
+          </Pressable>
+        </View>
       ) : (
         <Pressable
           accessibilityRole="button"
-          accessibilityLabel={phase === 'idle' ? 'Start oefening' : 'Volgende toon'}
+          accessibilityLabel={t.common.startA11y}
           onPress={startRound}
           style={({ pressed }) => [styles.button, pressed && styles.buttonPressed]}
         >
-          <Text style={styles.buttonText}>
-            {phase === 'idle' ? 'Start' : 'Volgende toon'}
-          </Text>
+          <Text style={styles.buttonText}>{t.common.start}</Text>
         </Pressable>
       )}
     </AppScreen>

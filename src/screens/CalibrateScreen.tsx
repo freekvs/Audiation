@@ -15,6 +15,7 @@ import {
   type ListenControls,
 } from '../audio/pitch';
 import { playHz, stopTone } from '../audio/toneUri';
+import { fmt, useT } from '../i18n';
 import { COLORS } from '../theme';
 import { AppScreen, useCompactLayout } from '../ui/AppScreen';
 
@@ -40,6 +41,7 @@ function safePause(player: { pause: () => unknown } | null | undefined) {
 
 export function CalibrateScreen({ onBack }: Props) {
   const { compact } = useCompactLayout();
+  const t = useT();
   const [phase, setPhase] = useState<Phase>('idle');
   const [measuredHz, setMeasuredHz] = useState<number | null>(null);
   const [recordingUri, setRecordingUri] = useState<string | null>(null);
@@ -87,7 +89,7 @@ export function CalibrateScreen({ onBack }: Props) {
   const recordReference = async () => {
     const { granted } = await requestRecordingPermissionsAsync();
     if (!granted) {
-      setError('Microfoon is niet toegestaan.');
+      setError(t.calibrate.micDenied);
       return;
     }
 
@@ -109,7 +111,7 @@ export function CalibrateScreen({ onBack }: Props) {
 
     try {
       if (!canListenForPitch()) {
-        setError('Opnemen lukt in deze omgeving niet.');
+        setError(t.calibrate.recordUnavailable);
         setPhase('idle');
         return;
       }
@@ -127,7 +129,7 @@ export function CalibrateScreen({ onBack }: Props) {
       setMeasuredHz(result.hz);
       setPhase('result');
     } catch {
-      setError('Opnemen of meten is mislukt.');
+      setError(t.calibrate.error);
       setPhase('idle');
     } finally {
       await setAudioModeAsync({
@@ -144,15 +146,12 @@ export function CalibrateScreen({ onBack }: Props) {
 
   return (
     <AppScreen onBack={onBack}>
-      <Text style={[styles.title, compact && styles.titleCompact]}>IJking</Text>
-      <Text style={styles.subtitle}>
-        De testtoon is A4, La, 440 Hz. Speel die A met een stemapparaat, piano of
-        toongenerator in de microfoon. Daarna zie je de Hertz en hoor je beide terug.
-      </Text>
+      <Text style={[styles.title, compact && styles.titleCompact]}>{t.calibrate.title}</Text>
+      <Text style={styles.subtitle}>{t.calibrate.body}</Text>
 
       {phase === 'recording' ? (
         <View style={styles.stage}>
-          <Text style={styles.status}>Opnemen… houd de toon aan</Text>
+          <Text style={styles.status}>{t.calibrate.recording}</Text>
           <View style={styles.meterTrack}>
             <View style={[styles.meterFill, { width: `${Math.min(100, micLevel * 400)}%` }]} />
           </View>
@@ -161,17 +160,21 @@ export function CalibrateScreen({ onBack }: Props) {
 
       {phase === 'result' ? (
         <View style={styles.compare}>
-          <Text style={styles.compareLine}>Testtoon: A4 · La · {TARGET_HZ} Hz</Text>
           <Text style={styles.compareLine}>
-            Gemeten opname:{' '}
-            {measuredHz
-              ? `${hzToNoteLabel(measuredHz)} · ${Math.round(measuredHz)} Hz`
-              : 'geen toon herkend'}
+            {fmt(t.calibrate.testTone, { hz: TARGET_HZ })}
+          </Text>
+          <Text style={styles.compareLine}>
+            {fmt(t.calibrate.measured, {
+              value: measuredHz
+                ? `${hzToNoteLabel(measuredHz)} · ${Math.round(measuredHz)} Hz`
+                : t.common.noPitch,
+            })}
           </Text>
           {cents != null ? (
             <Text style={styles.compareHint}>
-              {cents >= 0 ? '+' : ''}
-              {Math.round(cents)} cent t.o.v. 440 Hz
+              {fmt(t.calibrate.cents, {
+                signed: `${cents >= 0 ? '+' : ''}${Math.round(cents)}`,
+              })}
             </Text>
           ) : null}
         </View>
@@ -183,15 +186,15 @@ export function CalibrateScreen({ onBack }: Props) {
         <View style={styles.actions}>
           <Pressable
             accessibilityRole="button"
-            accessibilityLabel="Speel testtoon A440"
+            accessibilityLabel={t.calibrate.hearA440A11y}
             onPress={playTone}
             style={({ pressed }) => [styles.button, pressed && styles.buttonPressed]}
           >
-            <Text style={styles.buttonText}>Hoor A440 (La)</Text>
+            <Text style={styles.buttonText}>{t.calibrate.hearA440}</Text>
           </Pressable>
           <Pressable
             accessibilityRole="button"
-            accessibilityLabel="Neem je testtoon op"
+            accessibilityLabel={t.calibrate.recordA11y}
             onPress={() => {
               void recordReference();
             }}
@@ -202,13 +205,13 @@ export function CalibrateScreen({ onBack }: Props) {
             ]}
           >
             <Text style={[styles.buttonText, styles.buttonSecondaryText]}>
-              Neem je toon op
+              {t.calibrate.record}
             </Text>
           </Pressable>
           {recordingUri ? (
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Speel je opname"
+              accessibilityLabel={t.calibrate.hearRecordingA11y}
               onPress={playRecording}
               style={({ pressed }) => [
                 styles.button,
@@ -217,7 +220,7 @@ export function CalibrateScreen({ onBack }: Props) {
               ]}
             >
               <Text style={[styles.buttonText, styles.buttonSecondaryText]}>
-                Hoor je opname
+                {t.calibrate.hearRecording}
               </Text>
             </Pressable>
           ) : null}

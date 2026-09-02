@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
+import { fmt, useT } from '../i18n';
 import {
   DEFAULT_PIANO_OCTAVE,
   PIANO_OCTAVES,
@@ -9,6 +10,7 @@ import {
 import { PianoKeyboard } from '../PianoKeyboard';
 import { COLORS } from '../theme';
 import { AppScreen, useCompactLayout } from '../ui/AppScreen';
+import { ChoiceHelp } from '../ui/ChoiceHelp';
 
 type Props = {
   onBack: () => void;
@@ -16,6 +18,7 @@ type Props = {
 
 export function PianoScreen({ onBack }: Props) {
   const { compact, height } = useCompactLayout();
+  const t = useT();
   const [octave, setOctave] = useState<PianoOctave>(DEFAULT_PIANO_OCTAVE);
   const keyboardHeight = Math.max(180, Math.min(240, height * 0.34));
   const first = octave.whiteKeys[0];
@@ -23,14 +26,18 @@ export function PianoScreen({ onBack }: Props) {
 
   return (
     <AppScreen onBack={onBack}>
-      <Text style={[styles.title, compact && styles.titleCompact]}>Piano</Text>
+      <Text style={[styles.title, compact && styles.titleCompact]}>{t.piano.title}</Text>
+      <ChoiceHelp
+        label={t.help.cMajorTitle}
+        body={t.help.cMajor}
+        a11y={fmt(t.help.moreA11y, { term: t.help.cMajorTitle })}
+      />
       <Text style={styles.subtitle}>
-        C-majeur, één octaaf vanaf {octave.label}. Witte toetsen zijn de toonladder; zwarte
-        toetsen zijn de kruizen ertussen.
+        {fmt(t.piano.body, { octave: octave.label })}
       </Text>
 
       <View style={styles.octaveBlock}>
-        <Text style={styles.optionTitle}>Octaaf</Text>
+        <Text style={styles.optionTitle}>{t.common.octave}</Text>
         <View style={styles.octaveRow}>
           {PIANO_OCTAVES.map((item) => {
             const selected = item.octave === octave.octave;
@@ -38,7 +45,7 @@ export function PianoScreen({ onBack }: Props) {
               <Pressable
                 key={item.label}
                 accessibilityRole="button"
-                accessibilityLabel={`Kies octaaf ${item.label}`}
+                accessibilityLabel={fmt(t.piano.octaveA11y, { label: item.label })}
                 accessibilityState={{ selected }}
                 onPress={() => setOctave(item)}
                 style={({ pressed }) => [
@@ -69,7 +76,7 @@ export function PianoScreen({ onBack }: Props) {
         blackKeys={octave.blackKeys}
       />
       <Text style={styles.hint}>
-        Tik een toets, of speel de hele ladder van {first.name} tot {last.name}.
+        {fmt(t.piano.hint, { first: first.name, last: last.name })}
       </Text>
     </AppScreen>
   );

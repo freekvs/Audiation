@@ -1,36 +1,26 @@
-import { ReactNode } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
-import { fmt, useT } from '../i18n';
-import { NAMING_OPTIONS, useNaming } from '../naming';
+import { fmt, LOCALE_OPTIONS, useLocale, useT } from '../i18n';
 import { COLORS } from '../theme';
 
-type Props = {
-  compact?: boolean;
-  extra?: ReactNode;
-};
-
-export function NamingChips({ compact = false, extra }: Props) {
-  const { naming, setNaming } = useNaming();
+export function LanguageChips() {
+  const { locale, setLocale } = useLocale();
   const t = useT();
 
   return (
     <View style={styles.block}>
-      <View style={styles.titleRow}>
-        <Text style={styles.title}>{t.naming.title}</Text>
-        {extra}
-      </View>
-      {compact ? null : <Text style={styles.hint}>{t.naming.hint}</Text>}
+      <Text style={styles.title}>{t.language.title}</Text>
+      <Text style={styles.hint}>{t.language.hint}</Text>
       <View style={styles.row}>
-        {NAMING_OPTIONS.map((item) => {
-          const selected = item.id === naming;
+        {LOCALE_OPTIONS.map((item) => {
+          const selected = item.id === locale;
           return (
             <Pressable
               key={item.id}
               accessibilityRole="button"
-              accessibilityLabel={fmt(t.naming.a11y, { hint: item.hint })}
+              accessibilityLabel={fmt(t.language.a11y, { label: item.label })}
               accessibilityState={{ selected }}
-              onPress={() => setNaming(item.id)}
+              onPress={() => setLocale(item.id)}
               style={({ pressed }) => [
                 styles.chip,
                 selected && styles.chipSelected,
@@ -50,11 +40,6 @@ export function NamingChips({ compact = false, extra }: Props) {
 
 const styles = StyleSheet.create({
   block: {
-    gap: 8,
-  },
-  titleRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
     gap: 8,
   },
   title: {

@@ -1,5 +1,6 @@
 import { Platform } from 'react-native';
 
+import { fmt, type Strings } from './i18n';
 import { CORE_MELODY_MAX } from './melody';
 
 export const UP_STREAK = 5;
@@ -92,7 +93,11 @@ export function recordMelodyRound(
   };
 }
 
-export function melodyAdvice(progress: MelodyProgress, currentCount: number): MelodyAdvice {
+export function melodyAdvice(
+  progress: MelodyProgress,
+  currentCount: number,
+  copy: Strings['melody'],
+): MelodyAdvice {
   const rolled = rollMelodyDay(progress);
   const at = rolled.at[String(currentCount)] ?? {
     consecutiveCorrect: 0,
@@ -104,7 +109,11 @@ export function melodyAdvice(progress: MelodyProgress, currentCount: number): Me
     return {
       kind: 'up',
       count: nextCount,
-      text: `Je hebt ${at.consecutiveCorrect} lijnen van ${currentCount} noten achter elkaar goed. Probeer ${nextCount}.`,
+      text: fmt(copy.adviceUp, {
+        streak: at.consecutiveCorrect,
+        count: currentCount,
+        next: nextCount,
+      }),
     };
   }
 
@@ -112,7 +121,7 @@ export function melodyAdvice(progress: MelodyProgress, currentCount: number): Me
     return {
       kind: 'down',
       count: CORE_MELODY_MAX,
-      text: `${currentCount} is lastig voor het geheugen. ${CORE_MELODY_MAX} is de oefening. Terug is prima.`,
+      text: fmt(copy.adviceDownHard, { count: currentCount, core: CORE_MELODY_MAX }),
     };
   }
 
@@ -121,16 +130,20 @@ export function melodyAdvice(progress: MelodyProgress, currentCount: number): Me
     return {
       kind: 'down',
       count: back,
-      text: `Terug naar ${back} is prima. Eerst de lijn van ${back} vastzetten.`,
+      text: fmt(copy.adviceDown, { back }),
     };
   }
 
   return { kind: null, count: currentCount, text: '' };
 }
 
-export function formatMelodyStats(progress: MelodyProgress): string {
+export function formatMelodyStats(progress: MelodyProgress, copy: Strings['melody']): string {
   const rolled = rollMelodyDay(progress);
-  return `Reeks ${rolled.streak} · vandaag ${rolled.todayCorrect} goed · ${rolled.todayMiss} mis`;
+  return fmt(copy.stats, {
+    streak: rolled.streak,
+    correct: rolled.todayCorrect,
+    miss: rolled.todayMiss,
+  });
 }
 
 function parseProgress(raw: string | null | undefined): MelodyProgress {

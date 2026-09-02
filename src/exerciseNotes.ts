@@ -27,3 +27,7 @@ export const EXERCISE_OCTAVES: ExerciseOctave[] = PIANO_OCTAVES.map((item) => ({
 }));
 
 export const DEFAULT_EXERCISE_OCTAVE = EXERCISE_OCTAVES.find((item) => item.octave === 4)!;
+
+export function exerciseOctave(octave: number): ExerciseOctave {
+  return EXERCISE_OCTAVES.find((item) => item.octave === octave) ?? DEFAULT_EXERCISE_OCTAVE;
+}

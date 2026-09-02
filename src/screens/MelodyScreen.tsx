@@ -4,13 +4,13 @@ import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { useDrone } from '../audio/drone';
 import { playHz, stopTone } from '../audio/toneUri';
 import {
-  DEFAULT_EXERCISE_OCTAVE,
+  exerciseOctave,
   EXERCISE_OCTAVES,
   type ExerciseOctave,
 } from '../exerciseNotes';
+import { useExercisePrefs } from '../exercisePrefs';
 import {
   CORE_MELODY_MAX,
-  DEFAULT_MELODY_COUNT,
   MELODY_COUNTS,
   emptyGuess,
   guessComplete,
@@ -29,6 +29,7 @@ import {
   saveMelodyProgress,
   type MelodyProgress,
 } from '../melodyProgress';
+import { fmt, useT } from '../i18n';
 import { namedTone, relativeLabel, useNaming } from '../naming';
 import { COLORS } from '../theme';
 import { AppScreen, useCompactLayout } from '../ui/AppScreen';
@@ -47,15 +48,15 @@ const GAP_MS = 260;
 export function MelodyScreen({ onBack }: Props) {
   const { compact } = useCompactLayout();
   const { naming } = useNaming();
+  const t = useT();
+  const { prefs, update } = useExercisePrefs();
   const [phase, setPhase] = useState<Phase>('idle');
-  const [octave, setOctave] = useState<ExerciseOctave>(DEFAULT_EXERCISE_OCTAVE);
-  const [count, setCount] = useState(DEFAULT_MELODY_COUNT);
+  const [octave, setOctave] = useState<ExerciseOctave>(() => exerciseOctave(prefs.melody.octave));
+  const [count, setCount] = useState(prefs.melody.count);
   const [phrase, setPhrase] = useState<MelodyPhrase>(() =>
-    pickPhrase(DEFAULT_EXERCISE_OCTAVE.notes, DEFAULT_MELODY_COUNT),
+    pickPhrase(exerciseOctave(prefs.melody.octave).notes, prefs.melody.count),
   );
-  const [guess, setGuess] = useState<(number | null)[]>(() =>
-    emptyGuess(DEFAULT_MELODY_COUNT),
-  );
+  const [guess, setGuess] = useState<(number | null)[]>(() => emptyGuess(prefs.melody.count));
   const [playIndex, setPlayIndex] = useState<number | null>(null);
   const [progress, setProgress] = useState<MelodyProgress>(emptyMelodyProgress);
   const { droneEnabled, setDroneEnabled } = useDrone(octave.octave, false);
@@ -78,6 +79,10 @@ export function MelodyScreen({ onBack }: Props) {
       stopTone();
     };
   }, []);
+
+  useEffect(() => {
+    update('melody', { octave: octave.octave, count });
+  }, [octave, count, update]);
 
   const playNote = (hz: number) => {
     void playHz(hz).catch(() => undefined);
@@ -113,6 +118,16 @@ export function MelodyScreen({ onBack }: Props) {
     stopTone();
     const next = pickPhrase(octave.notes, count, phraseKey(phrase));
     setPhrase(next);
+    beginMelody(next);
+  };
+
+  const repeatRound = () => {
+    clearTimers();
+    stopTone();
+    beginMelody(phrase);
+  };
+
+  const beginMelody = (next: MelodyPhrase) => {
     setGuess(emptyGuess(next.notes.length));
     setPlayIndex(null);
     setPhase('playing');
@@ -191,38 +206,43 @@ export function MelodyScreen({ onBack }: Props) {
   const score = phase === 'check' && guessComplete(guess) ? scoreContour(guess, phrase.ranks) : null;
   const names = phrase.notes.map((note) => relativeLabel(note, naming)).join(' → ');
   const filled = guessComplete(guess);
-  const advice = melodyAdvice(progress, count);
-  const statsLine = formatMelodyStats(progress);
+  const advice = melodyAdvice(progress, count, t.melody);
+  const statsLine = formatMelodyStats(progress, t.melody);
 
   const title =
     phase === 'playing'
-      ? 'Luister'
+      ? t.common.listen
       : phase === 'placing'
-        ? 'Zet de lijn'
+        ? t.melody.titlePlace
         : phase === 'check'
-          ? 'Controle'
-          : 'Melodie';
+          ? t.common.control
+          : t.practice.melody.title;
 
   const body =
     phase === 'idle'
-      ? `Je hoort ${count} tonen uit C-majeur in octaaf ${octave.label}. Daarna stilte. Zet per toon een punt: links is eerder, onder is lager. Geen notenbalk — alleen de lijn.`
+      ? fmt(t.melody.idle, { count, octave: octave.label })
       : phase === 'playing'
-        ? 'Luister. Onthoud de lijn, niet de namen.'
+        ? t.melody.playing
         : phase === 'placing'
           ? droneEnabled
-            ? 'De drone blijft. Tik de lijn tegen de tonica en de kwint. Elk punt een eigen hoogte.'
+            ? t.melody.placingDrone
             : count === 2
-              ? 'Tik welke toon hoger was. Boven is hoger. Elk punt een eigen hoogte.'
-              : 'Tik per kolom de hoogte. Boven is hoger, links is eerder. Elk punt een eigen hoogte.'
+              ? t.melody.placingTwo
+              : t.melody.placing
           : score?.all
-            ? `Die lijn klopt. ${names}.`
-            : `${score?.correct ?? 0} van ${phrase.notes.length} hoogtes goed. De groene lijn is hoe het was. ${names}.`;
+            ? fmt(t.melody.hit, { names })
+            : fmt(t.melody.miss, {
+                correct: score?.correct ?? 0,
+                total: phrase.notes.length,
+                names,
+              });
 
   const showOptions = phase === 'idle' || phase === 'check';
 
   return (
     <AppScreen onBack={onBack}>
       <Text style={[styles.title, compact && styles.titleCompact]}>{title}</Text>
+      <Text style={styles.tagline}>{t.practice.melody.tagline}</Text>
       <Text style={styles.subtitle}>{body}</Text>
 
       <View style={styles.stats}>
@@ -244,9 +264,9 @@ export function MelodyScreen({ onBack }: Props) {
 
       {showOptions ? (
         <View style={styles.optionBlock}>
-          <Text style={styles.optionTitle}>Noten</Text>
+          <Text style={styles.optionTitle}>{t.melody.notes}</Text>
           <Text style={styles.optionHint}>
-            2 tot {CORE_MELODY_MAX} is de oefening. 5 tot 8 is lastig voor het geheugen.
+            {fmt(t.melody.notesHint, { core: CORE_MELODY_MAX })}
           </Text>
           <View style={styles.chipRow}>
             {MELODY_COUNTS.map((item) => {
@@ -257,7 +277,9 @@ export function MelodyScreen({ onBack }: Props) {
                   key={item}
                   accessibilityRole="button"
                   accessibilityLabel={
-                    recommended ? `${item} noten, aanbevolen` : `${item} noten`
+                    recommended
+                      ? fmt(t.melody.notesA11yAdvice, { n: item })
+                      : fmt(t.melody.notesA11y, { n: item })
                   }
                   accessibilityState={{ selected }}
                   onPress={() => chooseCount(item)}
@@ -287,7 +309,7 @@ export function MelodyScreen({ onBack }: Props) {
 
       {showOptions ? (
         <View style={styles.optionBlock}>
-          <Text style={styles.optionTitle}>Octaaf</Text>
+          <Text style={styles.optionTitle}>{t.common.octave}</Text>
           <View style={styles.chipRow}>
             {EXERCISE_OCTAVES.map((item) => {
               const selected = item.octave === octave.octave;
@@ -295,7 +317,7 @@ export function MelodyScreen({ onBack }: Props) {
                 <Pressable
                   key={item.label}
                   accessibilityRole="button"
-                  accessibilityLabel={`Kies octaaf ${item.label}`}
+                  accessibilityLabel={fmt(t.piano.octaveA11y, { label: item.label })}
                   accessibilityState={{ selected }}
                   onPress={() => chooseOctave(item)}
                   style={({ pressed }) => [
@@ -347,7 +369,7 @@ export function MelodyScreen({ onBack }: Props) {
       {phase === 'placing' || phase === 'check' ? (
         <Pressable
           accessibilityRole="button"
-          accessibilityLabel="Speel de melodie opnieuw"
+          accessibilityLabel={t.melody.hearAgainA11y}
           onPress={replayPhrase}
           style={({ pressed }) => [
             styles.button,
@@ -355,14 +377,14 @@ export function MelodyScreen({ onBack }: Props) {
             pressed && styles.pressed,
           ]}
         >
-          <Text style={[styles.buttonText, styles.buttonSecondaryText]}>Hoor opnieuw</Text>
+          <Text style={[styles.buttonText, styles.buttonSecondaryText]}>{t.melody.hearAgain}</Text>
         </Pressable>
       ) : null}
 
       {phase === 'placing' ? (
         <Pressable
           accessibilityRole="button"
-          accessibilityLabel="Controleer de lijn"
+          accessibilityLabel={t.melody.checkA11y}
           onPress={check}
           disabled={!filled}
           style={({ pressed }) => [
@@ -371,20 +393,41 @@ export function MelodyScreen({ onBack }: Props) {
             pressed && filled && styles.pressed,
           ]}
         >
-          <Text style={styles.buttonText}>Controleer</Text>
+          <Text style={styles.buttonText}>{t.common.check}</Text>
         </Pressable>
       ) : phase === 'playing' ? (
         <View style={styles.buttonPlaceholder} />
+      ) : phase === 'check' ? (
+        <View style={styles.actions}>
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel={t.melody.againA11y}
+            onPress={repeatRound}
+            style={({ pressed }) => [
+              styles.button,
+              styles.buttonSecondary,
+              pressed && styles.pressed,
+            ]}
+          >
+            <Text style={[styles.buttonText, styles.buttonSecondaryText]}>{t.common.again}</Text>
+          </Pressable>
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel={t.melody.nextA11y}
+            onPress={startRound}
+            style={({ pressed }) => [styles.button, pressed && styles.pressed]}
+          >
+            <Text style={styles.buttonText}>{t.melody.next}</Text>
+          </Pressable>
+        </View>
       ) : (
         <Pressable
           accessibilityRole="button"
-          accessibilityLabel={phase === 'idle' ? 'Start oefening' : 'Volgende melodie'}
+          accessibilityLabel={t.common.startA11y}
           onPress={startRound}
           style={({ pressed }) => [styles.button, pressed && styles.pressed]}
         >
-          <Text style={styles.buttonText}>
-            {phase === 'idle' ? 'Start' : 'Volgende melodie'}
-          </Text>
+          <Text style={styles.buttonText}>{t.common.start}</Text>
         </Pressable>
       )}
     </AppScreen>
@@ -400,6 +443,12 @@ const styles = StyleSheet.create({
   },
   titleCompact: {
     fontSize: 32,
+  },
+  tagline: {
+    fontSize: 13,
+    lineHeight: 18,
+    color: COLORS.hint,
+    marginTop: -8,
   },
   subtitle: {
     fontSize: 17,
@@ -494,6 +543,9 @@ const styles = StyleSheet.create({
   },
   buttonPlaceholder: {
     minHeight: 48,
+  },
+  actions: {
+    gap: 10,
   },
   button: {
     backgroundColor: COLORS.accent,

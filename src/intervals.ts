@@ -1,5 +1,6 @@
 import { hzToMidi } from './audio/pitch';
 import { EXERCISE_OCTAVES, type ExerciseNote } from './exerciseNotes';
+import { intervalNameFromSemitones, type IntervalCopy } from './i18n';
 import { relativeLabel, type NamingSystem } from './naming';
 
 export type OctaveWay = 'up' | 'down';
@@ -8,24 +9,7 @@ export type IntervalPair = {
   from: ExerciseNote;
   to: ExerciseNote;
   semitones: number;
-  name: string;
 };
-
-const INTERVAL_NAMES = [
-  'prime',
-  'kleine secunde',
-  'grote secunde',
-  'kleine terts',
-  'grote terts',
-  'reine kwart',
-  'tritonus',
-  'reine kwint',
-  'kleine sext',
-  'grote sext',
-  'kleine septiem',
-  'grote septiem',
-  'octaaf',
-];
 
 export function maxIntervalSpan(homeOctave: number, way: OctaveWay): number {
   const extra = way === 'up' ? 8 - homeOctave : homeOctave - 1;
@@ -69,24 +53,9 @@ function uniqueNotes(octaves: number[]): ExerciseNote[] {
   return notes;
 }
 
-export function intervalNameFromHz(fromHz: number, toHz: number): string {
+export function intervalNameFromHz(fromHz: number, toHz: number, copy: IntervalCopy): string {
   const semitones = Math.round(Math.abs(hzToMidi(toHz) - hzToMidi(fromHz)));
-  if (semitones === 0) {
-    return 'prime';
-  }
-  const octaves = Math.floor(semitones / 12);
-  const rem = semitones % 12;
-  const simple = INTERVAL_NAMES[rem] ?? `${rem} halve tonen`;
-  if (octaves === 0) {
-    return simple;
-  }
-  if (rem === 0) {
-    return octaves === 1 ? 'octaaf' : `${octaves} octaven`;
-  }
-  if (octaves === 1) {
-    return `${simple} plus octaaf`;
-  }
-  return `${simple} plus ${octaves} octaven`;
+  return intervalNameFromSemitones(semitones, copy);
 }
 
 export function makePair(from: ExerciseNote, to: ExerciseNote): IntervalPair {
@@ -94,7 +63,6 @@ export function makePair(from: ExerciseNote, to: ExerciseNote): IntervalPair {
     from,
     to,
     semitones: Math.round(Math.abs(hzToMidi(to.hz) - hzToMidi(from.hz))),
-    name: intervalNameFromHz(from.hz, to.hz),
   };
 }
 
@@ -141,6 +109,10 @@ export function pickInterval({
   return source[Math.floor(Math.random() * source.length)];
 }
 
-export function describeInterval(pair: IntervalPair, naming: NamingSystem): string {
-  return `${relativeLabel(pair.from, naming)} → ${relativeLabel(pair.to, naming)} · ${pair.name}`;
+export function describeInterval(
+  pair: IntervalPair,
+  naming: NamingSystem,
+  copy: IntervalCopy,
+): string {
+  return `${relativeLabel(pair.from, naming)} → ${relativeLabel(pair.to, naming)} · ${intervalNameFromSemitones(pair.semitones, copy)}`;
 }
