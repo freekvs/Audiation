@@ -2,6 +2,7 @@ import { createContext, createElement, useCallback, useContext, useEffect, useMe
 import { Platform } from 'react-native';
 
 import { saveDronePref } from './audio/drone';
+import { resetKlankToSec } from './audio/klank';
 import type { ExtensionFind, ExtensionGiven, ExtensionQuality } from './extension';
 import type { HarmonyFind, HarmonyQuality } from './harmony';
 import type { HoldInversionMode, HoldSizeMode } from './holdChord';
@@ -350,6 +351,7 @@ export function ExercisePrefsProvider({ children }: { children: ReactNode }) {
     setPrefs(next);
     persist(next, mineRef.current);
     void saveDronePref(false);
+    resetKlankToSec();
   }, [persist]);
 
   const saveMine = useCallback(() => {

@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 import { useDrone } from '../audio/drone';
+import { beginSoundingRound } from '../audio/klank';
 import { playHz, stopTone } from '../audio/toneUri';
 import {
   exerciseOctave,
@@ -120,6 +121,7 @@ export function ReverseScreen({ onBack }: Props) {
   };
 
   const startRound = () => {
+    beginSoundingRound();
     clearTimers();
     stopTone();
     const next = pickReversePhrase(octave.notes, count, phraseKey(phrase));

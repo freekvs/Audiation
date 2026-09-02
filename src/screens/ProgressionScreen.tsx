@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Pressable, StyleSheet, Switch, Text, View } from 'react-native';
 
+import { beginSoundingRound } from '../audio/klank';
 import { playChordHz, playHz, stopTone } from '../audio/toneUri';
 import { EXERCISE_OCTAVES } from '../exerciseNotes';
 import { useExercisePrefs } from '../exercisePrefs';
@@ -160,6 +161,7 @@ export function ProgressionScreen({ onBack }: Props) {
   };
 
   const startRound = () => {
+    beginSoundingRound();
     clearTimers();
     stopTone();
     beginRound(

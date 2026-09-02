@@ -1,3 +1,6 @@
+import type { KlankId } from './klank';
+import { encodeVoicedWav } from './encodeVoice';
+
 const SAMPLE_RATE = 48000;
 const DURATION = 1.05;
 const ATTACK_S = 0.02;
@@ -5,7 +8,10 @@ const RELEASE_S = 0.12;
 const AMPLITUDE = 0.35;
 const DECAY = 2.8;
 
-export function encodeToneWav(frequency: number): Uint8Array {
+export function encodeToneWav(frequency: number, klank: KlankId = 'sec'): Uint8Array {
+  if (klank !== 'sec') {
+    return encodeVoicedWav([frequency], klank, 'tone');
+  }
   const count = Math.floor(SAMPLE_RATE * DURATION);
   const dataSize = count * 2;
   const bytes = new Uint8Array(44 + dataSize);

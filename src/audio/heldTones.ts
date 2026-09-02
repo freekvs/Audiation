@@ -1,5 +1,6 @@
 import { createAudioPlayer } from 'expo-audio';
 
+import { getSoundingKlank } from './klank';
 import { getSustainUri } from './toneUri';
 
 type Slot = 'givenA' | 'givenB' | 'givenC' | 'givenD' | 'slide';
@@ -55,7 +56,7 @@ export function stopHeld(slot?: Slot) {
 export async function playHeld(slot: Slot, hz: number): Promise<void> {
   const state = slots[slot];
   const seq = (state.seq += 1);
-  const uri = await getSustainUri(hz);
+  const uri = await getSustainUri(hz, getSoundingKlank());
   if (seq !== state.seq) {
     return;
   }

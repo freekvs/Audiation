@@ -17,6 +17,7 @@ import {
   type PitchVerdict,
 } from '../audio/pitch';
 import { useDrone } from '../audio/drone';
+import { beginSoundingRound } from '../audio/klank';
 import { playHz, stopTone } from '../audio/toneUri';
 import {
   exerciseOctave,
@@ -222,6 +223,7 @@ export function IntervalScreen({ onBack }: Props) {
   };
 
   const startRound = () => {
+    beginSoundingRound();
     listenControls.current.cancelled = true;
     clearTimers();
     const next = pickInterval({

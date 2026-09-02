@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
+import { beginSoundingRound } from '../audio/klank';
 import { playChordHz, stopTone } from '../audio/toneUri';
 import {
   exerciseOctave,
@@ -98,6 +99,7 @@ export function HoldChordScreen({ onBack }: Props) {
   };
 
   const startRound = () => {
+    beginSoundingRound();
     clearTimers();
     stopTone();
     const next = pickHoldChord({

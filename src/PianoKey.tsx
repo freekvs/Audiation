@@ -28,7 +28,7 @@ export function PianoKeyButton({
       return;
     }
 
-    void playHz(note.hz).catch(() => undefined);
+    void playHz(note.hz, { klank: 'sec' }).catch(() => undefined);
   }, [playToken, note.hz]);
 
   if (note.color === 'black') {

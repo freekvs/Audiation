@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Linking, Pressable, StyleSheet, Text, View } from 'react-native';
 
 import { APP_EMAIL } from '../about';
+import { useKlank } from '../audio/klank';
 import { useExercisePrefs } from '../exercisePrefs';
 import { fmt, useT, type Strings } from '../i18n';
 import {
@@ -14,6 +15,7 @@ import {
 import { COLORS } from '../theme';
 import { AppScreen, useCompactLayout } from '../ui/AppScreen';
 import { ChoiceHelp } from '../ui/ChoiceHelp';
+import { KlankChips } from '../ui/KlankChips';
 import { LanguageChips } from '../ui/LanguageChips';
 import { NamingChips } from '../ui/NamingChips';
 
@@ -35,8 +37,11 @@ export function HomeScreen({ onOpen }: Props) {
   const { compact } = useCompactLayout();
   const t = useT();
   const { isSimple, applySimple, hasMine, mineIsCurrent, saveMine, applyMine } = useExercisePrefs();
+  const { isSec } = useKlank();
   const [moreOpen, setMoreOpen] = useState(false);
+  const [advancedOpen, setAdvancedOpen] = useState(false);
   const [aboutOpen, setAboutOpen] = useState(false);
+  const simpleDone = isSimple && isSec;
 
   return (
     <AppScreen>
@@ -103,7 +108,7 @@ export function HomeScreen({ onOpen }: Props) {
         <Text style={styles.sectionTitle}>{t.home.practiceTitle}</Text>
         <Text style={styles.sectionHint}>{t.home.practiceHint}</Text>
         <View
-          style={[styles.simpleCard, isSimple && styles.simpleCardDone]}
+          style={[styles.simpleCard, simpleDone && styles.simpleCardDone]}
         >
           <ChoiceHelp
             label={t.home.simpleTitle}
@@ -113,16 +118,16 @@ export function HomeScreen({ onOpen }: Props) {
           <Pressable
             accessibilityRole="button"
             accessibilityLabel={t.home.simpleA11y}
-            accessibilityState={{ selected: isSimple }}
+            accessibilityState={{ selected: simpleDone }}
             onPress={applySimple}
             style={({ pressed }) => [
               styles.simpleAction,
-              isSimple && styles.simpleActionDone,
+              simpleDone && styles.simpleActionDone,
               pressed && styles.cardPressed,
             ]}
           >
-            <Text style={[styles.simpleActionText, isSimple && styles.simpleActionTextDone]}>
-              {isSimple ? t.home.simpleDone : t.home.simpleButton}
+            <Text style={[styles.simpleActionText, simpleDone && styles.simpleActionTextDone]}>
+              {simpleDone ? t.home.simpleDone : t.home.simpleButton}
             </Text>
           </Pressable>
         </View>
@@ -173,6 +178,26 @@ export function HomeScreen({ onOpen }: Props) {
             />
           ))}
         </View>
+      </View>
+
+      <View style={styles.explain}>
+        <View style={styles.moreHead}>
+          <ChoiceHelp
+            label={t.home.advancedTitle}
+            body={t.help.advanced}
+            a11y={fmt(t.help.moreA11y, { term: t.home.advancedTitle })}
+          />
+          <Pressable
+            accessibilityRole="button"
+            accessibilityState={{ expanded: advancedOpen }}
+            accessibilityLabel={t.home.advancedTitle}
+            onPress={() => setAdvancedOpen((open) => !open)}
+            style={({ pressed }) => [pressed && styles.cardPressed]}
+          >
+            <Text style={styles.moreToggle}>{advancedOpen ? t.home.moreClose : t.home.moreOpen}</Text>
+          </Pressable>
+        </View>
+        {advancedOpen ? <KlankChips /> : <Text style={styles.sectionHint}>{t.home.advancedHint}</Text>}
       </View>
 
       <View style={styles.section}>

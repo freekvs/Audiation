@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Pressable, StyleSheet, Switch, Text, View } from 'react-native';
 
 import { playHeld, playGiven, stopHeld } from '../audio/heldTones';
+import { beginSoundingRound } from '../audio/klank';
 import { playDualHz, playHz, stopTone } from '../audio/toneUri';
 import { EXERCISE_OCTAVES } from '../exerciseNotes';
 import { useExercisePrefs } from '../exercisePrefs';
@@ -145,6 +146,7 @@ export function HarmonyScreen({ onBack }: Props) {
   };
 
   const startRound = () => {
+    beginSoundingRound();
     clearTimers();
     stopHeld();
     stopTone();

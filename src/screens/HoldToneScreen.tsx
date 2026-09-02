@@ -15,6 +15,7 @@ import {
   type ListenControls,
   type PitchVerdict,
 } from '../audio/pitch';
+import { beginSoundingRound } from '../audio/klank';
 import { playHz, stopTone } from '../audio/toneUri';
 import { exerciseOctave, EXERCISE_OCTAVES, type ExerciseNote, type ExerciseOctave } from '../exerciseNotes';
 import { useExercisePrefs } from '../exercisePrefs';
@@ -140,6 +141,7 @@ export function HoldToneScreen({ onBack }: Props) {
   };
 
   const startRound = () => {
+    beginSoundingRound();
     listenControls.current.cancelled = true;
     clearTimers();
     const next = pickNote(octave.notes, note.id);

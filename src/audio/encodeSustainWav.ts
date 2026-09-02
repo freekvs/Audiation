@@ -1,7 +1,13 @@
+import type { KlankId } from './klank';
+import { encodeVoicedWav } from './encodeVoice';
+
 const SAMPLE_RATE = 48000;
 const AMPLITUDE = 0.3;
 
-export function encodeSustainWav(frequency: number): Uint8Array {
+export function encodeSustainWav(frequency: number, klank: KlankId = 'sec'): Uint8Array {
+  if (klank !== 'sec') {
+    return encodeVoicedWav([frequency], klank, 'sustain');
+  }
   const cycles = Math.max(8, Math.round(frequency * 0.28));
   const count = Math.max(64, Math.round((cycles * SAMPLE_RATE) / frequency));
   const dataSize = count * 2;

@@ -88,6 +88,8 @@ const nl = {
     savedApply: 'Zet mijn instellingen',
     savedA11y: 'Sla de huidige oefeninstellingen op',
     savedApplyA11y: 'Zet je opgeslagen instellingen terug',
+    advancedTitle: 'Gevorderd',
+    advancedHint: 'Klinkkarakter. Eerst sec. Daarna combo, band of orkest.',
     toolsTitle: 'Gereedschap',
     toolKicker: 'Gereedschap',
     stepA11y: 'Stap {step}, {title}, {level}',
@@ -108,6 +110,16 @@ const nl = {
     title: 'Benaming',
     hint: 'Alleen de trede in C-majeur. De nootnaam C D E blijft ernaast.',
     a11y: 'Benaming {hint}',
+  },
+  klank: {
+    title: 'Klinkkarakter',
+    hint: 'Geen instrumenten. Hoe stemmen samen spreken. Sec is de basis.',
+    a11y: 'Klinkkarakter {label}',
+    sec: 'Sec',
+    combo: 'Combo',
+    band: 'Band',
+    orchestra: 'Orkest',
+    random: 'Aselect',
   },
   help: {
     moreA11y: 'Meer over {term}',
@@ -139,9 +151,23 @@ const nl = {
     shell:
       'Gegeven is wat je hoort vóór je schuift. Drieklank: grondtoon, terts, kwint. Vierklank: plus de septiem. Shell: alleen terts en septiem, zonder grondtoon of kwint. De 9, 11 of 13 telt nog steeds vanaf die grondtoon.',
     simple:
-      'Tik de knop om alle oefeningen op de makkelijkste stand te zetten. Eén octaaf, voorbeeldtoon aan, alleen majeur, drieklank in grondligging, korte lijnen, cadens met grondtoon. In een oefening kun je daarna zelf uitbreiden. Tik de knop opnieuw als je terug wilt naar eenvoudig.',
+      'Tik de knop om alle oefeningen op de makkelijkste stand te zetten. Eén octaaf, voorbeeldtoon aan, alleen majeur, drieklank in grondligging, korte lijnen, cadens met grondtoon. Klinkkarakter terug op sec. In een oefening kun je daarna zelf uitbreiden. Tik de knop opnieuw als je terug wilt naar eenvoudig.',
     saved:
       'Alleen als je in een oefening opties wijzigt. Ga je daarna naar start, dan wordt die stand bewaard als de jouwe. Ongewijzigd verlaten slaat niets extra op. Hier kun je die stand ook meteen opslaan of terugzetten, ook nadat je Meest 1-voudige hebt getikt.',
+    advanced:
+      'Open dit pas als sec vastzit: één kale toon, afstand of akkoord innerlijk vasthouden. Dit zijn geen nieuwe oefeningen. Dezelfde stappen, andere samenspraak. Zoals je in muziek van combo naar orkest luistert. Ritme, piano en ijking horen hier niet bij.',
+    klank:
+      'Kies hoe de oefentoon klinkt. Niet als piano of viool: als samenspraak. Sec eerst, altijd. Combo, band of orkest vast: één karakter de hele oefening, om te ontleden. Aselect: per nieuwe ronde een van die drie. Opnieuw in dezelfde ronde houdt hetzelfde karakter. Meest 1-voudige zet dit op sec.',
+    klankSec:
+      'Begin hier. Kale toon, minste kleur, meeste identiteit. Houd de toon of afstand vast in de stilte. Kom hierop terug als combo, band of orkest afleidt.',
+    klankCombo:
+      'Weinig stemmen, nog uit elkaar te horen. Alsof een klein ensemble samen speelt. Advies: kies dit als sec vastzit. Ontleed of je de toon nog hoort én de stemmen.',
+    klankBand:
+      'Dichter, meer aanzet. Alsof een popband samen klinkt. Advies: de identiteit moet de punch overleven. Niet eerder dan na sec, liever na combo.',
+    klankOrchestra:
+      'Meer massa, langere staart, stemmen versmelten. Alsof een groot orkest. Advies: ontleed of het nog de toon is, of alleen de wolk. Laatste vaste stap voor aselect.',
+    klankRandom:
+      'Elke nieuwe ronde combo, band of orkest. Zelfde oefening, andere samenspraak. Advies: pas als één vast karakter vastzit. Anders gaat het oor de kleur achterna, niet de toon.',
   },
   drone: {
     title: 'Dronegeluid',
@@ -776,6 +802,8 @@ const en: Strings = {
     savedApply: 'Use my settings',
     savedA11y: 'Save the current exercise settings',
     savedApplyA11y: 'Restore your saved settings',
+    advancedTitle: 'Advanced',
+    advancedHint: 'Sound character. Sec first. Then combo, band or orchestra.',
     toolsTitle: 'Tools',
     toolKicker: 'Tool',
     stepA11y: 'Step {step}, {title}, {level}',
@@ -796,6 +824,16 @@ const en: Strings = {
     title: 'Naming',
     hint: 'Only the degree in C major. The letter name C D E stays beside it.',
     a11y: 'Naming {hint}',
+  },
+  klank: {
+    title: 'Sound character',
+    hint: 'Not instruments. How voices speak together. Sec is the base.',
+    a11y: 'Sound character {label}',
+    sec: 'Plain',
+    combo: 'Combo',
+    band: 'Band',
+    orchestra: 'Orchestra',
+    random: 'Random',
   },
   help: {
     moreA11y: 'More about {term}',
@@ -827,9 +865,23 @@ const en: Strings = {
     shell:
       'Given is what you hear before you slide. Triad: root, third, fifth. Seventh: plus the seventh. Shell: third and seventh only, no root or fifth. The 9, 11 or 13 still counts from that root.',
     simple:
-      'Tap the button to set every exercise to the easiest options. One octave, cue tone on, major only, triad in root position, short lines, cadence with tonic. Inside an exercise you can open them up later. Tap the button again to return to simplest.',
+      'Tap the button to set every exercise to the easiest options. One octave, cue tone on, major only, triad in root position, short lines, cadence with tonic. Sound character back to plain. Inside an exercise you can open them up later. Tap the button again to return to simplest.',
     saved:
       'Only if you change options in an exercise. When you then go back to home, that setup is kept as yours. Leaving unchanged does not save extra. Here you can also save or restore that setup, even after tapping Simplest settings.',
+    advanced:
+      'Open this only after plain holds: one bare tone, interval or chord inwardly. These are not new exercises. Same steps, different speaking-together. As you listen from combo to orchestra in music. Rhythm, piano and calibration stay out of this.',
+    klank:
+      'Choose how the practice tone speaks. Not as piano or violin: as voices together. Plain first, always. Combo, band or orchestra fixed: one character for the whole exercise, to take apart. Random: each new round one of those three. Repeat in the same round keeps the same character. Simplest settings puts this back to plain.',
+    klankSec:
+      'Start here. Bare tone, least colour, most identity. Hold the tone or distance in silence. Come back here if combo, band or orchestra pulls you off.',
+    klankCombo:
+      'Few voices, still separable. As if a small ensemble is playing together. Advice: choose this once plain holds. Take apart whether you still hear the tone and the voices.',
+    klankBand:
+      'Denser, more attack. As if a pop band is sounding together. Advice: the identity must survive the punch. Not before plain, preferably after combo.',
+    klankOrchestra:
+      'More mass, longer tail, voices blend. As if a large orchestra. Advice: take apart whether it is still the tone, or only the cloud. Last fixed step before random.',
+    klankRandom:
+      'Each new round combo, band or orchestra. Same exercise, different speaking-together. Advice: only after one fixed character holds. Otherwise the ear chases colour, not the tone.',
   },
   drone: {
     title: 'Drone',

@@ -5,6 +5,7 @@ import { encodeChordWav } from './encodeChordWav';
 import { encodeDualToneWav } from './encodeDualToneWav';
 import { encodeSustainWav } from './encodeSustainWav';
 import { encodeToneWav } from './encodeToneWav';
+import { getSoundingKlank, type KlankId } from './klank';
 
 const uriCache = new Map<string, string>();
 const pending = new Map<string, Promise<string>>();
@@ -13,28 +14,28 @@ let tonePlayer: ReturnType<typeof createAudioPlayer> | null = null;
 let lastUri: string | null = null;
 let playSeq = 0;
 
-export async function getToneUri(hz: number): Promise<string> {
-  return getCachedUri(`tone-${Math.round(hz * 100)}`, () => encodeToneWav(hz));
+export async function getToneUri(hz: number, klank: KlankId = getSoundingKlank()): Promise<string> {
+  return getCachedUri(`tone-${klank}-${Math.round(hz * 100)}`, () => encodeToneWav(hz, klank));
 }
 
-async function getSustainUri(hz: number): Promise<string> {
-  return getCachedUri(`hold-${Math.round(hz * 100)}`, () => encodeSustainWav(hz));
+async function getSustainUri(hz: number, klank: KlankId = getSoundingKlank()): Promise<string> {
+  return getCachedUri(`hold-${klank}-${Math.round(hz * 100)}`, () => encodeSustainWav(hz, klank));
 }
 
 export { getSustainUri };
 
-async function getChordUri(notesHz: number[]): Promise<string> {
-  const key = `chord-${notesHz
+async function getChordUri(notesHz: number[], klank: KlankId = getSoundingKlank()): Promise<string> {
+  const key = `chord-${klank}-${notesHz
     .map((hz) => Math.round(hz * 100))
     .sort((a, b) => a - b)
     .join('-')}`;
-  return getCachedUri(key, () => encodeChordWav(notesHz));
+  return getCachedUri(key, () => encodeChordWav(notesHz, klank));
 }
 
-async function getDualUri(aHz: number, bHz: number): Promise<string> {
+async function getDualUri(aHz: number, bHz: number, klank: KlankId = getSoundingKlank()): Promise<string> {
   const [low, high] = aHz <= bHz ? [aHz, bHz] : [bHz, aHz];
-  const key = `dual-${Math.round(low * 100)}-${Math.round(high * 100)}`;
-  return getCachedUri(key, () => encodeDualToneWav(low, high));
+  const key = `dual-${klank}-${Math.round(low * 100)}-${Math.round(high * 100)}`;
+  return getCachedUri(key, () => encodeDualToneWav(low, high, klank));
 }
 
 async function getCachedUri(key: string, encode: () => Uint8Array): Promise<string> {
@@ -101,10 +102,11 @@ export function stopTone() {
   safePause();
 }
 
-export async function playHz(hz: number, options?: { loop?: boolean }): Promise<void> {
+export async function playHz(hz: number, options?: { loop?: boolean; klank?: KlankId }): Promise<void> {
   const seq = (playSeq += 1);
   const loop = options?.loop === true;
-  const uri = loop ? await getSustainUri(hz) : await getToneUri(hz);
+  const klank = options?.klank ?? getSoundingKlank();
+  const uri = loop ? await getSustainUri(hz, klank) : await getToneUri(hz, klank);
   if (seq !== playSeq) {
     return;
   }
@@ -128,9 +130,9 @@ export async function playHz(hz: number, options?: { loop?: boolean }): Promise<
   player.play();
 }
 
-export async function playDualHz(aHz: number, bHz: number): Promise<void> {
+export async function playDualHz(aHz: number, bHz: number, klank: KlankId = getSoundingKlank()): Promise<void> {
   const seq = (playSeq += 1);
-  const uri = await getDualUri(aHz, bHz);
+  const uri = await getDualUri(aHz, bHz, klank);
   if (seq !== playSeq) {
     return;
   }
@@ -152,9 +154,9 @@ export async function playDualHz(aHz: number, bHz: number): Promise<void> {
   player.play();
 }
 
-export async function playChordHz(notesHz: number[]): Promise<void> {
+export async function playChordHz(notesHz: number[], klank: KlankId = getSoundingKlank()): Promise<void> {
   const seq = (playSeq += 1);
-  const uri = await getChordUri(notesHz);
+  const uri = await getChordUri(notesHz, klank);
   if (seq !== playSeq) {
     return;
   }

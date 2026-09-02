@@ -1,10 +1,16 @@
+import type { KlankId } from './klank';
+import { encodeVoicedWav } from './encodeVoice';
+
 const SAMPLE_RATE = 48000;
 const DURATION = 1.18;
 const ATTACK_S = 0.018;
 const RELEASE_S = 0.16;
 const DECAY = 1.9;
 
-export function encodeChordWav(notesHz: number[]): Uint8Array {
+export function encodeChordWav(notesHz: number[], klank: KlankId = 'sec'): Uint8Array {
+  if (klank !== 'sec') {
+    return encodeVoicedWav(notesHz, klank, 'chord');
+  }
   const freqs = notesHz.filter((hz) => hz > 0 && Number.isFinite(hz));
   const count = Math.floor(SAMPLE_RATE * DURATION);
   const dataSize = count * 2;

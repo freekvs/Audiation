@@ -67,7 +67,7 @@ export function CalibrateScreen({ onBack }: Props) {
 
   const playTone = () => {
     safePause(replayRef.current);
-    void playHz(TARGET_HZ).catch(() => undefined);
+    void playHz(TARGET_HZ, { klank: 'sec' }).catch(() => undefined);
   };
 
   const playRecording = () => {
