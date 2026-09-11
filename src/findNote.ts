@@ -1,6 +1,7 @@
 import { exactCents, hzToNoteLabel } from './audio/pitch';
 import {
   EXERCISE_OCTAVES,
+  exerciseOctave,
   type ExerciseNote,
 } from './exerciseNotes';
 import { intervalNameFromCents, pitchDirection, type IntervalCopy } from './i18n';
@@ -10,6 +11,7 @@ const MAX_OFFSET_CENTS = 900;
 const MIN_CLEAR_CENTS = 200;
 
 export type FindNoteRound = {
+  source: ExerciseNote;
   target: ExerciseNote;
   lowHz: number;
   highHz: number;
@@ -107,6 +109,49 @@ export function tonesInsideSlider(toneOctaves: number[], sliderOctaves: number[]
   return inside.length > 0 ? inside : [min];
 }
 
+export function noteLetter(note: ExerciseNote): string {
+  return note.name.replace(/\d+$/, '');
+}
+
+export function noteOctave(note: ExerciseNote): number {
+  const match = /\d+$/.exec(note.name) ?? /\d+$/.exec(note.id);
+  return match ? Number(match[0]) : 4;
+}
+
+export function noteNameWithOctave(note: ExerciseNote): string {
+  return `${noteLetter(note)}${noteOctave(note)}`;
+}
+
+export function noteInOctave(letter: string, octave: number): ExerciseNote | undefined {
+  return exerciseOctave(octave).notes.find((item) => noteLetter(item) === letter);
+}
+
+function closestOctave(home: number, octaves: number[]): number {
+  return octaves.reduce((best, octave) =>
+    Math.abs(octave - home) < Math.abs(best - home) ? octave : best,
+  );
+}
+
+export function sourceForLetter(from: ExerciseNote, toneOctaves: number[]): ExerciseNote {
+  const octaves = [...(toneOctaves.length > 0 ? toneOctaves : [noteOctave(from)])].sort(
+    (a, b) => a - b,
+  );
+  if (octaves.includes(noteOctave(from))) {
+    return from;
+  }
+  return noteInOctave(noteLetter(from), closestOctave(noteOctave(from), octaves)) ?? from;
+}
+
+export function searchTargetFor(source: ExerciseNote, sliderOctaves: number[]): ExerciseNote {
+  const filled = filledOctaves(sliderOctaves);
+  if (filled.includes(noteOctave(source))) {
+    return source;
+  }
+  return (
+    noteInOctave(noteLetter(source), closestOctave(noteOctave(source), filled)) ?? source
+  );
+}
+
 function targetPool(toneOctaves: number[], exceptId?: string): ExerciseNote[] {
   const notes: ExerciseNote[] = [];
   for (const octave of toneOctaves) {
@@ -140,26 +185,57 @@ function pickStartCents(targetCents: number, spanCents: number): number {
   return quantizeSliderCents(Math.max(0, Math.min(spanCents, targetCents + MIN_OFFSET_CENTS)), spanCents);
 }
 
+export function makeFindNoteRound(
+  source: ExerciseNote,
+  sliderOctaves: number[],
+  startCents?: number,
+): FindNoteRound {
+  const span = sliderSpanFor(sliderOctaves);
+  const target = searchTargetFor(source, sliderOctaves);
+  const targetCents = centsFromHz(span.lowHz, target.hz);
+  return {
+    source,
+    target,
+    lowHz: span.lowHz,
+    highHz: span.highHz,
+    targetCents,
+    startCents:
+      startCents == null
+        ? pickStartCents(targetCents, span.spanCents)
+        : quantizeSliderCents(startCents, span.spanCents),
+    spanCents: span.spanCents,
+    lowLabel: span.lowLabel,
+    highLabel: span.highLabel,
+  };
+}
+
 export function pickFindNoteRound(
   toneOctaves: number[],
   sliderOctaves: number[],
   exceptId?: string,
 ): FindNoteRound {
-  const span = sliderSpanFor(sliderOctaves);
-  const tones = tonesInsideSlider(toneOctaves, sliderOctaves);
+  const tones = toneOctaves.length > 0 ? toneOctaves : [4];
   const pool = targetPool(tones, exceptId);
-  const target = pool[Math.floor(Math.random() * pool.length)]!;
-  const targetCents = centsFromHz(span.lowHz, target.hz);
-  return {
-    target,
-    lowHz: span.lowHz,
-    highHz: span.highHz,
-    targetCents,
-    startCents: pickStartCents(targetCents, span.spanCents),
-    spanCents: span.spanCents,
-    lowLabel: span.lowLabel,
-    highLabel: span.highLabel,
-  };
+  const source = pool[Math.floor(Math.random() * pool.length)]!;
+  return makeFindNoteRound(source, sliderOctaves);
+}
+
+export function remapFindNoteRound(
+  round: FindNoteRound,
+  toneOctaves: number[],
+  sliderOctaves: number[],
+): FindNoteRound {
+  const source = sourceForLetter(round.source ?? round.target, toneOctaves);
+  const next = makeFindNoteRound(source, sliderOctaves);
+  if (
+    next.source.id === (round.source ?? round.target).id &&
+    next.target.id === round.target.id &&
+    next.lowHz === round.lowHz &&
+    next.spanCents === round.spanCents
+  ) {
+    return { ...next, startCents: round.startCents };
+  }
+  return next;
 }
 
 export function describeFindNoteMiss(

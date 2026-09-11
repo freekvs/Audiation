@@ -1,6 +1,8 @@
 import { setAudioModeAsync } from 'expo-audio';
 import { useEffect, useState } from 'react';
 
+import { armWebAudioUnlock } from './src/audio/webUnlock';
+
 import {
   guessLocale,
   loadLocale,
@@ -35,6 +37,7 @@ export default function App() {
   const [naming, setNamingState] = useState<NamingSystem>('solfege');
 
   useEffect(() => {
+    armWebAudioUnlock();
     void setAudioModeAsync({
       playsInSilentMode: true,
       shouldPlayInBackground: false,

@@ -27,6 +27,8 @@ import {
 } from '../rhythm';
 import { COLORS } from '../theme';
 import { AppScreen, useCompactLayout } from '../ui/AppScreen';
+import { RoundActions } from '../ui/RoundActions';
+import { StartButton } from '../ui/StartButton';
 
 type Mode = 'preset' | 'compose';
 type Phase = 'idle' | 'listening' | 'repeating' | 'composing' | 'check';
@@ -333,6 +335,17 @@ export function RhythmScreen({ onBack }: Props) {
       <Text style={styles.tagline}>{t.practice.rhythm.tagline}</Text>
       <Text style={styles.subtitle}>{body}</Text>
 
+      {phase === 'check' ? (
+        <RoundActions
+          againA11y={t.rhythm.againA11y}
+          nextA11y={t.rhythm.nextA11y}
+          nextLabel={t.common.next}
+          onAgain={repeatRound}
+          onNext={nextRound}
+          preferAgain={score != null && score.quality !== 'hit'}
+        />
+      ) : null}
+
       {settingsOpen ? (
         <View style={styles.octaveBlock}>
           <Text style={styles.optionTitle}>{t.rhythm.source}</Text>
@@ -481,40 +494,15 @@ export function RhythmScreen({ onBack }: Props) {
 
       {phase === 'listening' || phase === 'repeating' || phase === 'composing' ? (
         <View style={styles.buttonPlaceholder} />
-      ) : phase === 'check' ? (
-        <View style={styles.actions}>
-          <Pressable
-            accessibilityRole="button"
-            accessibilityLabel={t.rhythm.againA11y}
-            onPress={repeatRound}
-            style={({ pressed }) => [
-              styles.button,
-              styles.buttonSecondary,
-              pressed && styles.buttonPressed,
-            ]}
-          >
-            <Text style={[styles.buttonText, styles.buttonSecondaryText]}>{t.common.again}</Text>
-          </Pressable>
-          <Pressable
-            accessibilityRole="button"
-            accessibilityLabel={t.rhythm.nextA11y}
-            onPress={nextRound}
-            style={({ pressed }) => [styles.button, pressed && styles.buttonPressed]}
-          >
-            <Text style={styles.buttonText}>{t.common.next}</Text>
-          </Pressable>
-        </View>
-      ) : (
-        <Pressable
-          accessibilityRole="button"
+      ) : phase === 'check' ? null : (
+        <StartButton
           accessibilityLabel={t.common.startA11y}
+          label={mode === 'compose' ? t.rhythm.composeStart : t.common.start}
           onPress={startRound}
-          style={({ pressed }) => [styles.button, pressed && styles.buttonPressed]}
-        >
-          <Text style={styles.buttonText}>
-            {mode === 'compose' ? t.rhythm.composeStart : t.common.start}
-          </Text>
-        </Pressable>
+          pressedStyle={styles.buttonPressed}
+          style={styles.button}
+          textStyle={styles.buttonText}
+        />
       )}
     </AppScreen>
   );

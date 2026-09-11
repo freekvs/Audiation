@@ -11,6 +11,7 @@ import { PianoKeyboard } from '../PianoKeyboard';
 import { COLORS } from '../theme';
 import { AppScreen, useCompactLayout } from '../ui/AppScreen';
 import { ChoiceHelp } from '../ui/ChoiceHelp';
+import { AudioReadyLamp } from '../ui/StartButton';
 
 type Props = {
   onBack: () => void;
@@ -26,7 +27,10 @@ export function PianoScreen({ onBack }: Props) {
 
   return (
     <AppScreen onBack={onBack}>
-      <Text style={[styles.title, compact && styles.titleCompact]}>{t.piano.title}</Text>
+      <View style={styles.titleRow}>
+        <AudioReadyLamp announce />
+        <Text style={[styles.title, compact && styles.titleCompact]}>{t.piano.title}</Text>
+      </View>
       <ChoiceHelp
         label={t.help.cMajorTitle}
         body={t.help.cMajor}
@@ -83,11 +87,17 @@ export function PianoScreen({ onBack }: Props) {
 }
 
 const styles = StyleSheet.create({
+  titleRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+  },
   title: {
     fontSize: 40,
     fontWeight: '700',
     color: COLORS.text,
     letterSpacing: 0.4,
+    flexShrink: 1,
   },
   titleCompact: {
     fontSize: 32,

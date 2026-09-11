@@ -31,3 +31,19 @@ export const DEFAULT_EXERCISE_OCTAVE = EXERCISE_OCTAVES.find((item) => item.octa
 export function exerciseOctave(octave: number): ExerciseOctave {
   return EXERCISE_OCTAVES.find((item) => item.octave === octave) ?? DEFAULT_EXERCISE_OCTAVE;
 }
+
+export function notesFromOctaves(octaves: number[]): ExerciseNote[] {
+  const selected = octaves.length > 0 ? octaves : [4];
+  const notes: ExerciseNote[] = [];
+  const seen = new Set<string>();
+  for (const octave of selected) {
+    for (const note of exerciseOctave(octave).notes) {
+      if (seen.has(note.id)) {
+        continue;
+      }
+      seen.add(note.id);
+      notes.push(note);
+    }
+  }
+  return notes.length > 0 ? notes : DEFAULT_EXERCISE_OCTAVE.notes;
+}

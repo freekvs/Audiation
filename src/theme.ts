@@ -6,6 +6,7 @@ export const COLORS = {
   badge: '#6F6A64',
   accent: '#E07A5F',
   hit: '#81B29A',
+  lampWait: '#D94A38',
   close: '#F2CC8F',
   ink: '#1D1A16',
   card: '#221E1A',

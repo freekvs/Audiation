@@ -12,8 +12,9 @@ import {
   octaveLabelList,
   pickFindNoteRound,
   quantizeSliderCents,
+  noteNameWithOctave,
+  remapFindNoteRound,
   sliderSpanFor,
-  tonesInsideSlider,
   toggleSliderOctave,
   toggleToneOctave,
   type FindNoteRound,
@@ -22,6 +23,8 @@ import { directionLabel, fmt, useT } from '../i18n';
 import { relativeLabel, useNaming } from '../naming';
 import { COLORS } from '../theme';
 import { AppScreen, useCompactLayout } from '../ui/AppScreen';
+import { RoundActions } from '../ui/RoundActions';
+import { StartButton } from '../ui/StartButton';
 import { PitchSlider } from '../ui/PitchSlider';
 
 type Phase = 'idle' | 'preview' | 'seeking' | 'check';
@@ -97,14 +100,12 @@ export function FindNoteScreen({ onBack }: Props) {
     if (octave < span[0]! || octave > span[span.length - 1]!) {
       nextSlider = toggleSliderOctave(sliderOctaves, octave);
     }
-    setToneOctaves(tonesInsideSlider(nextTones, nextSlider));
+    setToneOctaves(nextTones);
     setSliderOctaves(filledOctaves(nextSlider));
   };
 
   const chooseSliderOctave = (octave: number) => {
-    const nextSlider = toggleSliderOctave(sliderOctaves, octave);
-    setSliderOctaves(nextSlider);
-    setToneOctaves(tonesInsideSlider(toneOctaves, nextSlider));
+    setSliderOctaves(toggleSliderOctave(sliderOctaves, octave));
   };
 
   const beginRound = (next: FindNoteRound) => {
@@ -114,7 +115,7 @@ export function FindNoteScreen({ onBack }: Props) {
 
     if (hearCue) {
       setPhase('preview');
-      void playHz(next.target.hz).catch(() => undefined);
+      void playHz(next.source.hz).catch(() => undefined);
       timers.current.push(
         setTimeout(() => {
           stopTone();
@@ -131,7 +132,7 @@ export function FindNoteScreen({ onBack }: Props) {
     beginSoundingRound();
     clearTimers();
     stopTone();
-    const next = pickFindNoteRound(toneOctaves, sliderOctaves, round.target.id);
+    const next = pickFindNoteRound(toneOctaves, sliderOctaves, round.source.id);
     setRound(next);
     beginRound(next);
   };
@@ -139,7 +140,9 @@ export function FindNoteScreen({ onBack }: Props) {
   const repeatRound = () => {
     clearTimers();
     stopTone();
-    beginRound(round);
+    const next = remapFindNoteRound(round, toneOctaves, sliderOctaves);
+    setRound(next);
+    beginRound(next);
   };
 
   const onSlide = (cents: number) => {
@@ -155,21 +158,21 @@ export function FindNoteScreen({ onBack }: Props) {
     clearTimers();
     stopTone();
     const guess = hzFromCents(round.lowHz, sliderCents);
-    const target = round.target.hz;
+    const base = round.source.hz;
     setCompareStep(1);
     void playHz(guess).catch(() => undefined);
 
     timers.current.push(
       setTimeout(() => {
         setCompareStep(2);
-        void playHz(target).catch(() => undefined);
+        void playHz(base).catch(() => undefined);
       }, CHECK_PLAY_MS + CHECK_GAP_MS),
     );
 
     timers.current.push(
       setTimeout(() => {
         setCompareStep(3);
-        void playDualHz(guess, target).catch(() => undefined);
+        void playDualHz(guess, base).catch(() => undefined);
       }, (CHECK_PLAY_MS + CHECK_GAP_MS) * 2),
     );
 
@@ -187,8 +190,9 @@ export function FindNoteScreen({ onBack }: Props) {
     playCompare();
   };
 
-  const letter = round.target.name.replace(/[0-9]/g, '');
-  const degree = relativeLabel(round.target, naming);
+  const letter = round.source.name.replace(/[0-9]/g, '');
+  const degree = relativeLabel(round.source, naming);
+  const otherOctave = round.source.id !== round.target.id;
   const toneList = octaveLabelList(toneOctaves);
 
   const title =
@@ -208,11 +212,18 @@ export function FindNoteScreen({ onBack }: Props) {
       : phase === 'preview'
         ? t.find.preview
         : phase === 'seeking'
-          ? hearCue
-            ? t.find.seekingCue
-            : t.find.seekingSilent
+          ? otherOctave
+            ? fmt(t.find.otherOctave, {
+                source: noteNameWithOctave(round.source),
+                target: noteNameWithOctave(round.target),
+              })
+            : hearCue
+              ? t.find.seekingCue
+              : t.find.seekingSilent
           : result?.quality === 'hit'
-            ? fmt(t.find.hit, { letter })
+            ? otherOctave
+              ? fmt(t.find.hitOther, { letter })
+              : fmt(t.find.hit, { letter })
             : result?.quality === 'close'
               ? fmt(t.find.close, {
                   letter,
@@ -232,6 +243,17 @@ export function FindNoteScreen({ onBack }: Props) {
     <AppScreen onBack={onBack}>
       <Text style={[styles.title, compact && styles.titleCompact]}>{title}</Text>
       <Text style={styles.subtitle}>{body}</Text>
+
+      {phase === 'check' ? (
+        <RoundActions
+          againA11y={t.find.againA11y}
+          nextA11y={t.find.nextA11y}
+          nextLabel={t.find.next}
+          onAgain={repeatRound}
+          onNext={startRound}
+          preferAgain={result != null && result.quality !== 'hit'}
+        />
+      ) : null}
 
       {settingsOpen ? (
         <View style={styles.optionRow}>
@@ -329,7 +351,9 @@ export function FindNoteScreen({ onBack }: Props) {
           <Text style={styles.letterKicker}>{t.find.letterKicker}</Text>
           <Text style={[styles.letter, compact && styles.letterCompact]}>{letter}</Text>
           <Text style={styles.letterHint}>
-            {degree} · {round.target.name}
+            {otherOctave
+              ? `${degree} · ${noteNameWithOctave(round.source)} → ${noteNameWithOctave(round.target)}`
+              : `${degree} · ${noteNameWithOctave(round.source)}`}
           </Text>
         </View>
       ) : null}
@@ -363,8 +387,21 @@ export function FindNoteScreen({ onBack }: Props) {
       {phase === 'check' && result ? (
         <View style={styles.compare}>
           <Text style={styles.compareLine}>
-            {fmt(t.find.realNote, { letter, hz: Math.round(round.target.hz) })}
+            {otherOctave
+              ? fmt(t.find.baseNote, {
+                  letter: noteNameWithOctave(round.source),
+                  hz: Math.round(round.source.hz),
+                })
+              : fmt(t.find.realNote, { letter, hz: Math.round(round.source.hz) })}
           </Text>
+          {otherOctave ? (
+            <Text style={styles.compareLine}>
+              {fmt(t.find.searchNote, {
+                letter: noteNameWithOctave(round.target),
+                hz: Math.round(round.target.hz),
+              })}
+            </Text>
+          ) : null}
           <Text style={styles.compareLine}>
             {fmt(t.find.yourTone, { label: result.chosenLabel, hz: Math.round(chosenHz) })}
           </Text>
@@ -381,7 +418,9 @@ export function FindNoteScreen({ onBack }: Props) {
             {compareStep === 1
               ? t.find.compareYour
               : compareStep === 2
-                ? t.find.compareReal
+                ? otherOctave
+                  ? t.find.compareBase
+                  : t.find.compareReal
                 : compareStep === 3
                   ? t.find.compareTogether
                   : t.find.compareIntro}
@@ -404,11 +443,11 @@ export function FindNoteScreen({ onBack }: Props) {
           </Pressable>
           <Pressable
             accessibilityRole="button"
-            accessibilityLabel={t.find.hearRealA11y}
+            accessibilityLabel={otherOctave ? t.find.hearBaseA11y : t.find.hearRealA11y}
             onPress={() => {
               clearTimers();
               setCompareStep(2);
-              void playHz(round.target.hz).catch(() => undefined);
+              void playHz(round.source.hz).catch(() => undefined);
             }}
             style={({ pressed }) => [
               styles.button,
@@ -416,7 +455,9 @@ export function FindNoteScreen({ onBack }: Props) {
               pressed && styles.buttonPressed,
             ]}
           >
-            <Text style={[styles.buttonText, styles.buttonSecondaryText]}>{t.find.hearReal}</Text>
+            <Text style={[styles.buttonText, styles.buttonSecondaryText]}>
+              {otherOctave ? t.find.hearBase : t.find.hearReal}
+            </Text>
           </Pressable>
           <Pressable
             accessibilityRole="button"
@@ -424,7 +465,7 @@ export function FindNoteScreen({ onBack }: Props) {
             onPress={() => {
               clearTimers();
               setCompareStep(3);
-              void playDualHz(chosenHz, round.target.hz).catch(() => undefined);
+              void playDualHz(chosenHz, round.source.hz).catch(() => undefined);
             }}
             style={({ pressed }) => [
               styles.button,
@@ -460,38 +501,15 @@ export function FindNoteScreen({ onBack }: Props) {
         </Pressable>
       ) : phase === 'preview' ? (
         <View style={styles.buttonPlaceholder} />
-      ) : phase === 'check' ? (
-        <View style={styles.actions}>
-          <Pressable
-            accessibilityRole="button"
-            accessibilityLabel={t.find.againA11y}
-            onPress={repeatRound}
-            style={({ pressed }) => [
-              styles.button,
-              styles.buttonSecondary,
-              pressed && styles.buttonPressed,
-            ]}
-          >
-            <Text style={[styles.buttonText, styles.buttonSecondaryText]}>{t.common.again}</Text>
-          </Pressable>
-          <Pressable
-            accessibilityRole="button"
-            accessibilityLabel={t.find.nextA11y}
-            onPress={startRound}
-            style={({ pressed }) => [styles.button, pressed && styles.buttonPressed]}
-          >
-            <Text style={styles.buttonText}>{t.find.next}</Text>
-          </Pressable>
-        </View>
-      ) : (
-        <Pressable
-          accessibilityRole="button"
+      ) : phase === 'check' ? null : (
+        <StartButton
           accessibilityLabel={t.common.startA11y}
+          label={t.common.start}
           onPress={startRound}
-          style={({ pressed }) => [styles.button, pressed && styles.buttonPressed]}
-        >
-          <Text style={styles.buttonText}>{t.common.start}</Text>
-        </Pressable>
+          pressedStyle={styles.buttonPressed}
+          style={styles.button}
+          textStyle={styles.buttonText}
+        />
       )}
     </AppScreen>
   );

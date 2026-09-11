@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { Linking, Pressable, StyleSheet, Text, View } from 'react-native';
+import { Linking, Platform, Pressable, StyleSheet, Text, View } from 'react-native';
 
-import { APP_EMAIL } from '../about';
+import { APP_EMAIL, PRIVACY_URL, SITE_URL, localeUrl } from '../about';
 import { useKlank } from '../audio/klank';
 import { useExercisePrefs } from '../exercisePrefs';
-import { fmt, useT, type Strings } from '../i18n';
+import { fmt, useLocale, useT, type Strings } from '../i18n';
 import {
   PRACTICE_PATH,
   TOOLS,
@@ -18,6 +18,7 @@ import { ChoiceHelp } from '../ui/ChoiceHelp';
 import { KlankChips } from '../ui/KlankChips';
 import { LanguageChips } from '../ui/LanguageChips';
 import { NamingChips } from '../ui/NamingChips';
+import { WishForm } from '../ui/WishForm';
 
 type Props = {
   onOpen: (screen: ScreenId) => void;
@@ -36,6 +37,11 @@ function practiceCopy(item: Extract<PracticeItem, { kind: 'exercise' }>, t: Stri
 export function HomeScreen({ onOpen }: Props) {
   const { compact } = useCompactLayout();
   const t = useT();
+  const { locale } = useLocale();
+  const siteHref = localeUrl(SITE_URL, locale);
+  const privacyHref = localeUrl(PRIVACY_URL, locale);
+  const siteLabel = siteHref.replace(/^https:\/\//, '').replace(/\/$/, '');
+  const privacyLabel = privacyHref.replace(/^https:\/\//, '');
   const { isSimple, applySimple, hasMine, mineIsCurrent, saveMine, applyMine } = useExercisePrefs();
   const { isSec } = useKlank();
   const [moreOpen, setMoreOpen] = useState(false);
@@ -127,9 +133,10 @@ export function HomeScreen({ onOpen }: Props) {
             ]}
           >
             <Text style={[styles.simpleActionText, simpleDone && styles.simpleActionTextDone]}>
-              {simpleDone ? t.home.simpleDone : t.home.simpleButton}
+              {t.home.simpleButton}
             </Text>
           </Pressable>
+          {simpleDone ? <Text style={styles.simpleStatus}>{t.home.simpleDone}</Text> : null}
         </View>
         <View style={[styles.simpleCard, mineIsCurrent && styles.simpleCardDone]}>
           <ChoiceHelp
@@ -210,6 +217,10 @@ export function HomeScreen({ onOpen }: Props) {
       </View>
 
       <View style={styles.explain}>
+        <WishForm />
+      </View>
+
+      <View style={styles.explain}>
         <Pressable
           accessibilityRole="button"
           accessibilityState={{ expanded: aboutOpen }}
@@ -225,10 +236,28 @@ export function HomeScreen({ onOpen }: Props) {
             <Text style={styles.explainBlock}>{t.about.developed}</Text>
             <Pressable
               accessibilityRole="link"
+              accessibilityLabel={t.about.siteA11y}
+              {...linkOpenProps(siteHref)}
+            >
+              <Text style={styles.explainBlock}>
+                <Text style={styles.explainLead}>{t.about.siteLabel}. </Text>
+                <Text style={styles.email}>{siteLabel}</Text>
+              </Text>
+            </Pressable>
+            <Pressable
+              accessibilityRole="link"
+              accessibilityLabel={t.about.privacyA11y}
+              {...linkOpenProps(privacyHref)}
+            >
+              <Text style={styles.explainBlock}>
+                <Text style={styles.explainLead}>{t.about.privacyLabel}. </Text>
+                <Text style={styles.email}>{privacyLabel}</Text>
+              </Text>
+            </Pressable>
+            <Pressable
+              accessibilityRole="link"
               accessibilityLabel={`${t.about.emailLabel}: ${APP_EMAIL}`}
-              onPress={() => {
-                void Linking.openURL(`mailto:${APP_EMAIL}`);
-              }}
+              {...linkOpenProps(`mailto:${APP_EMAIL}`)}
             >
               <Text style={styles.explainBlock}>
                 <Text style={styles.explainLead}>{t.about.emailLabel}. </Text>
@@ -241,11 +270,25 @@ export function HomeScreen({ onOpen }: Props) {
             <Text style={styles.explainBlock}>{t.about.disclaimer}</Text>
           </View>
         ) : (
-          <Text style={styles.sectionHint}>{APP_EMAIL}</Text>
+          <Text style={styles.sectionHint}>audiation.app</Text>
         )}
       </View>
     </AppScreen>
   );
+}
+
+function linkOpenProps(href: string) {
+  if (Platform.OS === 'web') {
+    return {
+      href,
+      hrefAttrs: { target: '_blank', rel: 'noopener noreferrer' },
+    };
+  }
+  return {
+    onPress: () => {
+      void Linking.openURL(href);
+    },
+  };
 }
 
 function PracticeCard({
@@ -403,6 +446,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '700',
     textAlign: 'center',
+  },
+  simpleStatus: {
+    fontSize: 14,
+    lineHeight: 20,
+    color: COLORS.hit,
   },
   simpleActionTextDone: {
     color: COLORS.text,

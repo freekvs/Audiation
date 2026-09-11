@@ -37,6 +37,8 @@ import {
 } from '../progression';
 import { COLORS } from '../theme';
 import { AppScreen, useCompactLayout } from '../ui/AppScreen';
+import { RoundActions } from '../ui/RoundActions';
+import { StartButton } from '../ui/StartButton';
 import { ChoiceHelp } from '../ui/ChoiceHelp';
 import { NamingChips } from '../ui/NamingChips';
 
@@ -428,6 +430,17 @@ export function ProgressionScreen({ onBack }: Props) {
       <Text style={styles.tagline}>{t.practice.progression.tagline}</Text>
       <Text style={styles.subtitle}>{body}</Text>
 
+      {phase === 'check' ? (
+        <RoundActions
+          againA11y={t.progression.againA11y}
+          nextA11y={t.progression.nextA11y}
+          nextLabel={t.common.next}
+          onAgain={repeatRound}
+          onNext={startRound}
+          preferAgain={score != null && !score.all}
+        />
+      ) : null}
+
       {settingsOpen || phase === 'answering' ? (
         <NamingChips compact={phase === 'answering'} />
       ) : null}
@@ -812,38 +825,15 @@ export function ProgressionScreen({ onBack }: Props) {
         >
           <Text style={styles.buttonText}>{t.common.check}</Text>
         </Pressable>
-      ) : phase === 'check' ? (
-        <View style={styles.actions}>
-          <Pressable
-            accessibilityRole="button"
-            accessibilityLabel={t.progression.againA11y}
-            onPress={repeatRound}
-            style={({ pressed }) => [
-              styles.button,
-              styles.buttonSecondary,
-              pressed && styles.pressed,
-            ]}
-          >
-            <Text style={[styles.buttonText, styles.buttonSecondaryText]}>{t.common.again}</Text>
-          </Pressable>
-          <Pressable
-            accessibilityRole="button"
-            accessibilityLabel={t.progression.nextA11y}
-            onPress={startRound}
-            style={({ pressed }) => [styles.button, pressed && styles.pressed]}
-          >
-            <Text style={styles.buttonText}>{t.common.next}</Text>
-          </Pressable>
-        </View>
-      ) : phase === 'idle' ? (
-        <Pressable
-          accessibilityRole="button"
+      ) : phase === 'check' ? null : phase === 'idle' ? (
+        <StartButton
           accessibilityLabel={t.common.startA11y}
+          label={t.common.start}
           onPress={startRound}
-          style={({ pressed }) => [styles.button, pressed && styles.pressed]}
-        >
-          <Text style={styles.buttonText}>{t.common.start}</Text>
-        </Pressable>
+          pressedStyle={styles.pressed}
+          style={styles.button}
+          textStyle={styles.buttonText}
+        />
       ) : null}
     </AppScreen>
   );

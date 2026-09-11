@@ -1,4 +1,3 @@
-import { createAudioPlayer } from 'expo-audio';
 import { Platform } from 'react-native';
 
 import { encodeChordWav } from './encodeChordWav';
@@ -6,11 +5,12 @@ import { encodeDualToneWav } from './encodeDualToneWav';
 import { encodeSustainWav } from './encodeSustainWav';
 import { encodeToneWav } from './encodeToneWav';
 import { getSoundingKlank, type KlankId } from './klank';
+import { createReadyPlayer, playUri, safePause } from './nativePlay';
 
 const uriCache = new Map<string, string>();
 const pending = new Map<string, Promise<string>>();
 
-let tonePlayer: ReturnType<typeof createAudioPlayer> | null = null;
+let tonePlayer: ReturnType<typeof createReadyPlayer> | null = null;
 let lastUri: string | null = null;
 let playSeq = 0;
 
@@ -76,22 +76,9 @@ async function createWavUri(key: string, bytes: Uint8Array): Promise<string> {
 
 function getTonePlayer() {
   if (!tonePlayer) {
-    tonePlayer = createAudioPlayer(null);
-    tonePlayer.loop = false;
-    tonePlayer.volume = 1;
+    tonePlayer = createReadyPlayer(false, 1);
   }
   return tonePlayer;
-}
-
-function safePause() {
-  if (!tonePlayer) {
-    return;
-  }
-  try {
-    void Promise.resolve(tonePlayer.pause()).catch(() => undefined);
-  } catch {
-    // Op Android is de native speler soms al vrijgegeven.
-  }
 }
 
 export function stopTone() {
@@ -99,7 +86,7 @@ export function stopTone() {
   if (tonePlayer) {
     tonePlayer.loop = false;
   }
-  safePause();
+  safePause(tonePlayer);
 }
 
 export async function playHz(hz: number, options?: { loop?: boolean; klank?: KlankId }): Promise<void> {
@@ -112,22 +99,7 @@ export async function playHz(hz: number, options?: { loop?: boolean; klank?: Kla
   }
 
   const player = getTonePlayer();
-  player.loop = loop;
-  safePause();
-
-  if (lastUri !== uri) {
-    player.replace({ uri });
-    lastUri = uri;
-    // replace() speelt vanzelf door als pause() op Android nog niet klaar was.
-    safePause();
-  }
-
-  await player.seekTo(0);
-  if (seq !== playSeq) {
-    return;
-  }
-  player.loop = loop;
-  player.play();
+  lastUri = await playUri(player, uri, lastUri, () => seq === playSeq, { loop });
 }
 
 export async function playDualHz(aHz: number, bHz: number, klank: KlankId = getSoundingKlank()): Promise<void> {
@@ -138,20 +110,7 @@ export async function playDualHz(aHz: number, bHz: number, klank: KlankId = getS
   }
 
   const player = getTonePlayer();
-  player.loop = false;
-  safePause();
-
-  if (lastUri !== uri) {
-    player.replace({ uri });
-    lastUri = uri;
-    safePause();
-  }
-
-  await player.seekTo(0);
-  if (seq !== playSeq) {
-    return;
-  }
-  player.play();
+  lastUri = await playUri(player, uri, lastUri, () => seq === playSeq, { loop: false });
 }
 
 export async function playChordHz(notesHz: number[], klank: KlankId = getSoundingKlank()): Promise<void> {
@@ -162,18 +121,5 @@ export async function playChordHz(notesHz: number[], klank: KlankId = getSoundin
   }
 
   const player = getTonePlayer();
-  player.loop = false;
-  safePause();
-
-  if (lastUri !== uri) {
-    player.replace({ uri });
-    lastUri = uri;
-    safePause();
-  }
-
-  await player.seekTo(0);
-  if (seq !== playSeq) {
-    return;
-  }
-  player.play();
+  lastUri = await playUri(player, uri, lastUri, () => seq === playSeq, { loop: false });
 }

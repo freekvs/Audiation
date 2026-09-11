@@ -1,8 +1,8 @@
-import { createAudioPlayer } from 'expo-audio';
 import { useEffect, useState } from 'react';
 import { Platform } from 'react-native';
 
 import { encodeDroneWav } from './encodeDroneWav';
+import { createReadyPlayer, playUri, safePause } from './nativePlay';
 import { DEFAULT_PIANO_OCTAVE, PIANO_OCTAVES } from '../notes';
 
 const STORAGE_KEY = 'audiation.drone.v1';
@@ -11,7 +11,7 @@ const FILE_NAME = 'audiation-drone-pref-v1.txt';
 const uriCache = new Map<number, string>();
 const pending = new Map<number, Promise<string>>();
 
-let dronePlayer: ReturnType<typeof createAudioPlayer> | null = null;
+let dronePlayer: ReturnType<typeof createReadyPlayer> | null = null;
 let lastUri: string | null = null;
 let droneSeq = 0;
 
@@ -72,25 +72,9 @@ async function createDroneUri(octave: number): Promise<string> {
 
 function getDronePlayer() {
   if (!dronePlayer) {
-    dronePlayer = createAudioPlayer(null);
-    dronePlayer.loop = true;
-    dronePlayer.volume = DRONE_VOLUME;
+    dronePlayer = createReadyPlayer(true, DRONE_VOLUME);
   }
   return dronePlayer;
-}
-
-function safePause() {
-  if (!dronePlayer) {
-    return;
-  }
-  try {
-    const result = dronePlayer.pause();
-    if (result && typeof result === 'object' && 'catch' in result) {
-      void (result as Promise<unknown>).catch(() => undefined);
-    }
-  } catch {
-    // Op Android is de native speler soms al vrijgegeven.
-  }
 }
 
 export async function startDrone(octave: number): Promise<void> {
@@ -101,29 +85,18 @@ export async function startDrone(octave: number): Promise<void> {
   }
 
   const player = getDronePlayer();
-  player.loop = true;
   player.volume = DRONE_VOLUME;
-
-  if (lastUri !== uri) {
-    player.replace({ uri });
-    lastUri = uri;
-    await player.seekTo(0);
-    if (seq !== droneSeq) {
-      return;
-    }
-  }
-
-  player.play();
+  lastUri = await playUri(player, uri, lastUri, () => seq === droneSeq, { loop: true });
 }
 
 export function pauseDrone() {
   droneSeq += 1;
-  safePause();
+  safePause(dronePlayer);
 }
 
 export function stopDrone() {
   droneSeq += 1;
-  safePause();
+  safePause(dronePlayer);
   lastUri = null;
 }
 

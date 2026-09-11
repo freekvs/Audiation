@@ -39,6 +39,8 @@ import { PIANO_OCTAVES } from '../notes';
 import { PianoKeyboard } from '../PianoKeyboard';
 import { COLORS } from '../theme';
 import { AppScreen, useCompactLayout } from '../ui/AppScreen';
+import { RoundActions } from '../ui/RoundActions';
+import { StartButton } from '../ui/StartButton';
 import { DroneSwitch } from '../ui/DroneSwitch';
 
 type Phase = 'idle' | 'playing' | 'holding' | 'singing' | 'check';
@@ -442,6 +444,17 @@ export function IntervalScreen({ onBack }: Props) {
       <Text style={[styles.title, compact && styles.titleCompact]}>{title}</Text>
       <Text style={styles.subtitle}>{body}</Text>
 
+      {phase === 'check' ? (
+        <RoundActions
+          againA11y={t.interval.againA11y}
+          nextA11y={t.interval.nextA11y}
+          nextLabel={t.interval.next}
+          onAgain={repeatRound}
+          onNext={startRound}
+          preferAgain={verdict != null && verdict.quality !== 'hit'}
+        />
+      ) : null}
+
       {phase === 'idle' || phase === 'check' ? (
         <View style={styles.octaveBlock}>
           <Text style={styles.optionTitle}>{t.interval.firstTone}</Text>
@@ -805,38 +818,15 @@ export function IntervalScreen({ onBack }: Props) {
         </View>
       ) : phase === 'playing' || phase === 'singing' ? (
         <View style={styles.buttonPlaceholder} />
-      ) : phase === 'check' ? (
-        <View style={styles.actions}>
-          <Pressable
-            accessibilityRole="button"
-            accessibilityLabel={t.interval.againA11y}
-            onPress={repeatRound}
-            style={({ pressed }) => [
-              styles.button,
-              styles.buttonSecondary,
-              pressed && styles.buttonPressed,
-            ]}
-          >
-            <Text style={[styles.buttonText, styles.buttonSecondaryText]}>{t.common.again}</Text>
-          </Pressable>
-          <Pressable
-            accessibilityRole="button"
-            accessibilityLabel={t.interval.nextA11y}
-            onPress={startRound}
-            style={({ pressed }) => [styles.button, pressed && styles.buttonPressed]}
-          >
-            <Text style={styles.buttonText}>{t.interval.next}</Text>
-          </Pressable>
-        </View>
-      ) : (
-        <Pressable
-          accessibilityRole="button"
+      ) : phase === 'check' ? null : (
+        <StartButton
           accessibilityLabel={t.common.startA11y}
+          label={t.common.start}
           onPress={startRound}
-          style={({ pressed }) => [styles.button, pressed && styles.buttonPressed]}
-        >
-          <Text style={styles.buttonText}>{t.common.start}</Text>
-        </Pressable>
+          pressedStyle={styles.buttonPressed}
+          style={styles.button}
+          textStyle={styles.buttonText}
+        />
       )}
     </AppScreen>
   );

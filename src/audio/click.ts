@@ -1,12 +1,11 @@
-import { createAudioPlayer } from 'expo-audio';
-
 import { encodeClickWav } from './encodeClickWav';
+import { createReadyPlayer, playUri, safePause } from './nativePlay';
 import { getToneUri } from './toneUri';
 
 type Bus = 'a' | 'b';
 
 type ClickSlot = {
-  player: ReturnType<typeof createAudioPlayer> | null;
+  player: ReturnType<typeof createReadyPlayer> | null;
   lastUri: string | null;
   seq: number;
 };
@@ -56,29 +55,15 @@ async function getClickUri(hz: number): Promise<string> {
 function getPlayer(bus: Bus) {
   const slot = buses[bus];
   if (!slot.player) {
-    slot.player = createAudioPlayer(null);
-    slot.player.loop = false;
-    slot.player.volume = 1;
+    slot.player = createReadyPlayer(false, 1);
   }
   return slot.player;
-}
-
-function safePause(bus: Bus) {
-  const player = buses[bus].player;
-  if (!player) {
-    return;
-  }
-  try {
-    void Promise.resolve(player.pause()).catch(() => undefined);
-  } catch {
-    // native speler al vrijgegeven
-  }
 }
 
 export function stopClicks() {
   (['a', 'b'] as const).forEach((bus) => {
     buses[bus].seq += 1;
-    safePause(bus);
+    safePause(buses[bus].player);
   });
 }
 
@@ -90,17 +75,7 @@ export async function playClick(hz: number, bus: Bus = 'a'): Promise<void> {
     return;
   }
   const player = getPlayer(bus);
-  safePause(bus);
-  if (slot.lastUri !== uri) {
-    player.replace({ uri });
-    slot.lastUri = uri;
-    safePause(bus);
-  }
-  await player.seekTo(0);
-  if (seq !== slot.seq) {
-    return;
-  }
-  player.play();
+  slot.lastUri = await playUri(player, uri, slot.lastUri, () => seq === slot.seq, { loop: false });
 }
 
 export async function warmupClicks(hzList: number[]): Promise<void> {

@@ -17,12 +17,15 @@ import {
 } from '../audio/pitch';
 import { beginSoundingRound } from '../audio/klank';
 import { playHz, stopTone } from '../audio/toneUri';
-import { exerciseOctave, EXERCISE_OCTAVES, type ExerciseNote, type ExerciseOctave } from '../exerciseNotes';
+import { notesFromOctaves, EXERCISE_OCTAVES, type ExerciseNote } from '../exerciseNotes';
 import { useExercisePrefs } from '../exercisePrefs';
+import { octaveLabelList, toggleToneOctave } from '../findNote';
 import { fmt, useT, type Strings } from '../i18n';
 import { namedTone, relativeLabel, useNaming, type NamingSystem } from '../naming';
 import { COLORS } from '../theme';
 import { AppScreen, useCompactLayout } from '../ui/AppScreen';
+import { RoundActions } from '../ui/RoundActions';
+import { StartButton } from '../ui/StartButton';
 import { ChoiceHelp } from '../ui/ChoiceHelp';
 
 type Phase = 'idle' | 'playing' | 'holding' | 'singing' | 'check';
@@ -80,9 +83,11 @@ export function HoldToneScreen({ onBack }: Props) {
   const t = useT();
   const { prefs, update } = useExercisePrefs();
   const [phase, setPhase] = useState<Phase>('idle');
-  const [octave, setOctave] = useState<ExerciseOctave>(() => exerciseOctave(prefs.holdTone.octave));
+  const [toneOctaves, setToneOctaves] = useState<number[]>(() =>
+    prefs.holdTone.octaves.length > 0 ? [...prefs.holdTone.octaves] : [4],
+  );
   const [note, setNote] = useState<ExerciseNote>(
-    () => pickNote(exerciseOctave(prefs.holdTone.octave).notes),
+    () => pickNote(notesFromOctaves(prefs.holdTone.octaves.length > 0 ? prefs.holdTone.octaves : [4])),
   );
   const [canCheck, setCanCheck] = useState(false);
   const [singEnabled, setSingEnabled] = useState(prefs.holdTone.singEnabled);
@@ -117,8 +122,8 @@ export function HoldToneScreen({ onBack }: Props) {
   }, []);
 
   useEffect(() => {
-    update('holdTone', { octave: octave.octave, singEnabled });
-  }, [octave, singEnabled, update]);
+    update('holdTone', { octaves: toneOctaves, singEnabled });
+  }, [toneOctaves, singEnabled, update]);
 
   const play = (next: ExerciseNote) => {
     void playHz(next.hz).catch(() => undefined);
@@ -144,7 +149,7 @@ export function HoldToneScreen({ onBack }: Props) {
     beginSoundingRound();
     listenControls.current.cancelled = true;
     clearTimers();
-    const next = pickNote(octave.notes, note.id);
+    const next = pickNote(notesFromOctaves(toneOctaves), note.id);
     setNote(next);
     beginHold(next);
   };
@@ -161,20 +166,24 @@ export function HoldToneScreen({ onBack }: Props) {
     setRecordingUri(null);
     setMicLevel(0);
     setPhase('playing');
-    play(next);
-
-    timers.current.push(
-      setTimeout(() => {
-        stopTone();
+    void playHz(next.hz)
+      .then(() => {
+        timers.current.push(
+          setTimeout(() => {
+            stopTone();
+            setPhase('holding');
+          }, PLAY_MS),
+        );
+        timers.current.push(
+          setTimeout(() => {
+            setCanCheck(true);
+          }, PLAY_MS + CHECK_ENABLE_MS),
+        );
+      })
+      .catch(() => {
         setPhase('holding');
-      }, PLAY_MS),
-    );
-
-    timers.current.push(
-      setTimeout(() => {
         setCanCheck(true);
-      }, PLAY_MS + CHECK_ENABLE_MS),
-    );
+      });
   };
 
   const finishCheck = (nextVerdict: PitchVerdict | null, playTarget: boolean) => {
@@ -257,12 +266,16 @@ export function HoldToneScreen({ onBack }: Props) {
     finishCheck(nextVerdict, capturedUri == null);
   };
 
-  const chooseOctave = (next: ExerciseOctave) => {
-    if (next.octave === octave.octave) {
+  const chooseToneOctave = (octave: number) => {
+    const next = toggleToneOctave(toneOctaves, octave);
+    if (next.join() === toneOctaves.join()) {
       return;
     }
-    setOctave(next);
-    setNote(pickNote(next.notes));
+    setToneOctaves(next);
+    const scale = notesFromOctaves(next);
+    if (!scale.some((item) => item.id === note.id)) {
+      setNote(pickNote(scale));
+    }
     setVerdict(null);
     setRecordingUri(null);
   };
@@ -281,8 +294,8 @@ export function HoldToneScreen({ onBack }: Props) {
   const body =
     phase === 'idle'
       ? singEnabled
-        ? fmt(t.hold.idleSing, { octave: octave.label })
-        : fmt(t.hold.idleSilent, { octave: octave.label })
+        ? fmt(t.hold.idleSing, { list: octaveLabelList(toneOctaves) })
+        : fmt(t.hold.idleSilent, { list: octaveLabelList(toneOctaves) })
       : phase === 'playing'
         ? t.hold.playing
         : phase === 'holding'
@@ -300,6 +313,17 @@ export function HoldToneScreen({ onBack }: Props) {
       <Text style={[styles.title, compact && styles.titleCompact]}>{title}</Text>
       <Text style={styles.subtitle}>{body}</Text>
 
+      {phase === 'check' ? (
+        <RoundActions
+          againA11y={t.hold.againA11y}
+          nextA11y={t.hold.nextA11y}
+          nextLabel={t.hold.next}
+          onAgain={repeatRound}
+          onNext={startRound}
+          preferAgain={verdict != null && verdict.quality !== 'hit'}
+        />
+      ) : null}
+
       {phase === 'idle' || phase === 'check' ? (
         <ChoiceHelp
           label={t.help.cMajorTitle}
@@ -310,17 +334,20 @@ export function HoldToneScreen({ onBack }: Props) {
 
       {phase === 'idle' || phase === 'check' ? (
         <View style={styles.octaveBlock}>
-          <Text style={styles.optionTitle}>{t.common.octave}</Text>
+          <Text style={styles.optionTitle}>{t.common.tones}</Text>
+          <Text style={styles.optionHint}>
+            {fmt(t.hold.tonesHint, { list: octaveLabelList(toneOctaves) })}
+          </Text>
           <View style={styles.octaveRow}>
             {EXERCISE_OCTAVES.map((item) => {
-              const selected = item.octave === octave.octave;
+              const selected = toneOctaves.includes(item.octave);
               return (
                 <Pressable
                   key={item.label}
                   accessibilityRole="button"
-                  accessibilityLabel={fmt(t.piano.octaveA11y, { label: item.label })}
+                  accessibilityLabel={fmt(t.hold.tonesA11y, { label: item.label })}
                   accessibilityState={{ selected }}
-                  onPress={() => chooseOctave(item)}
+                  onPress={() => chooseToneOctave(item.octave)}
                   style={({ pressed }) => [
                     styles.octaveChip,
                     selected && styles.octaveChipSelected,
@@ -479,38 +506,15 @@ export function HoldToneScreen({ onBack }: Props) {
         </View>
       ) : phase === 'playing' || phase === 'singing' ? (
         <View style={styles.buttonPlaceholder} />
-      ) : phase === 'check' ? (
-        <View style={styles.actions}>
-          <Pressable
-            accessibilityRole="button"
-            accessibilityLabel={t.hold.againA11y}
-            onPress={repeatRound}
-            style={({ pressed }) => [
-              styles.button,
-              styles.buttonSecondary,
-              pressed && styles.buttonPressed,
-            ]}
-          >
-            <Text style={[styles.buttonText, styles.buttonSecondaryText]}>{t.common.again}</Text>
-          </Pressable>
-          <Pressable
-            accessibilityRole="button"
-            accessibilityLabel={t.hold.nextA11y}
-            onPress={startRound}
-            style={({ pressed }) => [styles.button, pressed && styles.buttonPressed]}
-          >
-            <Text style={styles.buttonText}>{t.hold.next}</Text>
-          </Pressable>
-        </View>
-      ) : (
-        <Pressable
-          accessibilityRole="button"
+      ) : phase === 'check' ? null : (
+        <StartButton
           accessibilityLabel={t.common.startA11y}
+          label={t.common.start}
           onPress={startRound}
-          style={({ pressed }) => [styles.button, pressed && styles.buttonPressed]}
-        >
-          <Text style={styles.buttonText}>{t.common.start}</Text>
-        </Pressable>
+          pressedStyle={styles.buttonPressed}
+          style={styles.button}
+          textStyle={styles.buttonText}
+        />
       )}
     </AppScreen>
   );

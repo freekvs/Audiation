@@ -1,8 +1,9 @@
 import { createContext, createElement, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
-import { Platform } from 'react-native';
+import { Platform, Text } from 'react-native';
 
 import { saveDronePref } from './audio/drone';
 import { resetKlankToSec } from './audio/klank';
+import { EXERCISE_OCTAVES } from './exerciseNotes';
 import type { ExtensionFind, ExtensionGiven, ExtensionQuality } from './extension';
 import type { HarmonyFind, HarmonyQuality } from './harmony';
 import type { HoldInversionMode, HoldSizeMode } from './holdChord';
@@ -11,7 +12,7 @@ import type { ChordSize, ProgressionPalette, ProgressionPattern } from './progre
 import type { Meter, VoiceCount } from './rhythm';
 
 export type ExercisePrefs = {
-  holdTone: { octave: number; singEnabled: boolean };
+  holdTone: { octaves: number[]; singEnabled: boolean };
   findNote: { hearCue: boolean; toneOctaves: number[]; sliderOctaves: number[] };
   interval: {
     octave: number;
@@ -58,13 +59,13 @@ export type ExercisePrefs = {
 };
 
 export const SIMPLE_PRESET: ExercisePrefs = {
-  holdTone: { octave: 4, singEnabled: false },
+  holdTone: { octaves: [4], singEnabled: false },
   findNote: { hearCue: true, toneOctaves: [4], sliderOctaves: [4] },
   interval: {
     octave: 4,
     span: 1,
     way: 'up',
-    showAnchor: false,
+    showAnchor: true,
     singEnabled: false,
     pianoEnabled: false,
   },
@@ -117,6 +118,25 @@ function asNumberArray(value: unknown, fallback: number[]): number[] {
   return value.length > 0 ? value.slice() : [...fallback];
 }
 
+const KNOWN_OCTAVES = new Set(EXERCISE_OCTAVES.map((item) => item.octave));
+
+function asSortedOctaves(value: unknown, fallback: number[]): number[] {
+  const next = asNumberArray(value, fallback)
+    .filter((octave) => KNOWN_OCTAVES.has(octave))
+    .sort((a, b) => a - b);
+  return next.length > 0 ? next : [...fallback];
+}
+
+function holdToneOctaves(holdTone: Record<string, unknown>, fallback: number[]): number[] {
+  if (Array.isArray(holdTone.octaves)) {
+    return asSortedOctaves(holdTone.octaves, fallback);
+  }
+  if (typeof holdTone.octave === 'number') {
+    return asSortedOctaves([holdTone.octave], fallback);
+  }
+  return [...fallback];
+}
+
 function mergeSimple(raw: unknown): ExercisePrefs {
   const base = clonePrefs(SIMPLE_PRESET);
   if (!raw || typeof raw !== 'object') {
@@ -136,7 +156,7 @@ function mergeSimple(raw: unknown): ExercisePrefs {
 
   return {
     holdTone: {
-      octave: typeof holdTone.octave === 'number' ? holdTone.octave : base.holdTone.octave,
+      octaves: holdToneOctaves(holdTone, base.holdTone.octaves),
       singEnabled: typeof holdTone.singEnabled === 'boolean' ? holdTone.singEnabled : base.holdTone.singEnabled,
     },
     findNote: {
@@ -391,10 +411,10 @@ export function ExercisePrefsProvider({ children }: { children: ReactNode }) {
       if (JSON.stringify(nextSlice) === JSON.stringify(current[key])) {
         return current;
       }
-      const next = {
+      const next = mergeSimple({
         ...current,
         [key]: nextSlice,
-      };
+      });
       persist(next, mineRef.current);
       return next;
     });
@@ -423,7 +443,7 @@ export function ExercisePrefsProvider({ children }: { children: ReactNode }) {
 export function ExercisePrefsGate({ children }: { children: ReactNode }) {
   const { loaded } = useExercisePrefs();
   if (!loaded) {
-    return null;
+    return createElement(Text, { style: { color: '#F4F1EA', padding: 24, fontSize: 18 } }, 'Audiation');
   }
   return children;
 }

@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 import { playHz } from './audio/toneUri';
+import { unlockAudio } from './audio/webUnlock';
 import { relativeLabel, useNaming } from './naming';
 import type { PianoKey } from './notes';
 
@@ -36,7 +37,10 @@ export function PianoKeyButton({
       <Pressable
         accessibilityRole="button"
         accessibilityLabel={`Speel ${degree} ${note.name}`}
-        onPress={onPlay}
+        onPress={() => {
+          void unlockAudio();
+          onPlay();
+        }}
         style={[styles.blackKey, highlighted && styles.blackKeyActive]}
       >
         <Text style={[styles.blackLabel, compact && styles.blackLabelCompact]}>
@@ -50,7 +54,10 @@ export function PianoKeyButton({
     <Pressable
       accessibilityRole="button"
       accessibilityLabel={`Speel ${degree} ${note.name}`}
-      onPress={onPlay}
+      onPress={() => {
+        void unlockAudio();
+        onPlay();
+      }}
       style={[styles.whiteKey, highlighted && styles.whiteKeyActive]}
     >
       <View style={styles.whiteCaption}>

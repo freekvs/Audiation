@@ -1,7 +1,10 @@
+import { useEffect, useRef } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
-import { KLANK_CHIPS, useKlank, type KlankChip } from '../audio/klank';
+import { KLANK_CHIPS, useKlank, type KlankChip, type KlankId } from '../audio/klank';
+import { playChordHz, stopTone } from '../audio/toneUri';
 import { fmt, useT } from '../i18n';
+import { DEFAULT_PIANO_OCTAVE } from '../notes';
 import { COLORS } from '../theme';
 import { ChoiceHelp } from './ChoiceHelp';
 
@@ -13,9 +16,63 @@ const CHIP_HELP: Record<KlankChip, 'klankSec' | 'klankCombo' | 'klankBand' | 'kl
   random: 'klankRandom',
 };
 
+const EXAMPLE_HZ = [
+  DEFAULT_PIANO_OCTAVE.whiteKeys[0]!.hz,
+  DEFAULT_PIANO_OCTAVE.whiteKeys[2]!.hz,
+  DEFAULT_PIANO_OCTAVE.whiteKeys[4]!.hz,
+];
+
+const RANDOM_ORDER: KlankId[] = ['combo', 'band', 'orchestra'];
+const RANDOM_GAP_MS = 1250;
+
 export function KlankChips() {
   const t = useT();
   const { chip, setChip } = useKlank();
+  const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
+  const seq = useRef(0);
+
+  const stopPreview = () => {
+    seq.current += 1;
+    for (const timer of timers.current) {
+      clearTimeout(timer);
+    }
+    timers.current = [];
+    stopTone();
+  };
+
+  useEffect(() => {
+    return () => {
+      seq.current += 1;
+      for (const timer of timers.current) {
+        clearTimeout(timer);
+      }
+      timers.current = [];
+      stopTone();
+    };
+  }, []);
+
+  const preview = (id: KlankChip) => {
+    stopPreview();
+    const token = seq.current;
+    if (id !== 'random') {
+      void playChordHz(EXAMPLE_HZ, id).catch(() => undefined);
+      return;
+    }
+    RANDOM_ORDER.forEach((klank, index) => {
+      const timer = setTimeout(() => {
+        if (token !== seq.current) {
+          return;
+        }
+        void playChordHz(EXAMPLE_HZ, klank).catch(() => undefined);
+      }, index * RANDOM_GAP_MS);
+      timers.current.push(timer);
+    });
+  };
+
+  const choose = (id: KlankChip) => {
+    setChip(id);
+    preview(id);
+  };
 
   return (
     <View style={styles.block}>
@@ -37,9 +94,9 @@ export function KlankChips() {
               />
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel={fmt(t.klank.a11y, { label })}
+                accessibilityLabel={fmt(t.klank.previewA11y, { label })}
                 accessibilityState={{ selected }}
-                onPress={() => setChip(id)}
+                onPress={() => choose(id)}
                 style={({ pressed }) => [
                   styles.chip,
                   selected && styles.chipSelected,

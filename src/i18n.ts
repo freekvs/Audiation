@@ -1,11 +1,18 @@
 import { createContext, useContext } from 'react';
 import { Platform } from 'react-native';
 
-export type LocaleId = 'nl' | 'en';
+import { de } from './i18n.de';
+import { es } from './i18n.es';
+import { fr } from './i18n.fr';
+
+export type LocaleId = 'nl' | 'en' | 'de' | 'fr' | 'es';
 
 export const LOCALE_OPTIONS: { id: LocaleId; label: string }[] = [
   { id: 'nl', label: 'Nederlands' },
   { id: 'en', label: 'English' },
+  { id: 'de', label: 'Deutsch' },
+  { id: 'fr', label: 'Français' },
+  { id: 'es', label: 'Español' },
 ];
 
 export function fmt(
@@ -18,7 +25,7 @@ export function fmt(
 const nl = {
   language: {
     title: 'Taal',
-    hint: 'Voor nu Nederlands of Engels. Later ook Duits, Frans en Spaans.',
+    hint: 'Nederlands, Engels, Duits, Frans of Spaans.',
     a11y: 'Taal {label}',
   },
   common: {
@@ -26,6 +33,8 @@ const nl = {
     backA11y: 'Terug naar start',
     start: 'Start',
     startA11y: 'Start oefening',
+    audioWaitA11y: 'Geluid nog niet klaar',
+    audioReadyA11y: 'Geluid is klaar',
     again: 'Opnieuw',
     next: 'Volgende',
     check: 'Controleer',
@@ -78,8 +87,8 @@ const nl = {
       'Werk van boven naar beneden. Opties in een oefening gaan van makkelijk naar moeilijk.',
     simpleTitle: 'Meest 1-voudige instellingen',
     simpleHint:
-      'Voor een nieuwe of beginnende gebruiker. Zet alle oefeningen op de makkelijkste opties: één octaaf, voorbeeldtoon aan, één kwaliteit, korte lijnen. Daarna kun je per oefening uitbreiden.',
-    simpleButton: 'Meest 1-voudige instellingen',
+      'Voor een nieuwe of beginnende gebruiker. Zet alle oefeningen op de makkelijkste opties: één octaaf, voorbeeldtoon aan, eerste toon tonen, één kwaliteit, korte lijnen. Daarna kun je per oefening uitbreiden.',
+    simpleButton: 'Zet alle oefeningen eenvoudig',
     simpleDone: 'Alle oefeningen staan op de eenvoudigste stand.',
     simpleA11y: 'Zet alle oefeningen op de meest eenvoudige instellingen',
     savedTitle: 'Mijn instellingen',
@@ -102,9 +111,37 @@ const nl = {
     beta: 'Beta',
     developed: 'Ontwikkeld door Freek van Steijn, met Cursor.',
     emailLabel: 'E-mail',
+    siteLabel: 'Website',
+    siteA11y: 'Open de website Audiation',
+    privacyLabel: 'Privacy',
+    privacyA11y: 'Open de privacyverklaring',
     copyright: '© {year} Freek van Steijn. Alle rechten voorbehouden.',
     disclaimer:
       'Je gebruikt deze app op eigen risico. Ik ben niet verantwoordelijk voor enige schade die voortvloeit uit het gebruik van de app.',
+  },
+  wish: {
+    title: 'Wens of aanpassing',
+    a11y: 'Wens of aanpassing',
+    hint: 'Zeg wat je mist of wat anders moet. Geen account nodig.',
+    kindTitle: 'Soort',
+    kindChange: 'Aanpassing',
+    kindNew: 'Nieuw',
+    kindA11y: 'Soort {label}',
+    whereTitle: 'Waar',
+    whereHome: 'Start',
+    whereApp: 'Hele app',
+    whereA11y: 'Waar {label}',
+    textTitle: 'Je wens',
+    textPlaceholder: 'In je eigen woorden.',
+    textA11y: 'Je wens',
+    replyTitle: 'E-mail terug (niet verplicht)',
+    replyPlaceholder: 'Alleen als je antwoord wilt',
+    replyA11y: 'E-mail voor antwoord, niet verplicht',
+    send: 'Verstuur',
+    sendA11y: 'Verstuur wens per e-mail',
+    sendNeed: 'Kies soort, waar, en schrijf je wens.',
+    opened: 'Je mail-app opent. Verstuur de mail daar.',
+    failed: 'Mail openen lukt niet op dit apparaat. Schrijf naar {email}.',
   },
   naming: {
     title: 'Benaming',
@@ -113,8 +150,9 @@ const nl = {
   },
   klank: {
     title: 'Klinkkarakter',
-    hint: 'Geen instrumenten. Hoe stemmen samen spreken. Sec is de basis.',
+    hint: 'Tik een naam: dezelfde C-drieklank, ander karakter. Sec is de basis.',
     a11y: 'Klinkkarakter {label}',
+    previewA11y: 'Voorbeeld {label}',
     sec: 'Sec',
     combo: 'Combo',
     band: 'Band',
@@ -151,23 +189,24 @@ const nl = {
     shell:
       'Gegeven is wat je hoort vóór je schuift. Drieklank: grondtoon, terts, kwint. Vierklank: plus de septiem. Shell: alleen terts en septiem, zonder grondtoon of kwint. De 9, 11 of 13 telt nog steeds vanaf die grondtoon.',
     simple:
-      'Tik de knop om alle oefeningen op de makkelijkste stand te zetten. Eén octaaf, voorbeeldtoon aan, alleen majeur, drieklank in grondligging, korte lijnen, cadens met grondtoon. Klinkkarakter terug op sec. In een oefening kun je daarna zelf uitbreiden. Tik de knop opnieuw als je terug wilt naar eenvoudig.',
+      'Tik de knop om alle oefeningen op de makkelijkste stand te zetten. Eén octaaf, voorbeeldtoon aan, eerste toon tonen, alleen majeur, drieklank in grondligging, korte lijnen, cadens met grondtoon. Klinkkarakter terug op sec. In een oefening kun je daarna zelf uitbreiden. Tik de knop opnieuw als je terug wilt naar eenvoudig.',
     saved:
       'Alleen als je in een oefening opties wijzigt. Ga je daarna naar start, dan wordt die stand bewaard als de jouwe. Ongewijzigd verlaten slaat niets extra op. Hier kun je die stand ook meteen opslaan of terugzetten, ook nadat je Meest 1-voudige hebt getikt.',
     advanced:
       'Open dit pas als sec vastzit: één kale toon, afstand of akkoord innerlijk vasthouden. Dit zijn geen nieuwe oefeningen. Dezelfde stappen, andere samenspraak. Zoals je in muziek van combo naar orkest luistert. Ritme, piano en ijking horen hier niet bij.',
     klank:
-      'Kies hoe de oefentoon klinkt. Niet als piano of viool: als samenspraak. Sec eerst, altijd. Combo, band of orkest vast: één karakter de hele oefening, om te ontleden. Aselect: per nieuwe ronde een van die drie. Opnieuw in dezelfde ronde houdt hetzelfde karakter. Meest 1-voudige zet dit op sec.',
+      'Tik een naam om te horen. Je hoort steeds dezelfde C-drieklank (Do–Mi–Sol), alleen het klinkkarakter wisselt. Niet piano of viool: samenspraak. Sec eerst. Combo, band of orkest vast: één karakter om te ontleden. Aselect speelt hier combo, band en orkest na elkaar; in een oefening is het per nieuwe ronde één van die drie. Opnieuw in dezelfde ronde houdt hetzelfde. Meest 1-voudige zet dit op sec.',
     klankSec:
-      'Begin hier. Kale toon, minste kleur, meeste identiteit. Houd de toon of afstand vast in de stilte. Kom hierop terug als combo, band of orkest afleidt.',
+      'Begin hier. Kale toon, minste kleur, meeste identiteit. Tik om de C-drieklank kaal te horen. Kom hierop terug als combo, band of orkest afleidt.',
     klankCombo:
-      'Weinig stemmen, nog uit elkaar te horen. Alsof een klein ensemble samen speelt. Advies: kies dit als sec vastzit. Ontleed of je de toon nog hoort én de stemmen.',
+      'Weinig stemmen, nog uit elkaar te horen. Alsof een klein ensemble. Tik om die drieklank te horen. Advies: kies dit als sec vastzit. Ontleed of je de toon nog hoort én de stemmen.',
     klankBand:
-      'Dichter, meer aanzet. Alsof een popband samen klinkt. Advies: de identiteit moet de punch overleven. Niet eerder dan na sec, liever na combo.',
+      'Dichter, meer aanzet. Alsof een popband. Tik om die drieklank te horen. Advies: de identiteit moet de punch overleven. Niet eerder dan na sec, liever na combo.',
     klankOrchestra:
-      'Meer massa, langere staart, stemmen versmelten. Alsof een groot orkest. Advies: ontleed of het nog de toon is, of alleen de wolk. Laatste vaste stap voor aselect.',
+      'Meer massa, langere staart, stemmen versmelten. Alsof een groot orkest. Tik om die drieklank te horen. Advies: ontleed of het nog de toon is, of alleen de wolk. Laatste vaste stap voor aselect.',
     klankRandom:
-      'Elke nieuwe ronde combo, band of orkest. Zelfde oefening, andere samenspraak. Advies: pas als één vast karakter vastzit. Anders gaat het oor de kleur achterna, niet de toon.',
+      'Tik om combo, band en orkest na elkaar te horen, dezelfde C-drieklank. In een oefening kiest elke nieuwe ronde één van die drie. Advies: pas als één vast karakter vastzit. Anders gaat het oor de kleur achterna, niet de toon.',
+    wish: 'Drie dingen: aanpassing of nieuw, waar in het pad, en de wens in je woorden. E-mail terug is niet nodig.',
   },
   drone: {
     title: 'Dronegeluid',
@@ -181,7 +220,7 @@ const nl = {
     },
     findNote: {
       title: 'Noot zoeken',
-      body: 'Je ziet een letter. Optioneel hoor je die noot kort. Schuif daarna ernaartoe.',
+      body: 'Je ziet een letter. Optioneel hoor je die noot kort. Schuif daarna ernaartoe. Uitbreiding: dezelfde noot in een ander octaaf.',
     },
     interval: {
       title: 'Interval vasthouden',
@@ -299,9 +338,11 @@ const nl = {
     titleHold: 'Houd de toon vast',
     titleSing: 'Zing of speel de toon',
     idleSing:
-      'Je hoort een toon uit C-majeur in octaaf {octave}. Daarna stilte: houd hem innerlijk vast. Daarna zing je hem, of speel je hem op een instrument in de microfoon. Octaaf lager of hoger telt mee.',
+      'Je hoort een toon uit C-majeur in {list}. Daarna stilte: houd hem innerlijk vast. Daarna zing je hem, of speel je hem op een instrument in de microfoon. Octaaf lager of hoger telt mee.',
     idleSilent:
-      'Je hoort een toon uit C-majeur in octaaf {octave}. Daarna wordt het stil. Houd die toon innerlijk vast. Tik Controleer als je hem nog hoort.',
+      'Je hoort een toon uit C-majeur in {list}. Daarna wordt het stil. Houd die toon innerlijk vast. Tik Controleer als je hem nog hoort.',
+    tonesHint: 'Uit welke octaven de toon komt. Tik er meerdere aan. Nu: {list}.',
+    tonesA11y: 'Toon uit octaaf {label}',
     playing: 'Luister. Onthoud de toon, niet de naam.',
     holdingSing: 'Het is stil. Houd dezelfde toon in je hoofd. Daarna zing of speel je hem in de microfoon.',
     holdingSilent: 'Het is stil. Houd dezelfde toon in je hoofd.',
@@ -372,32 +413,39 @@ const nl = {
     seekingSilent:
       'Houd de letter in je hoofd. Schuif tot de klank klopt. De schuif klinkt pas als je hem vastpakt.',
     hit: 'Dat was {letter}. Jouw toon en de echte noot klinken hetzelfde.',
+    hitOther: 'Dat was {letter}. Dezelfde noot als de basistoon, in een ander octaaf.',
     close: 'Bijna {letter}. Je zat een {interval} {direction}.',
     miss: 'De noot was {letter}. Je koos ongeveer {chosen}, een {interval} {direction}.',
     cueTitle: 'Voorbeeldtoon',
     cueHint:
       'Voor beginners. Je hoort de noot van de letter kort. Daarna stilte; de schuif klinkt pas als je schuift.',
     cueA11y: 'Voorbeeldtoon in- of uitschakelen',
-    tonesHint: 'Uit welke octaven de nootletter komt. Nu: {list}.',
+    tonesHint: 'Uit welke octaven de nootletter komt. Blijft staan als je de schuif verzet. Nu: {list}.',
     tonesA11y: 'Tonen in octaaf {label}',
     sliderA11y: 'Schuif octaaf {label}',
     sliderHint:
-      'Bereik van de toon op de schuif: {low} tot {high}. Tik een octaaf aan om te verbreden, tik de rand om te versmallen.',
+      'Bereik waarin je zoekt: {low} tot {high}. Mag een ander octaaf zijn dan de nootletter. Tik aan om te verbreden, tik de rand om te versmallen.',
+    otherOctave: 'De letter komt uit {source}. Zoek dezelfde noot in {target}.',
     sliderFollow: 'De toon volgt de schuif van {low} tot {high}. Geen namen op de balk.',
     sliderAfter: 'Daarna begint de schuif ergens anders.',
     letterKicker: 'Nootletter',
     realNote: 'Echte noot: {letter} · {hz} Hz',
+    baseNote: 'Basistoon: {letter} · {hz} Hz',
+    searchNote: 'Gezochte noot: {letter} · {hz} Hz',
     yourTone: 'Jouw toon: {label} · {hz} Hz',
     deviationOn: 'Afwijking: {cents} cent',
     deviationOff: 'Afwijking: {interval} {direction} · {cents} cent',
     compareYour: 'Jouw toon',
     compareReal: 'Echte noot',
+    compareBase: 'Basistoon',
     compareTogether: 'Samen',
     compareIntro: 'Eerst achter elkaar, daarna samen.',
     hearYour: 'Hoor jouw toon',
     hearYourA11y: 'Hoor jouw toon',
     hearReal: 'Hoor echte noot',
     hearRealA11y: 'Hoor de echte noot',
+    hearBase: 'Hoor basistoon',
+    hearBaseA11y: 'Hoor de basistoon',
     hearBoth: 'Hoor samen',
     hearBothA11y: 'Hoor beide tonen samen',
     hearCompare: 'Hoor vergelijking',
@@ -732,7 +780,7 @@ export type Strings = typeof nl;
 const en: Strings = {
   language: {
     title: 'Language',
-    hint: 'Dutch or English for now. German, French and Spanish come later.',
+    hint: 'Dutch, English, German, French or Spanish.',
     a11y: 'Language {label}',
   },
   common: {
@@ -740,6 +788,8 @@ const en: Strings = {
     backA11y: 'Back to home',
     start: 'Start',
     startA11y: 'Start exercise',
+    audioWaitA11y: 'Sound is not ready yet',
+    audioReadyA11y: 'Sound is ready',
     again: 'Again',
     next: 'Next',
     check: 'Check',
@@ -792,8 +842,8 @@ const en: Strings = {
       'Work from top to bottom. Options inside an exercise go from easy to hard.',
     simpleTitle: 'Simplest settings',
     simpleHint:
-      'For a new or beginning user. Sets every exercise to the easiest options: one octave, cue tone on, one quality, short lines. You can open them up later inside each exercise.',
-    simpleButton: 'Simplest settings',
+      'For a new or beginning user. Sets every exercise to the easiest options: one octave, cue tone on, first tone shown, one quality, short lines. You can open them up later inside each exercise.',
+    simpleButton: 'Set every exercise to simplest',
     simpleDone: 'All exercises are on the simplest settings.',
     simpleA11y: 'Set all exercises to the simplest settings',
     savedTitle: 'My settings',
@@ -816,9 +866,37 @@ const en: Strings = {
     beta: 'Beta',
     developed: 'Developed by Freek van Steijn, with Cursor.',
     emailLabel: 'Email',
+    siteLabel: 'Website',
+    siteA11y: 'Open the Audiation website',
+    privacyLabel: 'Privacy',
+    privacyA11y: 'Open the privacy statement',
     copyright: '© {year} Freek van Steijn. All rights reserved.',
     disclaimer:
       'You use this app at your own risk. I am not responsible for any damage arising from use of the app.',
+  },
+  wish: {
+    title: 'Wish or change',
+    a11y: 'Wish or change',
+    hint: 'Say what you miss or what should be different. No account needed.',
+    kindTitle: 'Kind',
+    kindChange: 'Change',
+    kindNew: 'New',
+    kindA11y: 'Kind {label}',
+    whereTitle: 'Where',
+    whereHome: 'Home',
+    whereApp: 'Whole app',
+    whereA11y: 'Where {label}',
+    textTitle: 'Your wish',
+    textPlaceholder: 'In your own words.',
+    textA11y: 'Your wish',
+    replyTitle: 'Reply email (optional)',
+    replyPlaceholder: 'Only if you want an answer',
+    replyA11y: 'Email for a reply, optional',
+    send: 'Send',
+    sendA11y: 'Send wish by email',
+    sendNeed: 'Choose kind, where, and write your wish.',
+    opened: 'Your mail app opens. Send the mail there.',
+    failed: 'Opening mail does not work on this device. Write to {email}.',
   },
   naming: {
     title: 'Naming',
@@ -827,8 +905,9 @@ const en: Strings = {
   },
   klank: {
     title: 'Sound character',
-    hint: 'Not instruments. How voices speak together. Sec is the base.',
+    hint: 'Tap a name: the same C triad, another character. Plain is the base.',
     a11y: 'Sound character {label}',
+    previewA11y: 'Preview {label}',
     sec: 'Plain',
     combo: 'Combo',
     band: 'Band',
@@ -865,23 +944,24 @@ const en: Strings = {
     shell:
       'Given is what you hear before you slide. Triad: root, third, fifth. Seventh: plus the seventh. Shell: third and seventh only, no root or fifth. The 9, 11 or 13 still counts from that root.',
     simple:
-      'Tap the button to set every exercise to the easiest options. One octave, cue tone on, major only, triad in root position, short lines, cadence with tonic. Sound character back to plain. Inside an exercise you can open them up later. Tap the button again to return to simplest.',
+      'Tap the button to set every exercise to the easiest options. One octave, cue tone on, first tone shown, major only, triad in root position, short lines, cadence with tonic. Sound character back to plain. Inside an exercise you can open them up later. Tap the button again to return to simplest.',
     saved:
       'Only if you change options in an exercise. When you then go back to home, that setup is kept as yours. Leaving unchanged does not save extra. Here you can also save or restore that setup, even after tapping Simplest settings.',
     advanced:
       'Open this only after plain holds: one bare tone, interval or chord inwardly. These are not new exercises. Same steps, different speaking-together. As you listen from combo to orchestra in music. Rhythm, piano and calibration stay out of this.',
     klank:
-      'Choose how the practice tone speaks. Not as piano or violin: as voices together. Plain first, always. Combo, band or orchestra fixed: one character for the whole exercise, to take apart. Random: each new round one of those three. Repeat in the same round keeps the same character. Simplest settings puts this back to plain.',
+      'Tap a name to hear it. You always hear the same C triad (Do–Mi–Sol); only the sound character changes. Not piano or violin: voices together. Plain first. Combo, band or orchestra fixed: one character to take apart. Random plays combo, band and orchestra here in a row; in an exercise each new round is one of those three. Repeat in the same round keeps the same. Simplest settings puts this back to plain.',
     klankSec:
-      'Start here. Bare tone, least colour, most identity. Hold the tone or distance in silence. Come back here if combo, band or orchestra pulls you off.',
+      'Start here. Bare tone, least colour, most identity. Tap to hear the C triad plain. Come back here if combo, band or orchestra pulls you off.',
     klankCombo:
-      'Few voices, still separable. As if a small ensemble is playing together. Advice: choose this once plain holds. Take apart whether you still hear the tone and the voices.',
+      'Few voices, still separable. As if a small ensemble. Tap to hear that triad. Advice: choose this once plain holds. Take apart whether you still hear the tone and the voices.',
     klankBand:
-      'Denser, more attack. As if a pop band is sounding together. Advice: the identity must survive the punch. Not before plain, preferably after combo.',
+      'Denser, more attack. As if a pop band. Tap to hear that triad. Advice: the identity must survive the punch. Not before plain, preferably after combo.',
     klankOrchestra:
-      'More mass, longer tail, voices blend. As if a large orchestra. Advice: take apart whether it is still the tone, or only the cloud. Last fixed step before random.',
+      'More mass, longer tail, voices blend. As if a large orchestra. Tap to hear that triad. Advice: take apart whether it is still the tone, or only the cloud. Last fixed step before random.',
     klankRandom:
-      'Each new round combo, band or orchestra. Same exercise, different speaking-together. Advice: only after one fixed character holds. Otherwise the ear chases colour, not the tone.',
+      'Tap to hear combo, band and orchestra one after another, the same C triad. In an exercise each new round picks one of those three. Advice: only after one fixed character holds. Otherwise the ear chases colour, not the tone.',
+    wish: 'Three things: change or new, where in the path, and the wish in your words. A reply email is not required.',
   },
   drone: {
     title: 'Drone',
@@ -895,7 +975,7 @@ const en: Strings = {
     },
     findNote: {
       title: 'Find a note',
-      body: 'You see a letter. Optionally you hear that note briefly. Then slide to it.',
+      body: 'You see a letter. Optionally you hear that note briefly. Then slide to it. Expansion: the same note in another octave.',
     },
     interval: {
       title: 'Hold an interval',
@@ -1013,9 +1093,11 @@ const en: Strings = {
     titleHold: 'Hold the tone',
     titleSing: 'Sing or play the tone',
     idleSing:
-      'You hear a tone from C major in octave {octave}. Then silence: hold it inwardly. Then sing it, or play it on an instrument into the microphone. An octave lower or higher still counts.',
+      'You hear a tone from C major in {list}. Then silence: hold it inwardly. Then sing it, or play it on an instrument into the microphone. An octave lower or higher still counts.',
     idleSilent:
-      'You hear a tone from C major in octave {octave}. Then it goes quiet. Hold that tone inwardly. Tap Check when you still hear it.',
+      'You hear a tone from C major in {list}. Then it goes quiet. Hold that tone inwardly. Tap Check when you still hear it.',
+    tonesHint: 'Which octaves the tone comes from. Tap more than one. Now: {list}.',
+    tonesA11y: 'Tone from octave {label}',
     playing: 'Listen. Remember the tone, not the name.',
     holdingSing: 'It is silent. Hold the same tone in your head. Then sing or play it into the microphone.',
     holdingSilent: 'It is silent. Hold the same tone in your head.',
@@ -1085,31 +1167,38 @@ const en: Strings = {
     seekingSilent:
       'Keep the letter in your head. Slide until the sound matches. The slider sounds only when you grab it.',
     hit: 'That was {letter}. Your tone and the real note sound the same.',
+    hitOther: 'That was {letter}. The same note as the base tone, in another octave.',
     close: 'Almost {letter}. You were a {interval} {direction}.',
     miss: 'The note was {letter}. You chose about {chosen}, a {interval} {direction}.',
     cueTitle: 'Cue tone',
     cueHint: 'For beginners. You hear the note of the letter briefly. Then silence; the slider sounds only when you slide.',
     cueA11y: 'Turn cue tone on or off',
-    tonesHint: 'Which octaves the note letter comes from. Now: {list}.',
+    tonesHint: 'Which octaves the note letter comes from. Stays put if you move the slider. Now: {list}.',
     tonesA11y: 'Tones in octave {label}',
     sliderA11y: 'Slider octave {label}',
     sliderHint:
-      'Range of the tone on the slider: {low} to {high}. Tap an octave to widen, tap the edge to narrow.',
+      'Range you search in: {low} to {high}. May be a different octave than the letter. Tap to widen, tap the edge to narrow.',
+    otherOctave: 'The letter comes from {source}. Find that same note in {target}.',
     sliderFollow: 'The tone follows the slider from {low} to {high}. No names on the bar.',
     sliderAfter: 'Then the slider starts somewhere else.',
     letterKicker: 'Note letter',
     realNote: 'Real note: {letter} · {hz} Hz',
+    baseNote: 'Base tone: {letter} · {hz} Hz',
+    searchNote: 'Note to find: {letter} · {hz} Hz',
     yourTone: 'Your tone: {label} · {hz} Hz',
     deviationOn: 'Offset: {cents} cents',
     deviationOff: 'Offset: {interval} {direction} · {cents} cents',
     compareYour: 'Your tone',
     compareReal: 'Real note',
+    compareBase: 'Base tone',
     compareTogether: 'Together',
     compareIntro: 'First one after the other, then together.',
     hearYour: 'Hear your tone',
     hearYourA11y: 'Hear your tone',
     hearReal: 'Hear real note',
     hearRealA11y: 'Hear the real note',
+    hearBase: 'Hear base tone',
+    hearBaseA11y: 'Hear the base tone',
     hearBoth: 'Hear together',
     hearBothA11y: 'Hear both tones together',
     hearCompare: 'Hear comparison',
@@ -1436,7 +1525,7 @@ const en: Strings = {
   },
 };
 
-export const STRINGS: Record<LocaleId, Strings> = { nl, en };
+export const STRINGS: Record<LocaleId, Strings> = { nl, en, de, fr, es };
 
 type LocaleContextValue = {
   locale: LocaleId;
@@ -1458,7 +1547,9 @@ export function useT(): Strings {
 }
 
 function parseLocale(value: string | null | undefined): LocaleId | null {
-  return value === 'en' || value === 'nl' ? value : null;
+  return value === 'nl' || value === 'en' || value === 'de' || value === 'fr' || value === 'es'
+    ? value
+    : null;
 }
 
 function deviceLocale(): LocaleId {
@@ -1467,7 +1558,23 @@ function deviceLocale(): LocaleId {
       Platform.OS === 'web'
         ? (globalThis.navigator?.language ?? '')
         : Intl.DateTimeFormat().resolvedOptions().locale;
-    return raw.toLowerCase().startsWith('en') ? 'en' : 'nl';
+    const lower = raw.toLowerCase().replace('_', '-');
+    if (lower.startsWith('de')) {
+      return 'de';
+    }
+    if (lower.startsWith('fr')) {
+      return 'fr';
+    }
+    if (lower.startsWith('es')) {
+      return 'es';
+    }
+    if (lower.startsWith('en')) {
+      return 'en';
+    }
+    if (lower.startsWith('nl')) {
+      return 'nl';
+    }
+    return 'nl';
   } catch {
     return 'nl';
   }

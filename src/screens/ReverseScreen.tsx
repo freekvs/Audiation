@@ -36,6 +36,8 @@ import { fmt, useT } from '../i18n';
 import { namedTone, relativeLabel, useNaming } from '../naming';
 import { COLORS } from '../theme';
 import { AppScreen, useCompactLayout } from '../ui/AppScreen';
+import { RoundActions } from '../ui/RoundActions';
+import { StartButton } from '../ui/StartButton';
 import { ContourGrid } from '../ui/ContourGrid';
 import { DroneSwitch } from '../ui/DroneSwitch';
 
@@ -258,6 +260,17 @@ export function ReverseScreen({ onBack }: Props) {
       <Text style={[styles.title, compact && styles.titleCompact]}>{title}</Text>
       <Text style={styles.subtitle}>{body}</Text>
 
+      {phase === 'check' ? (
+        <RoundActions
+          againA11y={t.reverse.againA11y}
+          nextA11y={t.reverse.nextA11y}
+          nextLabel={t.reverse.next}
+          onAgain={repeatRound}
+          onNext={startRound}
+          preferAgain={score != null && !score.all}
+        />
+      ) : null}
+
       <View style={styles.stats}>
         <Text style={styles.statsLine}>{statsLine}</Text>
         {advice.text ? (
@@ -425,38 +438,15 @@ export function ReverseScreen({ onBack }: Props) {
         </Pressable>
       ) : phase === 'playing' ? (
         <View style={styles.buttonPlaceholder} />
-      ) : phase === 'check' ? (
-        <View style={styles.actions}>
-          <Pressable
-            accessibilityRole="button"
-            accessibilityLabel={t.reverse.againA11y}
-            onPress={repeatRound}
-            style={({ pressed }) => [
-              styles.button,
-              styles.buttonSecondary,
-              pressed && styles.pressed,
-            ]}
-          >
-            <Text style={[styles.buttonText, styles.buttonSecondaryText]}>{t.common.again}</Text>
-          </Pressable>
-          <Pressable
-            accessibilityRole="button"
-            accessibilityLabel={t.reverse.nextA11y}
-            onPress={startRound}
-            style={({ pressed }) => [styles.button, pressed && styles.pressed]}
-          >
-            <Text style={styles.buttonText}>{t.reverse.next}</Text>
-          </Pressable>
-        </View>
-      ) : (
-        <Pressable
-          accessibilityRole="button"
+      ) : phase === 'check' ? null : (
+        <StartButton
           accessibilityLabel={t.common.startA11y}
+          label={t.common.start}
           onPress={startRound}
-          style={({ pressed }) => [styles.button, pressed && styles.pressed]}
-        >
-          <Text style={styles.buttonText}>{t.common.start}</Text>
-        </Pressable>
+          pressedStyle={styles.pressed}
+          style={styles.button}
+          textStyle={styles.buttonText}
+        />
       )}
     </AppScreen>
   );
