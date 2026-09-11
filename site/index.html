@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Audiation</title>
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/tour.css">
+</head>
+<body data-tour="home">
+  <main class="demo">
+    <nav class="lang-flags lang-flags--hero" aria-label="Language"></nav>
+    <nav class="site-nav"><a href="/" aria-current="page" data-i18n="ui.home">Home</a><a href="/over.html" data-i18n="ui.about">Over audiation</a><a href="/#oefeningen" data-i18n="ui.exercises">Oefening 1-10</a><a href="/privacy.html" data-i18n="ui.privacy">Privacy</a></nav>
+    <h1>Audiation</h1>
+    <p class="lead" data-i18n="ui.homeLead">Een app om muziek innerlijk te horen. Oefenen vanaf ongeveer 7 jaar. Hieronder de app op de telefoon: tik Volgende. Aan het eind staan de tien oefeningen uitgelegd.</p>
+    <div class="tour is-phone" id="tour"></div>
+    <div class="bar" id="bar">
+      <p class="hint" id="hint" data-i18n="ui.hintPhone">Volgende toont de uitleg.</p>
+      <div class="controls">
+        <button type="button" id="replay" data-i18n="ui.again">Opnieuw</button>
+        <button type="button" id="next" data-i18n="ui.next">Volgende</button>
+      </div>
+    </div>
+    <section class="after" id="after">
+      
+      <h2 id="oefeningen" data-i18n="ui.afterTitle">Meer info over oefening 1 tot 10</h2>
+      <p data-i18n="ui.afterLead">Elke pagina gebruikt dezelfde animatie. De tekst gaat over waarom de stap er is, wat de oefening doet, en wat jij ermee kunt bereiken.</p>
+      <div class="ex-menu" id="ex-menu"></div>
+      <p><a href="/over.html" data-i18n="ui.aboutLink">Over audiation in het algemeen</a><span data-i18n="ui.aboutLinkTail">, met links naar betrouwbare bronnen.</span></p>
+      <div class="controls"><button type="button" id="replay-after" data-i18n="ui.replay">Animatie opnieuw</button></div>
+
+    </section>
+  </main>
+  <script src="/i18n.js"></script>
+  <script src="/lang.js"></script>
+  <script src="/tour.js"></script>
+</body>
+</html>
