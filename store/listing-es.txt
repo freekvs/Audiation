@@ -1,0 +1,33 @@
+TITLE (max 30)
+Audiation — oír por dentro
+
+SHORT (max 80)
+Oír música por dentro. Once ejercicios, desde unos 7 años.
+
+FULL (max 4000)
+Audiation es una app para oír música por dentro. Escuchas, hay silencio y retienes el sonido en la cabeza. Luego compruebas: deslizar, pulsar, cantar o tocar. Cantar o un instrumento es una comprobación, no el objetivo.
+
+Los nombres (Do o 1) vienen después de oír — excepto en Buscar una nota. No es un curso de Music Learning Theory ni sustituye a un profesor. Se practica desde unos 7 años.
+
+El camino tiene once pasos, de fácil a difícil. Quien empieza puede poner todos los ejercicios a la vez en lo más sencillo: una octava, tono de ejemplo encendido, líneas cortas.
+
+• Sostener un tono — un tono de do mayor, silencio, sostenerlo por dentro
+• Buscar una nota — ves una letra y deslizas hacia ella
+• Sostener un intervalo — dos tonos, retener la distancia
+• Melodía — una línea corta, pulsar alturas, sin pentagrama
+• Invertir — pulsar la línea al revés
+• Sostener un acorde — un conjunto en el silencio
+• Armonía — deslizar un segundo tono hasta que encaje
+• Extensiones — 9, 11 o 13 sobre un acorde
+• Progresiones — grados de las fundamentales, en do
+• Ritmo — escuchar y repetir, o marcar uno tú
+• Tempo — metrónomo, marcar un valor, guardar el pulso por dentro
+
+Después puedes ampliar cada ejercicio: más octavas, ejemplo apagado, líneas más largas, inversiones. Avanzado: carácter del sonido (primero simple, luego combo, banda u orquesta).
+
+Herramientas: piano (do mayor) y afinación en la 440. Idiomas: neerlandés, inglés, alemán, francés, español.
+
+El micrófono es opcional y se queda en el aparato: la app oye tu voz o un instrumento para comprobar la nota. Sin cuenta.
+
+Más: https://audiation.app?lang=es
+Privacidad: https://audiation.app/privacy?lang=es

@@ -1,0 +1,33 @@
+TITLE (max 30)
+Audiation — innerlich hören
+
+SHORT (max 80)
+Musik innerlich hören. Elf Übungen, ab etwa 7 Jahren.
+
+FULL (max 4000)
+Audiation ist eine App, um Musik innerlich zu hören. Du hörst zu, es wird still, und du hältst den Klang im Kopf. Dann prüfst du: schieben, tippen, singen oder spielen. Singen oder ein Instrument ist eine Kontrolle, nicht das Ziel.
+
+Namen (Do oder 1) kommen nach dem Hören — außer bei Note suchen. Das ist kein Music-Learning-Theory-Kurs und kein Ersatz für eine Lehrkraft. Üben ab etwa 7 Jahren.
+
+Der Weg hat elf Schritte, von leicht nach schwer. Neue Nutzer setzen alles auf einmal auf die einfachste Stufe: eine Oktave, Beispielton an, kurze Linien.
+
+• Ton halten — ein Ton aus C-Dur, Stille, innerlich halten
+• Note suchen — du siehst einen Buchstaben und schiebst hin
+• Intervall halten — zwei Töne, den Abstand merken
+• Melodie — eine kurze Linie, Höhen tippen, kein Notensystem
+• Umkehren — die Linie rückwärts tippen
+• Akkord halten — einen Zusammenklang in der Stille
+• Harmonie — einen zweiten Ton dazuschieben, bis es stimmt
+• Extensionen — 9, 11 oder 13 zu einem Akkord
+• Progressionen — Stufen der Grundtöne in C
+• Rhythmus — hören und nachtippen, oder selbst eintippen
+• Tempo — Metronom, Notenwert tippen, Puls innerlich halten
+
+Danach kannst du jede Übung erweitern: mehr Oktaven, Beispiel aus, längere Linien, Umkehrungen. Fortgeschritten: Klangcharakter (zuerst schlicht, später Combo, Band oder Orchester).
+
+Werkzeuge: Klavier (C-Dur) und Stimmprüfung auf A440. Sprachen: Niederländisch, Englisch, Deutsch, Französisch, Spanisch.
+
+Das Mikrofon ist optional und bleibt auf dem Gerät: die App hört deine Stimme oder ein Instrument, um den Ton zu prüfen. Kein Konto nötig.
+
+Mehr: https://audiation.app?lang=de
+Datenschutz: https://audiation.app/privacy?lang=de

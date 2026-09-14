@@ -1,0 +1,33 @@
+TITLE (max 30)
+Audiation — innerlijk horen
+
+SHORT (max 80)
+Muziek innerlijk horen. Elf oefeningen, vanaf ongeveer 7 jaar.
+
+FULL (max 4000)
+Audiation is een app om muziek innerlijk te horen. Je luistert, het wordt stil, en je houdt de klank vast in je hoofd. Daarna check je: schuif, tik, zing of speel. Zingen of een instrument is een controle, niet het doel.
+
+Namen (Do of 1) komen ná het horen — behalve bij Noot zoeken. Het is geen Music Learning Theory-cursus en geen vervanging van een leraar. Oefenen vanaf ongeveer 7 jaar.
+
+Het pad heeft elf stappen, van makkelijk naar zwaar. Nieuwe gebruikers zetten alles in één keer op de eenvoudigste stand: één octaaf, voorbeeldtoon aan, korte lijnen.
+
+• Toon vasthouden — één toon uit C-majeur, stilte, innerlijk vasthouden
+• Noot zoeken — je ziet een letter, schuift ernaartoe
+• Interval vasthouden — twee tonen, de afstand onthouden
+• Melodie — een korte lijn, hoogtes tikken, geen notenbalk
+• Omkeren — de lijn achterstevoren tikken
+• Akkoord vasthouden — één samenklank in de stilte
+• Harmonie — een tweede toon erbij schuiven tot het klopt
+• Extensies — 9, 11 of 13 bij een akkoord
+• Progressies — treden van grondtonen in C
+• Ritme — luisteren en natikken, of zelf intikken
+• Tempo — metronoom, nootwaarde tikken, puls innerlijk houden
+
+Daarna kun je per oefening uitbreiden: meer octaven, voorbeeld uit, langere lijnen, omkeringen. Gevorderd: klinkkarakter (eerst sec, later combo, band of orkest).
+
+Gereedschap: piano (C-majeur) en ijking op A440. Talen: Nederlands, Engels, Duits, Frans, Spaans.
+
+De microfoon is optioneel en blijft op het toestel: de app luistert naar je zang of instrument om de toon te checken. Geen account nodig.
+
+Meer uitleg: https://audiation.app?lang=nl
+Privacy: https://audiation.app/privacy?lang=nl

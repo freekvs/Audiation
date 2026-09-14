@@ -1,0 +1,33 @@
+TITLE (max 30)
+Audiation — hear inwardly
+
+SHORT (max 80)
+Hear music inwardly. Eleven exercises, from about age 7.
+
+FULL (max 4000)
+Audiation is an app for hearing music inwardly. You listen, it goes silent, and you hold the sound in your head. Then you check: slide, tap, sing or play. Singing or an instrument is a check, not the aim.
+
+Names (Do or 1) come after hearing — except in Find a note. This is not a Music Learning Theory course and not a substitute for a teacher. Practice from about age 7.
+
+The path has eleven steps, easy to hard. New users can set every exercise to the simplest options at once: one octave, cue tone on, short lines.
+
+• Hold a tone — one tone from C major, silence, hold it inwardly
+• Find a note — you see a letter, then slide to it
+• Hold an interval — two tones, keep the distance
+• Melody — a short line, tap heights, no staff
+• Reverse — tap the line backwards
+• Hold a chord — one harmony in the silence
+• Harmony — slide a second tone in until it fits
+• Extensions — 9, 11 or 13 on a chord
+• Progressions — degrees of the roots, in C
+• Rhythm — listen and tap back, or tap one in yourself
+• Tempo — metronome, tap a note value, keep the pulse inwardly
+
+Then you can open each exercise up: more octaves, cue off, longer lines, inversions. Advanced: sound character (plain first, later combo, band or orchestra).
+
+Tools: piano (C major) and a tuning check at A440. Languages: Dutch, English, German, French, Spanish.
+
+The microphone is optional and stays on the device: the app listens to your voice or instrument to check the pitch. No account needed.
+
+More detail: https://audiation.app?lang=en
+Privacy: https://audiation.app/privacy?lang=en

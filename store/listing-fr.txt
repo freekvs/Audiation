@@ -1,0 +1,33 @@
+TITLE (max 30)
+Audiation — ouïe intérieure
+
+SHORT (max 80)
+Entendre la musique intérieurement. Onze exercices, dès 7 ans environ.
+
+FULL (max 4000)
+Audiation est une appli pour entendre la musique intérieurement. Tu écoutes, le silence, et tu retiens le son dans ta tête. Ensuite tu vérifies : glisser, toucher, chanter ou jouer. Chanter ou un instrument est un contrôle, pas le but.
+
+Les noms (Do ou 1) viennent après l’écoute — sauf pour Trouver une note. Ce n’est pas un cours de Music Learning Theory ni un remplaçant d’un professeur. On s’entraîne dès environ 7 ans.
+
+Le chemin a onze étapes, du plus simple au plus dur. Les nouveaux peuvent tout mettre d’un coup sur le niveau le plus facile : une octave, exemple sonore allumé, lignes courtes.
+
+• Tenir un son — un son de do majeur, silence, le tenir intérieurement
+• Trouver une note — tu vois une lettre, tu glisses vers elle
+• Tenir un intervalle — deux sons, retenir la distance
+• Mélodie — une ligne courte, toucher les hauteurs, pas de portée
+• Inverser — toucher la ligne à l’envers
+• Tenir un accord — un mélange dans le silence
+• Harmonie — glisser un second son jusqu’à ce que ça tienne
+• Extensions — 9, 11 ou 13 sur un accord
+• Progressions — degrés des fondamentales, en do
+• Rythme — écouter et retaper, ou en taper un toi-même
+• Tempo — métronome, taper une valeur, garder la pulsation intérieurement
+
+Ensuite tu peux ouvrir chaque exercice : plus d’octaves, exemple éteint, lignes plus longues, renversements. Avancé : caractère du son (d’abord simple, plus tard combo, groupe ou orchestre).
+
+Outils : piano (do majeur) et contrôle d’accord sur la 440. Langues : néerlandais, anglais, allemand, français, espagnol.
+
+Le micro est optionnel et reste sur l’appareil : l’appli écoute ta voix ou un instrument pour vérifier la note. Pas de compte.
+
+Plus : https://audiation.app?lang=fr
+Confidentialité : https://audiation.app/privacy?lang=fr
