@@ -10,6 +10,7 @@ import type { HoldInversionMode, HoldSizeMode } from './holdChord';
 import type { OctaveWay } from './intervals';
 import type { ChordSize, ProgressionPalette, ProgressionPattern } from './progression';
 import type { Meter, VoiceCount } from './rhythm';
+import { clampTempoBpm, parseTempoUnit, type TempoUnit } from './tempo';
 
 export type ExercisePrefs = {
   holdTone: { octaves: number[]; singEnabled: boolean };
@@ -56,6 +57,8 @@ export type ExercisePrefs = {
     sounds: VoiceCount;
     patternId: string;
   };
+  tempo: { bpm: number; unit: TempoUnit; silent: boolean };
+  sameTone: { hearOctaves: number[]; searchOctaves: number[] };
 };
 
 export const SIMPLE_PRESET: ExercisePrefs = {
@@ -97,6 +100,8 @@ export const SIMPLE_PRESET: ExercisePrefs = {
     toneOctaves: [4],
   },
   rhythm: { mode: 'preset', meter: 4, bars: 1, sounds: 1, patternId: '4q' },
+  tempo: { bpm: 60, unit: 'quarter', silent: false },
+  sameTone: { hearOctaves: [4], searchOctaves: [5] },
 };
 
 const STORAGE_KEY = 'audiation.prefs.v1';
@@ -153,6 +158,8 @@ function mergeSimple(raw: unknown): ExercisePrefs {
   const extension = data.extension ?? {};
   const progression = data.progression ?? {};
   const rhythm = data.rhythm ?? {};
+  const tempo = data.tempo ?? {};
+  const sameTone = data.sameTone ?? {};
 
   return {
     holdTone: {
@@ -238,6 +245,15 @@ function mergeSimple(raw: unknown): ExercisePrefs {
       bars: typeof rhythm.bars === 'number' ? rhythm.bars : base.rhythm.bars,
       sounds: rhythm.sounds === 2 || rhythm.sounds === 3 ? rhythm.sounds : 1,
       patternId: typeof rhythm.patternId === 'string' ? rhythm.patternId : base.rhythm.patternId,
+    },
+    tempo: {
+      bpm: clampTempoBpm(typeof tempo.bpm === 'number' ? tempo.bpm : base.tempo.bpm),
+      unit: parseTempoUnit(tempo.unit),
+      silent: tempo.silent === true,
+    },
+    sameTone: {
+      hearOctaves: asSortedOctaves(sameTone.hearOctaves, base.sameTone.hearOctaves),
+      searchOctaves: asSortedOctaves(sameTone.searchOctaves, base.sameTone.searchOctaves),
     },
   };
 }

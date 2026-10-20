@@ -1,4 +1,5 @@
 import { encodeClickWav } from './encodeClickWav';
+import { nativeGlide } from './glideNative';
 import { createReadyPlayer, playUri, safePause } from './nativePlay';
 import { getToneUri } from './toneUri';
 
@@ -55,12 +56,17 @@ async function getClickUri(hz: number): Promise<string> {
 function getPlayer(bus: Bus) {
   const slot = buses[bus];
   if (!slot.player) {
-    slot.player = createReadyPlayer(false, 1);
+    slot.player = createReadyPlayer(false, 1, true);
   }
   return slot.player;
 }
 
 export function stopClicks() {
+  const glide = nativeGlide();
+  if (glide?.stopClickHz) {
+    glide.stopClickHz();
+    return;
+  }
   (['a', 'b'] as const).forEach((bus) => {
     buses[bus].seq += 1;
     safePause(buses[bus].player);
@@ -68,6 +74,11 @@ export function stopClicks() {
 }
 
 export async function playClick(hz: number, bus: Bus = 'a'): Promise<void> {
+  const glide = nativeGlide();
+  if (glide?.playClickHz) {
+    glide.playClickHz(hz);
+    return;
+  }
   const slot = buses[bus];
   const seq = (slot.seq += 1);
   const uri = await getClickUri(hz);
@@ -79,6 +90,9 @@ export async function playClick(hz: number, bus: Bus = 'a'): Promise<void> {
 }
 
 export async function warmupClicks(hzList: number[]): Promise<void> {
+  if (nativeGlide()?.playClickHz) {
+    return;
+  }
   for (const hz of hzList) {
     await getClickUri(hz);
     void getToneUri(hz).catch(() => undefined);

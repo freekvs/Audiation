@@ -13,8 +13,34 @@ type WebAudio = {
 };
 
 type WebAudioContext = {
+  currentTime: number;
+  state: string;
+  destination: unknown;
   resume: () => Promise<unknown>;
+  createOscillator: () => WebOscillator;
+  createGain: () => WebGain;
 };
+
+type WebOscillator = {
+  type: string;
+  frequency: {
+    setValueAtTime: (value: number, time: number) => void;
+    setTargetAtTime: (value: number, time: number, constant: number) => void;
+  };
+  connect: (node: unknown) => void;
+  start: () => void;
+  stop: () => void;
+};
+
+type WebGain = {
+  gain: {
+    setValueAtTime: (value: number, time: number) => void;
+    setTargetAtTime: (value: number, time: number, constant: number) => void;
+  };
+  connect: (node: unknown) => void;
+};
+
+export type BrowserAudioContext = WebAudioContext;
 
 const listeners = new Set<() => void>();
 
@@ -68,6 +94,13 @@ function getAudioContext(): WebAudioContext | null {
   }
   audioCtx = new AC();
   return audioCtx;
+}
+
+export function getWebAudioContext(): BrowserAudioContext | null {
+  if (Platform.OS !== 'web') {
+    return null;
+  }
+  return getAudioContext();
 }
 
 export async function unlockAudio(): Promise<void> {

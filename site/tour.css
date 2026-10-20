@@ -721,6 +721,39 @@ body[data-tour="exercise"] .bar {
   border: 1px solid #3a342e;
 }
 .ex-rhythm span.on { background: #e07a5f; border-color: #e07a5f; }
+.ex-dots { display: flex; gap: 10px; justify-content: center; margin: 12px 0 4px; }
+.ex-dots span { width: 18px; height: 18px; border-radius: 50%; border: 2px solid #c9c2b8; background: transparent; }
+.ex-dots span.on { background: #1c1c1c; border-color: #1c1c1c; }
+.ex-bpm {
+  margin: -2px 0 8px;
+  font-size: 18px;
+  font-weight: 700;
+}
+.ex-tempo-beats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin: 12px 0;
+}
+.ex-tempo-beats span {
+  height: 28px;
+  border-radius: 6px;
+  background: #221e1a;
+  border: 1px solid #3a342e;
+}
+.ex-tempo-beats span.on {
+  background: #e07a5f;
+  border-color: #e07a5f;
+}
+.ex-tap {
+  text-align: center;
+  padding: 16px 12px;
+  margin: 8px 0 0;
+  border-radius: 12px;
+  background: #221e1a;
+  border: 1px solid #3a342e;
+  font-weight: 700;
+}
 .ex-start-row {
   display: flex;
   align-items: center;

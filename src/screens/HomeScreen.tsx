@@ -18,6 +18,7 @@ import { ChoiceHelp } from '../ui/ChoiceHelp';
 import { KlankChips } from '../ui/KlankChips';
 import { LanguageChips } from '../ui/LanguageChips';
 import { NamingChips } from '../ui/NamingChips';
+import { RemoveAdsCard } from '../ui/RemoveAdsCard';
 import { WishForm } from '../ui/WishForm';
 
 type Props = {
@@ -54,6 +55,7 @@ export function HomeScreen({ onOpen }: Props) {
       <Text style={[styles.title, compact && styles.titleCompact]}>Audiation</Text>
 
       <LanguageChips />
+      <RemoveAdsCard />
 
       <View style={styles.explain}>
         <Text style={styles.sectionTitle}>{t.home.howTitle}</Text>

@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 import { playClick, stopClicks, warmupClicks } from '../audio/click';
+import { clickTimeline } from '../audio/tapLatency';
 import { fmt, useT } from '../i18n';
 import { useExercisePrefs } from '../exercisePrefs';
 import {
@@ -112,16 +113,21 @@ export function RhythmScreen({ onBack }: Props) {
     delayMs: number,
     bus: 'a' | 'b',
     markPlayhead: boolean,
+    timeline = clickTimeline(),
   ) => {
     for (const event of hits) {
-      const at = delayMs + event.slot * step;
+      const logical = delayMs + event.slot * step;
+      if (markPlayhead) {
+        timers.current.push(
+          setTimeout(() => {
+            setPlaySlot(event.slot);
+          }, timeline.visualAt(logical)),
+        );
+      }
       timers.current.push(
         setTimeout(() => {
-          if (markPlayhead) {
-            setPlaySlot(event.slot);
-          }
           void playClick(voiceHz(event.voice, sounds), bus).catch(() => undefined);
-        }, at),
+        }, timeline.audioAt(logical)),
       );
     }
   };
@@ -131,11 +137,12 @@ export function RhythmScreen({ onBack }: Props) {
     modelRef.current = expandHits(hits, meter, bars);
     setPhase('listening');
     setCompareStep(0);
+    const timeline = clickTimeline();
     const countIn = countInHits(meter);
-    scheduleHits(countIn, 0, 'b', false);
+    scheduleHits(countIn, 0, 'b', false, timeline);
     const lead = meter * 4 * step;
-    scheduleHits(modelRef.current, lead, 'a', true);
-    const doneAt = lead + totalSlots * step + 80;
+    scheduleHits(modelRef.current, lead, 'a', true, timeline);
+    const doneAt = timeline.visualAt(lead + totalSlots * step) + 80;
     timers.current.push(
       setTimeout(() => {
         setPlaySlot(null);
@@ -154,16 +161,17 @@ export function RhythmScreen({ onBack }: Props) {
     setTaps([]);
     setScore(null);
     setPhase('repeating');
+    const timeline = clickTimeline();
     const countIn = countInHits(meter);
-    scheduleHits(countIn, 0, 'b', false);
+    scheduleHits(countIn, 0, 'b', false, timeline);
     const lead = meter * 4 * step;
-    windowStart.current = Date.now() + lead;
+    windowStart.current = Date.now() + timeline.visualAt(lead);
     capturing.current = true;
     for (let slot = 0; slot < totalSlots; slot += 1) {
       timers.current.push(
         setTimeout(() => {
           setPlaySlot(slot);
-        }, lead + slot * step),
+        }, timeline.visualAt(lead + slot * step)),
       );
     }
     timers.current.push(
@@ -174,7 +182,7 @@ export function RhythmScreen({ onBack }: Props) {
         setScore(scoreRhythm(modelRef.current, recorded, DEFAULT_BPM, sounds));
         setPhase('check');
         playCompare(recorded);
-      }, lead + totalSlots * step + 60),
+      }, timeline.visualAt(lead + totalSlots * step) + 60),
     );
   };
 
@@ -185,16 +193,17 @@ export function RhythmScreen({ onBack }: Props) {
     setTaps([]);
     setScore(null);
     setPhase('composing');
+    const timeline = clickTimeline();
     const countIn = countInHits(meter);
-    scheduleHits(countIn, 0, 'b', false);
+    scheduleHits(countIn, 0, 'b', false, timeline);
     const lead = meter * 4 * step;
-    windowStart.current = Date.now() + lead;
+    windowStart.current = Date.now() + timeline.visualAt(lead);
     capturing.current = true;
     for (let slot = 0; slot < totalSlots; slot += 1) {
       timers.current.push(
         setTimeout(() => {
           setPlaySlot(slot);
-        }, lead + slot * step),
+        }, timeline.visualAt(lead + slot * step)),
       );
     }
     timers.current.push(
@@ -207,7 +216,7 @@ export function RhythmScreen({ onBack }: Props) {
         tapsRef.current = [];
         setTaps([]);
         playStream(saved, true);
-      }, lead + totalSlots * step + 60),
+      }, timeline.visualAt(lead + totalSlots * step) + 60),
     );
   };
 
@@ -263,20 +272,21 @@ export function RhythmScreen({ onBack }: Props) {
     stopAll();
     const expected = modelRef.current;
     const userHits = quantizeTaps(recorded, meter, bars, DEFAULT_BPM);
+    const timeline = clickTimeline();
     setCompareStep(1);
-    scheduleHits(expected, 0, 'a', true);
-    const gap = totalSlots * step + 400;
+    scheduleHits(expected, 0, 'a', true, timeline);
+    const gap = timeline.visualAt(totalSlots * step) + 400;
     timers.current.push(
       setTimeout(() => {
         setCompareStep(2);
-        scheduleHits(userHits, 0, 'b', true);
+        scheduleHits(userHits, 0, 'b', true, timeline);
       }, gap),
     );
     timers.current.push(
       setTimeout(() => {
         setCompareStep(3);
-        scheduleHits(expected, 0, 'a', true);
-        scheduleHits(userHits, 0, 'b', false);
+        scheduleHits(expected, 0, 'a', true, timeline);
+        scheduleHits(userHits, 0, 'b', false, timeline);
       }, gap * 2),
     );
     timers.current.push(
@@ -284,7 +294,7 @@ export function RhythmScreen({ onBack }: Props) {
         setCompareStep(0);
         setPlaySlot(null);
         stopClicks();
-      }, gap * 2 + totalSlots * step + 80),
+      }, gap * 2 + timeline.visualAt(totalSlots * step) + 80),
     );
   };
 

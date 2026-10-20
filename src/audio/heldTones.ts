@@ -1,5 +1,6 @@
 import { getSoundingKlank } from './klank';
 import { createReadyPlayer, playUri, safePause } from './nativePlay';
+import { slideHz, stopSlide } from './slideTone';
 import { getSustainUri } from './toneUri';
 
 type Slot = 'givenA' | 'givenB' | 'givenC' | 'givenD' | 'slide';
@@ -31,7 +32,14 @@ function getPlayer(slot: Slot) {
 
 export function stopHeld(slot?: Slot) {
   const names: Slot[] = slot ? [slot] : ALL_SLOTS;
+  if (!slot || slot === 'slide') {
+    stopSlide();
+  }
   for (const name of names) {
+    if (name === 'slide') {
+      slots[name].seq += 1;
+      continue;
+    }
     slots[name].seq += 1;
     const player = slots[name].player;
     if (player) {
@@ -42,6 +50,10 @@ export function stopHeld(slot?: Slot) {
 }
 
 export async function playHeld(slot: Slot, hz: number): Promise<void> {
+  if (slot === 'slide') {
+    slideHz(hz);
+    return;
+  }
   const state = slots[slot];
   const seq = (state.seq += 1);
   const uri = await getSustainUri(hz, getSoundingKlank());

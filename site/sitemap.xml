@@ -1,0 +1,754 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://audiation.app/</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://audiation.app/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://audiation.app/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://audiation.app/en/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://audiation.app/de/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://audiation.app/fr/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://audiation.app/es/"/>
+  </url>
+  <url>
+    <loc>https://audiation.app/en/</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://audiation.app/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://audiation.app/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://audiation.app/en/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://audiation.app/de/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://audiation.app/fr/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://audiation.app/es/"/>
+  </url>
+  <url>
+    <loc>https://audiation.app/de/</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://audiation.app/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://audiation.app/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://audiation.app/en/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://audiation.app/de/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://audiation.app/fr/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://audiation.app/es/"/>
+  </url>
+  <url>
+    <loc>https://audiation.app/fr/</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://audiation.app/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://audiation.app/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://audiation.app/en/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://audiation.app/de/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://audiation.app/fr/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://audiation.app/es/"/>
+  </url>
+  <url>
+    <loc>https://audiation.app/es/</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://audiation.app/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://audiation.app/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://audiation.app/en/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://audiation.app/de/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://audiation.app/fr/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://audiation.app/es/"/>
+  </url>
+  <url>
+    <loc>https://audiation.app/over</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://audiation.app/over"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://audiation.app/over"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://audiation.app/en/over"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://audiation.app/de/over"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://audiation.app/fr/over"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://audiation.app/es/over"/>
+  </url>
+  <url>
+    <loc>https://audiation.app/en/over</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://audiation.app/over"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://audiation.app/over"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://audiation.app/en/over"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://audiation.app/de/over"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://audiation.app/fr/over"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://audiation.app/es/over"/>
+  </url>
+  <url>
+    <loc>https://audiation.app/de/over</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://audiation.app/over"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://audiation.app/over"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://audiation.app/en/over"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://audiation.app/de/over"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://audiation.app/fr/over"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://audiation.app/es/over"/>
+  </url>
+  <url>
+    <loc>https://audiation.app/fr/over</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://audiation.app/over"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://audiation.app/over"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://audiation.app/en/over"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://audiation.app/de/over"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://audiation.app/fr/over"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://audiation.app/es/over"/>
+  </url>
+  <url>
+    <loc>https://audiation.app/es/over</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://audiation.app/over"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://audiation.app/over"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://audiation.app/en/over"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://audiation.app/de/over"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://audiation.app/fr/over"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://audiation.app/es/over"/>
+  </url>
+  <url>
+    <loc>https://audiation.app/privacy</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://audiation.app/privacy"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://audiation.app/privacy"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://audiation.app/en/privacy"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://audiation.app/de/privacy"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://audiation.app/fr/privacy"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://audiation.app/es/privacy"/>
+  </url>
+  <url>
+    <loc>https://audiation.app/en/privacy</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://audiation.app/privacy"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://audiation.app/privacy"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://audiation.app/en/privacy"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://audiation.app/de/privacy"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://audiation.app/fr/privacy"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://audiation.app/es/privacy"/>
+  </url>
+  <url>
+    <loc>https://audiation.app/de/privacy</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://audiation.app/privacy"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://audiation.app/privacy"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://audiation.app/en/privacy"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://audiation.app/de/privacy"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://audiation.app/fr/privacy"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://audiation.app/es/privacy"/>
+  </url>
+  <url>
+    <loc>https://audiation.app/fr/privacy</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://audiation.app/privacy"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://audiation.app/privacy"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://audiation.app/en/privacy"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://audiation.app/de/privacy"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://audiation.app/fr/privacy"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://audiation.app/es/privacy"/>
+  </url>
+  <url>
+    <loc>https://audiation.app/es/privacy</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://audiation.app/privacy"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://audiation.app/privacy"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://audiation.app/en/privacy"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://audiation.app/de/privacy"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://audiation.app/fr/privacy"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://audiation.app/es/privacy"/>
+  </url>
+  <url>
+    <loc>https://audiation.app/oefening-1</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://audiation.app/oefening-1"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://audiation.app/oefening-1"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://audiation.app/en/oefening-1"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://audiation.app/de/oefening-1"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://audiation.app/fr/oefening-1"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://audiation.app/es/oefening-1"/>
+  </url>
+  <url>
+    <loc>https://audiation.app/en/oefening-1</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://audiation.app/oefening-1"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://audiation.app/oefening-1"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://audiation.app/en/oefening-1"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://audiation.app/de/oefening-1"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://audiation.app/fr/oefening-1"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://audiation.app/es/oefening-1"/>
+  </url>
+  <url>
+    <loc>https://audiation.app/de/oefening-1</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://audiation.app/oefening-1"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://audiation.app/oefening-1"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://audiation.app/en/oefening-1"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://audiation.app/de/oefening-1"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://audiation.app/fr/oefening-1"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://audiation.app/es/oefening-1"/>
+  </url>
+  <url>
+    <loc>https://audiation.app/fr/oefening-1</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://audiation.app/oefening-1"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://audiation.app/oefening-1"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://audiation.app/en/oefening-1"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://audiation.app/de/oefening-1"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://audiation.app/fr/oefening-1"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://audiation.app/es/oefening-1"/>
+  </url>
+  <url>
+    <loc>https://audiation.app/es/oefening-1</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://audiation.app/oefening-1"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://audiation.app/oefening-1"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://audiation.app/en/oefening-1"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://audiation.app/de/oefening-1"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://audiation.app/fr/oefening-1"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://audiation.app/es/oefening-1"/>
+  </url>
+  <url>
+    <loc>https://audiation.app/oefening-2</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://audiation.app/oefening-2"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://audiation.app/oefening-2"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://audiation.app/en/oefening-2"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://audiation.app/de/oefening-2"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://audiation.app/fr/oefening-2"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://audiation.app/es/oefening-2"/>
+  </url>
+  <url>
+    <loc>https://audiation.app/en/oefening-2</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://audiation.app/oefening-2"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://audiation.app/oefening-2"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://audiation.app/en/oefening-2"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://audiation.app/de/oefening-2"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://audiation.app/fr/oefening-2"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://audiation.app/es/oefening-2"/>
+  </url>
+  <url>
+    <loc>https://audiation.app/de/oefening-2</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://audiation.app/oefening-2"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://audiation.app/oefening-2"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://audiation.app/en/oefening-2"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://audiation.app/de/oefening-2"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://audiation.app/fr/oefening-2"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://audiation.app/es/oefening-2"/>
+  </url>
+  <url>
+    <loc>https://audiation.app/fr/oefening-2</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://audiation.app/oefening-2"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://audiation.app/oefening-2"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://audiation.app/en/oefening-2"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://audiation.app/de/oefening-2"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://audiation.app/fr/oefening-2"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://audiation.app/es/oefening-2"/>
+  </url>
+  <url>
+    <loc>https://audiation.app/es/oefening-2</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://audiation.app/oefening-2"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://audiation.app/oefening-2"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://audiation.app/en/oefening-2"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://audiation.app/de/oefening-2"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://audiation.app/fr/oefening-2"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://audiation.app/es/oefening-2"/>
+  </url>
+  <url>
+    <loc>https://audiation.app/oefening-3</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://audiation.app/oefening-3"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://audiation.app/oefening-3"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://audiation.app/en/oefening-3"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://audiation.app/de/oefening-3"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://audiation.app/fr/oefening-3"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://audiation.app/es/oefening-3"/>
+  </url>
+  <url>
+    <loc>https://audiation.app/en/oefening-3</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://audiation.app/oefening-3"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://audiation.app/oefening-3"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://audiation.app/en/oefening-3"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://audiation.app/de/oefening-3"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://audiation.app/fr/oefening-3"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://audiation.app/es/oefening-3"/>
+  </url>
+  <url>
+    <loc>https://audiation.app/de/oefening-3</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://audiation.app/oefening-3"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://audiation.app/oefening-3"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://audiation.app/en/oefening-3"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://audiation.app/de/oefening-3"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://audiation.app/fr/oefening-3"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://audiation.app/es/oefening-3"/>
+  </url>
+  <url>
+    <loc>https://audiation.app/fr/oefening-3</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://audiation.app/oefening-3"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://audiation.app/oefening-3"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://audiation.app/en/oefening-3"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://audiation.app/de/oefening-3"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://audiation.app/fr/oefening-3"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://audiation.app/es/oefening-3"/>
+  </url>
+  <url>
+    <loc>https://audiation.app/es/oefening-3</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://audiation.app/oefening-3"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://audiation.app/oefening-3"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://audiation.app/en/oefening-3"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://audiation.app/de/oefening-3"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://audiation.app/fr/oefening-3"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://audiation.app/es/oefening-3"/>
+  </url>
+  <url>
+    <loc>https://audiation.app/oefening-4</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://audiation.app/oefening-4"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://audiation.app/oefening-4"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://audiation.app/en/oefening-4"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://audiation.app/de/oefening-4"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://audiation.app/fr/oefening-4"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://audiation.app/es/oefening-4"/>
+  </url>
+  <url>
+    <loc>https://audiation.app/en/oefening-4</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://audiation.app/oefening-4"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://audiation.app/oefening-4"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://audiation.app/en/oefening-4"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://audiation.app/de/oefening-4"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://audiation.app/fr/oefening-4"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://audiation.app/es/oefening-4"/>
+  </url>
+  <url>
+    <loc>https://audiation.app/de/oefening-4</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://audiation.app/oefening-4"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://audiation.app/oefening-4"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://audiation.app/en/oefening-4"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://audiation.app/de/oefening-4"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://audiation.app/fr/oefening-4"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://audiation.app/es/oefening-4"/>
+  </url>
+  <url>
+    <loc>https://audiation.app/fr/oefening-4</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://audiation.app/oefening-4"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://audiation.app/oefening-4"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://audiation.app/en/oefening-4"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://audiation.app/de/oefening-4"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://audiation.app/fr/oefening-4"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://audiation.app/es/oefening-4"/>
+  </url>
+  <url>
+    <loc>https://audiation.app/es/oefening-4</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://audiation.app/oefening-4"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://audiation.app/oefening-4"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://audiation.app/en/oefening-4"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://audiation.app/de/oefening-4"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://audiation.app/fr/oefening-4"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://audiation.app/es/oefening-4"/>
+  </url>
+  <url>
+    <loc>https://audiation.app/oefening-5</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://audiation.app/oefening-5"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://audiation.app/oefening-5"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://audiation.app/en/oefening-5"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://audiation.app/de/oefening-5"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://audiation.app/fr/oefening-5"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://audiation.app/es/oefening-5"/>
+  </url>
+  <url>
+    <loc>https://audiation.app/en/oefening-5</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://audiation.app/oefening-5"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://audiation.app/oefening-5"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://audiation.app/en/oefening-5"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://audiation.app/de/oefening-5"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://audiation.app/fr/oefening-5"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://audiation.app/es/oefening-5"/>
+  </url>
+  <url>
+    <loc>https://audiation.app/de/oefening-5</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://audiation.app/oefening-5"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://audiation.app/oefening-5"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://audiation.app/en/oefening-5"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://audiation.app/de/oefening-5"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://audiation.app/fr/oefening-5"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://audiation.app/es/oefening-5"/>
+  </url>
+  <url>
+    <loc>https://audiation.app/fr/oefening-5</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://audiation.app/oefening-5"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://audiation.app/oefening-5"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://audiation.app/en/oefening-5"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://audiation.app/de/oefening-5"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://audiation.app/fr/oefening-5"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://audiation.app/es/oefening-5"/>
+  </url>
+  <url>
+    <loc>https://audiation.app/es/oefening-5</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://audiation.app/oefening-5"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://audiation.app/oefening-5"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://audiation.app/en/oefening-5"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://audiation.app/de/oefening-5"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://audiation.app/fr/oefening-5"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://audiation.app/es/oefening-5"/>
+  </url>
+  <url>
+    <loc>https://audiation.app/oefening-6</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://audiation.app/oefening-6"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://audiation.app/oefening-6"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://audiation.app/en/oefening-6"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://audiation.app/de/oefening-6"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://audiation.app/fr/oefening-6"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://audiation.app/es/oefening-6"/>
+  </url>
+  <url>
+    <loc>https://audiation.app/en/oefening-6</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://audiation.app/oefening-6"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://audiation.app/oefening-6"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://audiation.app/en/oefening-6"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://audiation.app/de/oefening-6"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://audiation.app/fr/oefening-6"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://audiation.app/es/oefening-6"/>
+  </url>
+  <url>
+    <loc>https://audiation.app/de/oefening-6</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://audiation.app/oefening-6"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://audiation.app/oefening-6"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://audiation.app/en/oefening-6"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://audiation.app/de/oefening-6"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://audiation.app/fr/oefening-6"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://audiation.app/es/oefening-6"/>
+  </url>
+  <url>
+    <loc>https://audiation.app/fr/oefening-6</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://audiation.app/oefening-6"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://audiation.app/oefening-6"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://audiation.app/en/oefening-6"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://audiation.app/de/oefening-6"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://audiation.app/fr/oefening-6"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://audiation.app/es/oefening-6"/>
+  </url>
+  <url>
+    <loc>https://audiation.app/es/oefening-6</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://audiation.app/oefening-6"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://audiation.app/oefening-6"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://audiation.app/en/oefening-6"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://audiation.app/de/oefening-6"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://audiation.app/fr/oefening-6"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://audiation.app/es/oefening-6"/>
+  </url>
+  <url>
+    <loc>https://audiation.app/oefening-7</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://audiation.app/oefening-7"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://audiation.app/oefening-7"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://audiation.app/en/oefening-7"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://audiation.app/de/oefening-7"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://audiation.app/fr/oefening-7"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://audiation.app/es/oefening-7"/>
+  </url>
+  <url>
+    <loc>https://audiation.app/en/oefening-7</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://audiation.app/oefening-7"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://audiation.app/oefening-7"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://audiation.app/en/oefening-7"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://audiation.app/de/oefening-7"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://audiation.app/fr/oefening-7"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://audiation.app/es/oefening-7"/>
+  </url>
+  <url>
+    <loc>https://audiation.app/de/oefening-7</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://audiation.app/oefening-7"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://audiation.app/oefening-7"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://audiation.app/en/oefening-7"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://audiation.app/de/oefening-7"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://audiation.app/fr/oefening-7"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://audiation.app/es/oefening-7"/>
+  </url>
+  <url>
+    <loc>https://audiation.app/fr/oefening-7</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://audiation.app/oefening-7"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://audiation.app/oefening-7"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://audiation.app/en/oefening-7"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://audiation.app/de/oefening-7"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://audiation.app/fr/oefening-7"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://audiation.app/es/oefening-7"/>
+  </url>
+  <url>
+    <loc>https://audiation.app/es/oefening-7</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://audiation.app/oefening-7"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://audiation.app/oefening-7"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://audiation.app/en/oefening-7"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://audiation.app/de/oefening-7"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://audiation.app/fr/oefening-7"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://audiation.app/es/oefening-7"/>
+  </url>
+  <url>
+    <loc>https://audiation.app/oefening-8</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://audiation.app/oefening-8"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://audiation.app/oefening-8"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://audiation.app/en/oefening-8"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://audiation.app/de/oefening-8"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://audiation.app/fr/oefening-8"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://audiation.app/es/oefening-8"/>
+  </url>
+  <url>
+    <loc>https://audiation.app/en/oefening-8</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://audiation.app/oefening-8"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://audiation.app/oefening-8"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://audiation.app/en/oefening-8"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://audiation.app/de/oefening-8"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://audiation.app/fr/oefening-8"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://audiation.app/es/oefening-8"/>
+  </url>
+  <url>
+    <loc>https://audiation.app/de/oefening-8</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://audiation.app/oefening-8"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://audiation.app/oefening-8"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://audiation.app/en/oefening-8"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://audiation.app/de/oefening-8"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://audiation.app/fr/oefening-8"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://audiation.app/es/oefening-8"/>
+  </url>
+  <url>
+    <loc>https://audiation.app/fr/oefening-8</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://audiation.app/oefening-8"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://audiation.app/oefening-8"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://audiation.app/en/oefening-8"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://audiation.app/de/oefening-8"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://audiation.app/fr/oefening-8"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://audiation.app/es/oefening-8"/>
+  </url>
+  <url>
+    <loc>https://audiation.app/es/oefening-8</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://audiation.app/oefening-8"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://audiation.app/oefening-8"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://audiation.app/en/oefening-8"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://audiation.app/de/oefening-8"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://audiation.app/fr/oefening-8"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://audiation.app/es/oefening-8"/>
+  </url>
+  <url>
+    <loc>https://audiation.app/oefening-9</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://audiation.app/oefening-9"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://audiation.app/oefening-9"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://audiation.app/en/oefening-9"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://audiation.app/de/oefening-9"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://audiation.app/fr/oefening-9"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://audiation.app/es/oefening-9"/>
+  </url>
+  <url>
+    <loc>https://audiation.app/en/oefening-9</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://audiation.app/oefening-9"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://audiation.app/oefening-9"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://audiation.app/en/oefening-9"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://audiation.app/de/oefening-9"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://audiation.app/fr/oefening-9"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://audiation.app/es/oefening-9"/>
+  </url>
+  <url>
+    <loc>https://audiation.app/de/oefening-9</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://audiation.app/oefening-9"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://audiation.app/oefening-9"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://audiation.app/en/oefening-9"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://audiation.app/de/oefening-9"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://audiation.app/fr/oefening-9"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://audiation.app/es/oefening-9"/>
+  </url>
+  <url>
+    <loc>https://audiation.app/fr/oefening-9</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://audiation.app/oefening-9"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://audiation.app/oefening-9"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://audiation.app/en/oefening-9"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://audiation.app/de/oefening-9"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://audiation.app/fr/oefening-9"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://audiation.app/es/oefening-9"/>
+  </url>
+  <url>
+    <loc>https://audiation.app/es/oefening-9</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://audiation.app/oefening-9"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://audiation.app/oefening-9"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://audiation.app/en/oefening-9"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://audiation.app/de/oefening-9"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://audiation.app/fr/oefening-9"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://audiation.app/es/oefening-9"/>
+  </url>
+  <url>
+    <loc>https://audiation.app/oefening-10</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://audiation.app/oefening-10"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://audiation.app/oefening-10"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://audiation.app/en/oefening-10"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://audiation.app/de/oefening-10"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://audiation.app/fr/oefening-10"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://audiation.app/es/oefening-10"/>
+  </url>
+  <url>
+    <loc>https://audiation.app/en/oefening-10</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://audiation.app/oefening-10"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://audiation.app/oefening-10"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://audiation.app/en/oefening-10"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://audiation.app/de/oefening-10"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://audiation.app/fr/oefening-10"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://audiation.app/es/oefening-10"/>
+  </url>
+  <url>
+    <loc>https://audiation.app/de/oefening-10</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://audiation.app/oefening-10"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://audiation.app/oefening-10"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://audiation.app/en/oefening-10"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://audiation.app/de/oefening-10"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://audiation.app/fr/oefening-10"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://audiation.app/es/oefening-10"/>
+  </url>
+  <url>
+    <loc>https://audiation.app/fr/oefening-10</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://audiation.app/oefening-10"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://audiation.app/oefening-10"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://audiation.app/en/oefening-10"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://audiation.app/de/oefening-10"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://audiation.app/fr/oefening-10"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://audiation.app/es/oefening-10"/>
+  </url>
+  <url>
+    <loc>https://audiation.app/es/oefening-10</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://audiation.app/oefening-10"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://audiation.app/oefening-10"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://audiation.app/en/oefening-10"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://audiation.app/de/oefening-10"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://audiation.app/fr/oefening-10"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://audiation.app/es/oefening-10"/>
+  </url>
+  <url>
+    <loc>https://audiation.app/oefening-11</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://audiation.app/oefening-11"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://audiation.app/oefening-11"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://audiation.app/en/oefening-11"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://audiation.app/de/oefening-11"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://audiation.app/fr/oefening-11"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://audiation.app/es/oefening-11"/>
+  </url>
+  <url>
+    <loc>https://audiation.app/en/oefening-11</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://audiation.app/oefening-11"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://audiation.app/oefening-11"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://audiation.app/en/oefening-11"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://audiation.app/de/oefening-11"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://audiation.app/fr/oefening-11"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://audiation.app/es/oefening-11"/>
+  </url>
+  <url>
+    <loc>https://audiation.app/de/oefening-11</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://audiation.app/oefening-11"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://audiation.app/oefening-11"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://audiation.app/en/oefening-11"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://audiation.app/de/oefening-11"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://audiation.app/fr/oefening-11"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://audiation.app/es/oefening-11"/>
+  </url>
+  <url>
+    <loc>https://audiation.app/fr/oefening-11</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://audiation.app/oefening-11"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://audiation.app/oefening-11"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://audiation.app/en/oefening-11"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://audiation.app/de/oefening-11"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://audiation.app/fr/oefening-11"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://audiation.app/es/oefening-11"/>
+  </url>
+  <url>
+    <loc>https://audiation.app/es/oefening-11</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://audiation.app/oefening-11"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://audiation.app/oefening-11"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://audiation.app/en/oefening-11"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://audiation.app/de/oefening-11"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://audiation.app/fr/oefening-11"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://audiation.app/es/oefening-11"/>
+  </url>
+  <url>
+    <loc>https://audiation.app/oefening-12</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://audiation.app/oefening-12"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://audiation.app/oefening-12"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://audiation.app/en/oefening-12"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://audiation.app/de/oefening-12"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://audiation.app/fr/oefening-12"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://audiation.app/es/oefening-12"/>
+  </url>
+  <url>
+    <loc>https://audiation.app/en/oefening-12</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://audiation.app/oefening-12"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://audiation.app/oefening-12"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://audiation.app/en/oefening-12"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://audiation.app/de/oefening-12"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://audiation.app/fr/oefening-12"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://audiation.app/es/oefening-12"/>
+  </url>
+  <url>
+    <loc>https://audiation.app/de/oefening-12</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://audiation.app/oefening-12"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://audiation.app/oefening-12"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://audiation.app/en/oefening-12"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://audiation.app/de/oefening-12"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://audiation.app/fr/oefening-12"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://audiation.app/es/oefening-12"/>
+  </url>
+  <url>
+    <loc>https://audiation.app/fr/oefening-12</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://audiation.app/oefening-12"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://audiation.app/oefening-12"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://audiation.app/en/oefening-12"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://audiation.app/de/oefening-12"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://audiation.app/fr/oefening-12"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://audiation.app/es/oefening-12"/>
+  </url>
+  <url>
+    <loc>https://audiation.app/es/oefening-12</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://audiation.app/oefening-12"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://audiation.app/oefening-12"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://audiation.app/en/oefening-12"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://audiation.app/de/oefening-12"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://audiation.app/fr/oefening-12"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://audiation.app/es/oefening-12"/>
+  </url>
+</urlset>

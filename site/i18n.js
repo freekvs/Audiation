@@ -3,7 +3,7 @@ window.SITE_I18N = {
     "ui": {
       "home": "Home",
       "about": "Over audiation",
-      "exercises": "Oefening 1-10",
+      "exercises": "Oefening 1-12",
       "privacy": "Privacy",
       "homeTitle": "Audiation",
       "aboutTitle": "Over audiation",
@@ -13,15 +13,15 @@ window.SITE_I18N = {
       "replay": "Animatie opnieuw",
       "hintPhone": "Volgende toont de uitleg.",
       "hintText": "Volgende toont het volgende scherm.",
-      "homeLead": "Een app om muziek innerlijk te horen. Oefenen vanaf ongeveer 7 jaar. Hieronder de app op de telefoon: tik Volgende. Aan het eind staan de tien oefeningen uitgelegd.",
-      "afterTitle": "Meer info over oefening 1 tot 10",
+      "homeLead": "Een app om muziek innerlijk te horen. Oefenen vanaf ongeveer 7 jaar. Hieronder de app op de telefoon: tik Volgende. Aan het eind staan de twaalf oefeningen uitgelegd.",
+      "afterTitle": "Meer info over oefening 1 tot 12",
       "afterLead": "Elke pagina gebruikt dezelfde animatie. De tekst gaat over waarom de stap er is, wat de oefening doet, en wat jij ermee kunt bereiken.",
       "aboutLink": "Over audiation in het algemeen",
       "aboutLinkTail": ", met links naar betrouwbare bronnen.",
       "exLead": "Waarom deze stap er is, wat de oefening doet, en wat jij kunt bereiken.",
       "exAfter": "Meer info over de andere oefeningen",
       "backHome": "Terug naar home",
-      "inPad": "Stap {n} van tien: {title}. Werk van boven naar beneden. Deze pagina gaat over waarom deze stap er is, wat hij doet, en wat je ermee kunt.",
+      "inPad": "Stap {n} van twaalf: {title}. Werk van boven naar beneden. Deze pagina gaat over waarom deze stap er is, wat hij doet, en wat je ermee kunt.",
       "step": "Stap",
       "labelsHome": {
         "who": "Wie",
@@ -57,7 +57,7 @@ window.SITE_I18N = {
       "why": "Waarom.",
       "whyBody": " Innerlijk horen, niet nadoen van vingers.",
       "how": "Hoe.",
-      "howBody": " Tien stappen, van boven naar beneden.",
+      "howBody": " Twaalf stappen, van boven naar beneden.",
       "practice": "Oefenen",
       "practiceHint": "Werk van boven naar beneden.",
       "octave": "Octaaf",
@@ -97,7 +97,20 @@ window.SITE_I18N = {
       "tagHarmony": "gelijktijdige klanken",
       "tagExt": "9, 11 of 13 bij een akkoord",
       "tagProg": "opeenvolgende samenklanken",
-      "tagRhythm": "tijd tussen klanken"
+      "tagRhythm": "tijd tussen klanken",
+      "tagTempo": "slagen per minuut",
+      "tagSame": "dezelfde noot in een ander octaaf",
+      "hearTone": "Gehoorde toon",
+      "searchTone": "Zoek",
+      "bpm": "Slagen per minuut",
+      "tapValue": "Tik deze waarde",
+      "whole": "Hele",
+      "half": "Halve",
+      "quarter": "Kwart",
+      "eighth": "Achtste",
+      "sixteenth": "Zestiende",
+      "triplet": "Triool",
+      "tap": "Tik"
     },
     "about": {
       "h1": "Over audiation",
@@ -106,7 +119,7 @@ window.SITE_I18N = {
       "p1": "Edwin E. Gordon gebruikte audiation voor het muzikale equivalent van denken in taal. Als iemand spreekt, houd je klanken even vast tot ze woorden worden. Bij muziek organiseer je wat je net hoorde, en voorspel je wat kan komen, op grond van toonsoort en maat.",
       "p2": "Horen met de oren (aural perception) gebeurt terwijl het geluid binnenkomt. Audiation is het cognitieve vervolg: betekenis geven. Zonder dat blijft muziek een opeenvolging van prikkels, of nadoen van vingers.",
       "hApp": "Wat deze app wel en niet is",
-      "p3": "De app Audiation leunt op dat idee — innerlijk horen — in een eigen, eenvoudig pad van tien stappen, vanaf ongeveer 7 jaar. Het is geen Music Learning Theory-cursus, geen GIML-certificering, en geen vervanging van een leraar. Namen (Do of 1) komen ná het horen, behalve bij noot zoeken. Zingen of een instrument is een check, niet het doel.",
+      "p3": "De app Audiation leunt op dat idee — innerlijk horen — in een eigen, eenvoudig pad van twaalf stappen, vanaf ongeveer 7 jaar. Het is geen Music Learning Theory-cursus, geen GIML-certificering, en geen vervanging van een leraar. Namen (Do of 1) komen ná het horen, behalve bij noot zoeken. Zingen of een instrument is een check, niet het doel.",
       "p4": "Wie verder wil, naar bronnen van Gordon en Music Learning Theory, vindt hieronder een korte lijst. Die sites zijn van anderen; ik beheer ze niet.",
       "hLinks": "Belangrijke links",
       "l1": "Uitleg van de term, types en stadia, van het Gordon Institute for Music Learning.",
@@ -115,17 +128,18 @@ window.SITE_I18N = {
       "l4": "Engelstalig overzicht van de theorie en de plaats van audiation daarin.",
       "l5": "Archief van Gordon’s papieren en materialen, via de universiteitsbibliotheek.",
       "toHome": "Naar de animatie op home",
-      "toEx": "Meer info oefening 1 tot 10"
+      "toEx": "Meer info oefening 1 tot 12"
     },
     "privacy": {
-      "updated": "Laatst bijgewerkt: 4 september 2026. Verantwoordelijke: Freek van Steijn. Contact: fvsteijn@gmail.com",
+      "updated": "Laatst bijgewerkt: 13 oktober 2026. Verantwoordelijke: Freek van Steijn. Contact: fvsteijn@gmail.com",
       "p1": "Audiation is een oefenapp. Je hebt geen account. Instellingen (taal, benaming, oefenvoorkeuren, klinkkarakter) staan op jouw toestel of in de browser, niet op een server van mij.",
       "p2": "De microfoon wordt alleen gebruikt als jij inzingen of ijking aanzet. De toonhoogte wordt op het toestel gemeten. Geluid gaat niet naar mij toe.",
       "p3": "Een wens of aanpassing stuur jij zelf per e-mail (naar fvsteijn+audiation-wens@gmail.com). Alleen wat jij in die mail zet, ontvang ik. Een antwoordadres is niet verplicht.",
       "p4": "Deze website draait bij Cloudflare. Cloudflare kan technische gegevens zien die bij elk websitebezoek horen (bijvoorbeeld IP-adres, tijdstip, pagina). Ik gebruik dat niet voor profielen of reclame op deze site.",
-      "p5": "In de appwinkels kan later een eenmalige aankoop (licentie zonder reclame) via Apple of Google. Die betaling loopt via hen. Later kan de gratis versie reclame op het startscherm tonen; dat gebeurt dan via een advertentienetwerk, niet tijdens een oefenronde. Dit privacybeleid wordt dan aangevuld.",
+      "p5": "De gratis app in Google Play en de App Store toont een korte reclame voordat een oefening of gereedschap start. Tijdens de oefening zelf is er geen reclame. Een eenmalige aankoop in die winkel haalt de reclame weg. Die betaling loopt via Google of Apple, niet via mij.",
       "p6": "De app is bedoeld vanaf ongeveer 7 jaar. Stuur geen extra persoonsgegevens van kinderen mee bij een wens.",
-      "p7": "Vragen: fvsteijn@gmail.com"
+      "p7": "Vragen: fvsteijn@gmail.com",
+      "p8": "Google (AdMob) kan daarbij technische gegevens verwerken, zoals een advertentie-id, om reclame te tonen. In de app kun je kiezen in het toestemmingsvenster. Op deze website staat geen reclame."
     },
     "steps": [
       {
@@ -145,6 +159,12 @@ window.SITE_I18N = {
         "level": "Open",
         "levelClass": "",
         "body": "Twee tonen. Houd de afstand vast. Daarna: andere octaven, later andere toonsoorten."
+      },
+      {
+        "title": "Zelfde toon",
+        "level": "Volgende stap",
+        "levelClass": "next",
+        "body": "Je hoort één noot, chromatisch. Zoek hem in andere octaven. Per octaaf een rondje. Daarna meteen het resultaat."
       },
       {
         "title": "Melodie",
@@ -184,9 +204,15 @@ window.SITE_I18N = {
       },
       {
         "title": "Ritme",
-        "level": "Volgende stap",
-        "levelClass": "next",
+        "level": "Open",
+        "levelClass": "",
         "body": "Luister een ritme en tik het na. Of tik er zelf één in."
+      },
+      {
+        "title": "Tempo",
+        "level": "Open",
+        "levelClass": "",
+        "body": "Stel de metronoom in. Tik een nootwaarde tegen die slag: hele tot zestiende, of triool."
       }
     ],
     "homeCopy": [
@@ -220,7 +246,7 @@ window.SITE_I18N = {
         "who": "Een inleiding tot audiation voor een breed publiek, vanaf ongeveer 7 jaar. Je test je innerlijke muzikaliteit en kunt die door oefenen scherpen. Basisvaardigheden, oplopende moeilijkheid.",
         "why": "Audiation is muziek horen in je hoofd. De toon is er ook als het stil is. Wie innerlijk hoort, kan naspelen, zingen en later samenklank volgen. Zonder dat blijft muziek nadoen van vingers.",
         "can": "De identiteit van een toon, een afstand en een samenklank herkennen, ook als het stil is. Namen komen ná het horen, behalve bij noot zoeken.",
-        "how": "Eerst dit blok lezen. Daarna tien stappen, van boven naar beneden. Zingen of een instrument is een check, niet het doel. Meest 1-voudige instellingen zet alles op de eenvoudigste stand."
+        "how": "Eerst dit blok lezen. Daarna twaalf stappen, van boven naar beneden. Zingen of een instrument is een check, niet het doel. Meest 1-voudige instellingen zet alles op de eenvoudigste stand."
       }
     ],
     "homeSteps": [
@@ -241,6 +267,12 @@ window.SITE_I18N = {
         "why": "Muziek is niet alleen punten, maar afstanden. Het doel is die afstand innerlijk vast te houden, niet de namen terts of kwint uit je hoofd.",
         "can": "Twee tonen horen en de afstand bewaren als het stil is. Later dezelfde afstand in een ander octaaf of een andere toonsoort.",
         "how": "Je hoort twee tonen. Stilte. Houd de afstand vast. Opties gaan van makkelijk naar open: octaven, toonsoorten."
+      },
+      {
+        "who": "Wie een afstand al kan vasthouden en nu dezelfde klank hoger of lager wil herkennen, ook buiten C-majeur.",
+        "why": "Een toon blijft dezelfde toonklasse als hij een octaaf verschuift. Het doel is die klank herkennen, chromatisch, zonder de naam.",
+        "can": "Eén noot horen en dezelfde toon in andere octaven op de schuif vastzetten. Per octaaf een rondje.",
+        "how": "Je hoort één noot. Stilte. Schuif naar dezelfde toon. Tik een rondje als het klopt. Volgorde telt niet. Daarna meteen het resultaat: opnieuw of een nieuwe noot. Makkelijk: horen in C4, zoeken in C5."
       },
       {
         "who": "Wie afstanden al kan vasthouden en nu een korte lijn wil volgen.",
@@ -283,6 +315,12 @@ window.SITE_I18N = {
         "why": "Ritme is tijd tussen klanken. Het doel is luisteren en natikken, of zelf inzitten, daarna vergelijken.",
         "can": "Een 3/4- of 4/4-ritme horen en natikken, of zelf één intikken en naast het voorbeeld leggen.",
         "how": "Luister. Tik na. Of tik zelf in. Daarna: voorbeeld, jouw tikken, samen."
+      },
+      {
+        "who": "Wie ritme al oefent en nu het tempo van de slag wil voelen: hoeveel slagen per minuut.",
+        "why": "Tempo is de snelheid van de puls. Het doel is die slag innerlijk te houden en een nootwaarde ertegen te tikken, niet een cijfer te raden.",
+        "can": "Een metronoom op een bekend tempo zetten en een gekozen nootwaarde — hele tot zestiende, of triool — op de slag tikken.",
+        "how": "Stel de schuif in. Kies wat je tikt. De slag is de kwartnoot in 4/4. Meet eerst de tikvertraging als muis, vinger of Bluetooth laat aanvoelt."
       }
     ],
     "exercises": [
@@ -303,6 +341,12 @@ window.SITE_I18N = {
         "does": "Je hoort twee tonen, daarna stilte. Je houdt de sprong vast, niet twee losse namen. Later mag het octaaf of de toonsoort wisselen; de opdracht blijft dezelfde afstand innerlijk bewaren. Een zachte drone kan de plaats in C voelbaar maken, maar is niet verplicht. Zingen van de tweede toon is weer een check.",
         "achieve": "Je herkent een afstand als je hem hoort, ook als de namen nog niet paraat zijn. Dat is de brug naar melodie: een lijn is een keten van sprongen. Wie intervallen in stilte kan houden, hoort later een partij of een baslijn als beweging, niet als een rij losse noten.",
         "harder": "Begin met twee tonen in hetzelfde octaaf, kleine afstand, eerste toon tonen aan, zonder piano en zonder zingen. Als de sprong vastzit: eerste toon tonen uit. Daarna grotere afstand, tot over octaven. Dan omlaag in plaats van omhoog. Optioneel een octaaf om de tweede toon te tikken, of je zingt hem. De eerste toon blijft het anker in je hoofd."
+      },
+      {
+        "why": "Noot zoeken koppelt een letter aan één plaats. Muziek gebruikt dezelfde klank ook een octaaf hoger of lager, en niet alleen de zeven tonen van C-majeur. Deze oefening bestaat omdat wie alleen diatonisch zoekt, een Fis of een Bes nog niet als dezelfde toon in een ander register hoort. De naam komt ná de klank.",
+        "does": "Je hoort één noot uit twaalf, chromatisch, in het gekozen octaaf. Daarna zoek je dezelfde toonklasse in andere octaven met de schuif. Per zoek-octaaf tik je een rondje als de schuif klopt. Volgorde telt niet. Als alle rondjes vaststaan, komt meteen het resultaat: opnieuw dezelfde noot, of een nieuwe.",
+        "achieve": "Je herkent een toon als hij van octaaf wisselt, ook buiten de toonladder. Dat is bruikbaar bij samenspel, bij een partij die een octaaf hoger staat, en bij later lezen: de letter is dan een klank die je al in meerdere hoogtes kent.",
+        "harder": "Begin met horen in C4 en zoeken in C5: één rondje. Als die sprong vastzit: meer zoek-octaven, dus meer rondjes. Daarna hoor je de noot uit meer octaven, tot alle. De schuif volgt je oor, niet een rooster van toetsen."
       },
       {
         "why": "Een melodie is geen lijst noten, maar een lijn: omhoog, omlaag, blijven. Deze oefening bestaat omdat wie alleen intervallen één voor één oefent, de opeenvolging nog niet als geheel hoort. Geen notenbalk, geen namen: het oog mag de lijn niet voor het oor innemen. Het doel is de contour innerlijk volgen, zoals je een zin volgt zonder elk woord te spellen.",
@@ -342,9 +386,15 @@ window.SITE_I18N = {
       },
       {
         "why": "Toon, afstand en samenklank zijn de klank. Ritme is de tijd ertussen. Deze oefening bestaat omdat muziek zonder tijd een stapel gebeurtenissen is. Luisteren en natikken, of zelf inzitten en vergelijken, oefent de puls als iets dat je innerlijk houdt — niet als een metronoom waar je achteraan hobbelt.",
-        "does": "Je hoort een ritme in 3/4 of 4/4 en tikt het na, of je tikt er zelf één in. Daarna: voorbeeld, jouw tikken, samen. Zo hoor je waar je samenviel en waar niet. De tiende stap in het pad; opties blijven van makkelijk naar open. Dit is geen drumles: de check is tijd, niet techniek.",
+        "does": "Je hoort een ritme in 3/4 of 4/4 en tikt het na, of je tikt er zelf één in. Daarna: voorbeeld, jouw tikken, samen. Zo hoor je waar je samenviel en waar niet. De elfde stap in het pad; opties blijven van makkelijk naar open. Dit is geen drumles: de check is tijd, niet techniek.",
         "achieve": "Je kunt een kort ritme innerlijk vasthouden en teruggeven. Dat is samenspelen zonder te tellen in paniek, een frase laten ademen, en later noten lezen die ook duur hebben. Wie toon én tijd innerlijk heeft, hoort muziek als geheel: wat klinkt, en wanneer.",
         "harder": "Begin in 4/4, één maat, één stem, een vast patroon natikken. Als de puls blijft: 3/4, meer maten, twee stemmen. Daarna zelf een ritme intikken en dat als model gebruiken. Luisteren, vasthouden, natikken — in die volgorde."
+      },
+      {
+        "why": "Ritme is het patroon in de tijd. Tempo is hoe snel die tijd loopt: slagen per minuut. Deze oefening bestaat omdat wie alleen patronen natikt, de snelheid van de puls nog niet als iets eigens voelt. 60 is geen cijfer op een scherm; het is een slag die je innerlijk kunt houden. De metronoom blijft klinken, zodat je anticipeert op de slag die je hoort.",
+        "does": "Je zet de metronoom (40–180). Een slag is de kwartnoot in 4/4. Je tikt een gekozen waarde: hele, halve, kwart, achtste, zestiende of triool (drie achtsten per slag). De ronde duurt minstens tien seconden en stopt op een maatstreep. Optioneel wordt de metronoom stil na de tel. Meet de tikvertraging als muis, vinger of Bluetooth laat aankomt: daarna klinkt de klik zoveel eerder.",
+        "achieve": "Je voelt wat 60 of 120 slagen per minuut is, en je kunt een onderverdeling tegen die slag zetten. Dat is dirigeren zonder stok, samenspelen zonder achter de klik aan te hollen, en later een tempo aanhouden als de metronoom wegvalt. Wie ritme én tempo innerlijk heeft, hoort wanneer — en hoe snel.",
+        "harder": "Begin op 60, kwartnoten, metronoom aan. Als die slag vastzit: halve of achtste, dan zestiende of triool. Daarna een ander tempo op de schuif. Zwaarder: metronoom stil na de tel. Meet de tikvertraging op elk apparaat of koptelefoon; Bluetooth is later."
       }
     ]
   },
@@ -352,7 +402,7 @@ window.SITE_I18N = {
     "ui": {
       "home": "Home",
       "about": "About audiation",
-      "exercises": "Exercises 1-10",
+      "exercises": "Exercises 1-12",
       "privacy": "Privacy",
       "homeTitle": "Audiation",
       "aboutTitle": "About audiation",
@@ -362,15 +412,15 @@ window.SITE_I18N = {
       "replay": "Replay animation",
       "hintPhone": "Next shows the explanation.",
       "hintText": "Next shows the next screen.",
-      "homeLead": "An app for hearing music inwardly. Practice from about age 7. Below is the app on the phone: tap Next. At the end the ten exercises are explained.",
-      "afterTitle": "More about exercises 1 to 10",
+      "homeLead": "An app for hearing music inwardly. Practice from about age 7. Below is the app on the phone: tap Next. At the end the twelve exercises are explained.",
+      "afterTitle": "More about exercises 1 to 12",
       "afterLead": "Each page uses the same animation. The text is why the step is there, what the exercise does, and what you can reach.",
       "aboutLink": "About audiation in general",
       "aboutLinkTail": ", with links to reliable sources.",
       "exLead": "Why this step is there, what the exercise does, and what you can reach.",
       "exAfter": "More about the other exercises",
       "backHome": "Back to home",
-      "inPad": "Step {n} of ten: {title}. Work from top to bottom. This page is why the step is there, what it does, and what you can do with it.",
+      "inPad": "Step {n} of twelve: {title}. Work from top to bottom. This page is why the step is there, what it does, and what you can do with it.",
       "step": "Step",
       "labelsHome": {
         "who": "Who",
@@ -406,7 +456,7 @@ window.SITE_I18N = {
       "why": "Why.",
       "whyBody": " Inner hearing, not copying fingers.",
       "how": "How.",
-      "howBody": " Ten steps, from top to bottom.",
+      "howBody": " Twelve steps, from top to bottom.",
       "practice": "Practice",
       "practiceHint": "Work from top to bottom.",
       "octave": "Octave",
@@ -446,7 +496,20 @@ window.SITE_I18N = {
       "tagHarmony": "sounds at the same time",
       "tagExt": "9, 11 or 13 on a chord",
       "tagProg": "chords one after another",
-      "tagRhythm": "time between sounds"
+      "tagRhythm": "time between sounds",
+      "tagTempo": "beats per minute",
+      "tagSame": "the same note in another octave",
+      "hearTone": "Heard tone",
+      "searchTone": "Search",
+      "bpm": "Beats per minute",
+      "tapValue": "Tap this value",
+      "whole": "Whole",
+      "half": "Half",
+      "quarter": "Quarter",
+      "eighth": "Eighth",
+      "sixteenth": "Sixteenth",
+      "triplet": "Triplet",
+      "tap": "Tap"
     },
     "about": {
       "h1": "About audiation",
@@ -455,7 +518,7 @@ window.SITE_I18N = {
       "p1": "Edwin E. Gordon used audiation for the musical equivalent of thinking in language. When someone speaks, you hold sounds until they become words. In music you organise what you just heard, and predict what may come, from key and metre.",
       "p2": "Hearing with the ears (aural perception) happens while the sound arrives. Audiation is the cognitive follow-up: giving meaning. Without that, music stays a chain of stimuli, or copying fingers.",
       "hApp": "What this app is and is not",
-      "p3": "The Audiation app leans on that idea — inner hearing — in its own simple path of ten steps, from about age 7. It is not a Music Learning Theory course, not GIML certification, and not a substitute for a teacher. Names (Do or 1) come after hearing, except when finding a note. Singing or an instrument is a check, not the goal.",
+      "p3": "The Audiation app leans on that idea — inner hearing — in its own simple path of twelve steps, from about age 7. It is not a Music Learning Theory course, not GIML certification, and not a substitute for a teacher. Names (Do or 1) come after hearing, except when finding a note. Singing or an instrument is a check, not the goal.",
       "p4": "If you want to go further, toward Gordon and Music Learning Theory, a short list is below. Those sites belong to others; I do not run them.",
       "hLinks": "Useful links",
       "l1": "The term, types and stages, from the Gordon Institute for Music Learning.",
@@ -464,17 +527,18 @@ window.SITE_I18N = {
       "l4": "English overview of the theory and the place of audiation in it.",
       "l5": "Archive of Gordon’s papers and materials, via the university library.",
       "toHome": "To the animation on home",
-      "toEx": "More about exercises 1 to 10"
+      "toEx": "More about exercises 1 to 12"
     },
     "privacy": {
-      "updated": "Last updated: 4 September 2026. Controller: Freek van Steijn. Contact: fvsteijn@gmail.com",
+      "updated": "Last updated: 13 October 2026. Controller: Freek van Steijn. Contact: fvsteijn@gmail.com",
       "p1": "Audiation is a practice app. There is no account. Settings (language, naming, exercise preferences, sound character) stay on your device or browser, not on a server of mine.",
       "p2": "The microphone is used only if you turn on sing-or-play or the tuning check. Pitch is measured on the device. Audio is not sent to me.",
       "p3": "A wish or change is an email you send yourself (to fvsteijn+audiation-wens@gmail.com). I receive only what you put in that mail. A reply address is optional.",
       "p4": "This website is hosted by Cloudflare. Cloudflare may see technical data that comes with any site visit (for example IP address, time, page). I do not use that for profiles or ads on this site.",
-      "p5": "In the app stores there may later be a one-time purchase (licence without ads) through Apple or Google. That payment runs through them. Later the free version may show ads on the home screen via an ad network, never during a practice round. This notice will then be updated.",
+      "p5": "The free app on Google Play and the App Store shows a short ad before an exercise or tool starts. There is no ad during the exercise itself. A one-time purchase in that store removes the ads. That payment runs through Google or Apple, not through me.",
       "p6": "The app is meant from about age 7. Do not include extra personal data about children in a wish.",
-      "p7": "Questions: fvsteijn@gmail.com"
+      "p7": "Questions: fvsteijn@gmail.com",
+      "p8": "Google (AdMob) may process technical data, such as an advertising ID, to show ads. You can choose in the consent window in the app. This website has no ads."
     },
     "steps": [
       {
@@ -494,6 +558,12 @@ window.SITE_I18N = {
         "level": "Open",
         "levelClass": "",
         "body": "Two tones. Hold the distance. Next: other octaves, later other keys."
+      },
+      {
+        "title": "Same tone",
+        "level": "Next step",
+        "levelClass": "next",
+        "body": "You hear one chromatic note. Find it in other octaves with the slider. Lock each found tone in a circle. Result after every note: again or a new one."
       },
       {
         "title": "Melody",
@@ -533,9 +603,15 @@ window.SITE_I18N = {
       },
       {
         "title": "Rhythm",
-        "level": "Next step",
-        "levelClass": "next",
+        "level": "Open",
+        "levelClass": "",
         "body": "Listen to a rhythm and tap it back. Or tap one in yourself."
+      },
+      {
+        "title": "Tempo",
+        "level": "Open",
+        "levelClass": "",
+        "body": "Set the metronome. Tap a note value against that beat: whole to sixteenth, or triplet."
       }
     ],
     "homeCopy": [
@@ -569,7 +645,7 @@ window.SITE_I18N = {
         "who": "An introduction to audiation for a wide audience, from about age 7. You test your inner musicianship and can sharpen it by practice. Basic skills, rising difficulty.",
         "why": "Audiation is hearing music in your head. The tone is there when it is quiet too. Who hears inwardly can play back, sing, and later follow harmony. Without that, music stays copying fingers.",
         "can": "Recognise the identity of a tone, a distance and a blend, even when it is quiet. Names come after hearing, except when finding a note.",
-        "how": "Read this block first. Then ten steps, from top to bottom. Singing or an instrument is a check, not the goal. Simplest settings put everything on the easiest stand."
+        "how": "Read this block first. Then twelve steps, from top to bottom. Singing or an instrument is a check, not the goal. Simplest settings put everything on the easiest stand."
       }
     ],
     "homeSteps": [
@@ -590,6 +666,12 @@ window.SITE_I18N = {
         "why": "Music is not only points, but distances. The aim is to hold that distance inwardly, not the names third or fifth by heart.",
         "can": "Hear two tones and keep the distance when it is quiet. Later the same distance in another octave or another key.",
         "how": "You hear two tones. Silence. Hold the distance. Options go from easy to open: octaves, keys."
+      },
+      {
+        "who": "Who can already hold a distance and now wants to recognise the same sound higher or lower, also outside C major.",
+        "why": "A tone stays the same pitch class when it moves by an octave. The aim is to recognise that sound, chromatic, without the name.",
+        "can": "Hear one note and lock the same tone in other octaves on the slider. One circle per octave.",
+        "how": "You hear one note. Silence. Slide to the same tone. Tap a circle when it fits. Order does not count. Then the result at once: again, or a new note. Easy: hear in C4, search in C5."
       },
       {
         "who": "Who can already hold distances and now wants to follow a short line.",
@@ -632,6 +714,12 @@ window.SITE_I18N = {
         "why": "Rhythm is time between sounds. The aim is to listen and tap back, or tap in yourself, then compare.",
         "can": "Hear a 3/4 or 4/4 rhythm and tap it back, or tap one in yourself and set it next to the model.",
         "how": "Listen. Tap back. Or tap in yourself. Then: model, your taps, together."
+      },
+      {
+        "who": "Who already practises rhythm and now wants to feel the tempo of the beat: how many beats per minute.",
+        "why": "Tempo is the speed of the pulse. The aim is to hold that beat inwardly and tap a note value against it, not to guess a number.",
+        "can": "Set a metronome to a known tempo and tap a chosen note value — whole to sixteenth, or triplet — on the beat.",
+        "how": "Set the slider. Choose what you tap. The beat is the quarter note in 4/4. First measure tap delay if mouse, finger or Bluetooth feels late."
       }
     ],
     "exercises": [
@@ -652,6 +740,12 @@ window.SITE_I18N = {
         "does": "You hear two tones, then silence. You hold the leap, not two separate names. Later the octave or the key may change; the task stays holding the same distance inwardly. A soft drone can make the place in C felt, but is not required. Singing the second tone is again a check.",
         "achieve": "You recognise a distance when you hear it, even if the names are not ready yet. That is the bridge to melody: a line is a chain of leaps. Who can hold intervals in silence later hears a part or a bass line as movement, not as a row of loose notes.",
         "harder": "Start with two tones in the same octave, a small distance, first tone shown, no piano and no singing. When the leap holds: hide the first tone. Then a larger distance, even across octaves. Then down instead of up. Optionally an octave appears so you can tap the second tone, or you sing it. The first tone stays the anchor in your head."
+      },
+      {
+        "why": "Finding a note links a letter to one place. Music uses the same sound an octave higher or lower, and not only the seven tones of C major. This exercise exists because who only searches diatonically does not yet hear an F sharp or a B flat as the same tone in another register. The name comes after the sound.",
+        "does": "You hear one of twelve notes, chromatic, in the chosen octave. Then you search for the same pitch class in other octaves with the slider. For each search octave you tap a circle when the slider fits. Order does not count. When every circle is locked, the result comes at once: the same note again, or a new one.",
+        "achieve": "You recognise a tone when it changes octave, also outside the scale. That helps in playing together, with a part written an octave higher, and later in reading: the letter is then a sound you already know at several heights.",
+        "harder": "Start by hearing in C4 and searching in C5: one circle. When that leap holds: more search octaves, so more circles. Then the note is heard from more octaves, up to all of them. The slider follows your ear, not a grid of keys."
       },
       {
         "why": "A melody is not a list of notes, but a line: up, down, stay. This exercise exists because who only practises intervals one by one does not yet hear the succession as a whole. No staff, no names: the eye must not take the line before the ear. The aim is to follow the contour inwardly, as you follow a sentence without spelling each word.",
@@ -691,9 +785,15 @@ window.SITE_I18N = {
       },
       {
         "why": "Tone, distance and blend are the sound. Rhythm is the time between. This exercise exists because music without time is a stack of events. Listening and tapping back, or tapping in yourself and comparing, practises the pulse as something you hold inwardly — not as a metronome you jog behind.",
-        "does": "You hear a rhythm in 3/4 or 4/4 and tap it back, or you tap one in yourself. Then: model, your taps, together. So you hear where you met and where not. The tenth step in the path; options still go from easy to open. This is not a drum lesson: the check is time, not technique.",
+        "does": "You hear a rhythm in 3/4 or 4/4 and tap it back, or you tap one in yourself. Then: model, your taps, together. So you hear where you met and where not. The eleventh step in the path; options still go from easy to open. This is not a drum lesson: the check is time, not technique.",
         "achieve": "You can hold a short rhythm inwardly and give it back. That is playing together without counting in panic, letting a phrase breathe, and later reading notes that also have duration. Who has tone and time inwardly hears music as a whole: what sounds, and when.",
         "harder": "Start in 4/4, one bar, one voice, tap back a fixed pattern. When the pulse stays: 3/4, more bars, two voices. Then tap a rhythm in yourself and use that as the model. Listen, hold, tap back — in that order."
+      },
+      {
+        "why": "Rhythm is the pattern in time. Tempo is how fast that time runs: beats per minute. This exercise exists because who only taps patterns back does not yet feel the speed of the pulse as its own thing. 60 is not a number on a screen; it is a beat you can hold inwardly. The metronome stays sounding, so you anticipate the beat you hear.",
+        "does": "You set the metronome (40–180). A beat is the quarter note in 4/4. You tap a chosen value: whole, half, quarter, eighth, sixteenth or triplet (three eighths per beat). The round lasts at least ten seconds and ends on a barline. Optionally the metronome is silent after the count. Measure tap delay if mouse, finger or Bluetooth arrives late: then the click sounds that much earlier.",
+        "achieve": "You feel what 60 or 120 beats per minute is, and you can put a subdivision against that beat. That is conducting without a stick, playing together without chasing the click, and later holding a tempo when the metronome drops out. Who has rhythm and tempo inwardly hears when — and how fast.",
+        "harder": "Start at 60, quarter notes, metronome on. When that beat holds: half or eighth, then sixteenth or triplet. Then another tempo on the slider. Harder: metronome silent after the count. Measure tap delay on each device or headphones; Bluetooth is later."
       }
     ]
   },
@@ -701,7 +801,7 @@ window.SITE_I18N = {
     "ui": {
       "home": "Home",
       "about": "Über Audiation",
-      "exercises": "Übung 1-10",
+      "exercises": "Übung 1-12",
       "privacy": "Privacy",
       "homeTitle": "Audiation",
       "aboutTitle": "Über Audiation",
@@ -711,15 +811,15 @@ window.SITE_I18N = {
       "replay": "Animation nochmal",
       "hintPhone": "Weiter zeigt die Erklärung.",
       "hintText": "Weiter zeigt den nächsten Bildschirm.",
-      "homeLead": "Eine App, um Musik innerlich zu hören. Üben ab etwa 7 Jahren. Unten die App auf dem Telefon: tippe Weiter. Am Ende stehen die zehn Übungen erklärt.",
-      "afterTitle": "Mehr zu Übung 1 bis 10",
+      "homeLead": "Eine App, um Musik innerlich zu hören. Üben ab etwa 7 Jahren. Unten die App auf dem Telefon: tippe Weiter. Am Ende stehen die zwölf Übungen erklärt.",
+      "afterTitle": "Mehr zu Übung 1 bis 12",
       "afterLead": "Jede Seite nutzt dieselbe Animation. Der Text sagt, warum der Schritt da ist, was die Übung tut, und was du damit erreichen kannst.",
       "aboutLink": "Über Audiation im Allgemeinen",
       "aboutLinkTail": ", mit Links zu verlässlichen Quellen.",
       "exLead": "Warum dieser Schritt da ist, was die Übung tut, und was du erreichen kannst.",
       "exAfter": "Mehr zu den anderen Übungen",
       "backHome": "Zurück zur Startseite",
-      "inPad": "Schritt {n} von zehn: {title}. Von oben nach unten. Diese Seite sagt, warum der Schritt da ist, was er tut, und was du damit kannst.",
+      "inPad": "Schritt {n} von zwölf: {title}. Von oben nach unten. Diese Seite sagt, warum der Schritt da ist, was er tut, und was du damit kannst.",
       "step": "Schritt",
       "labelsHome": {
         "who": "Wer",
@@ -755,7 +855,7 @@ window.SITE_I18N = {
       "why": "Warum.",
       "whyBody": " Innerliches Hören, nicht Finger nachmachen.",
       "how": "Wie.",
-      "howBody": " Zehn Schritte, von oben nach unten.",
+      "howBody": " Zwölf Schritte, von oben nach unten.",
       "practice": "Üben",
       "practiceHint": "Von oben nach unten arbeiten.",
       "octave": "Oktave",
@@ -795,7 +895,20 @@ window.SITE_I18N = {
       "tagHarmony": "gleichzeitige Klänge",
       "tagExt": "9, 11 oder 13 zu einem Akkord",
       "tagProg": "aufeinanderfolgende Zusammenklänge",
-      "tagRhythm": "Zeit zwischen Klängen"
+      "tagRhythm": "Zeit zwischen Klängen",
+      "tagTempo": "Schläge pro Minute",
+      "tagSame": "dieselbe Note in einer anderen Oktave",
+      "hearTone": "Gehörter Ton",
+      "searchTone": "Suchen",
+      "bpm": "Schläge pro Minute",
+      "tapValue": "Tippe diesen Wert",
+      "whole": "Ganze",
+      "half": "Halbe",
+      "quarter": "Viertel",
+      "eighth": "Achtel",
+      "sixteenth": "Sechzehntel",
+      "triplet": "Triole",
+      "tap": "Tipp"
     },
     "about": {
       "h1": "Über Audiation",
@@ -804,7 +917,7 @@ window.SITE_I18N = {
       "p1": "Edwin E. Gordon nutzte Audiation für das musikalische Gegenstück zum Denken in Sprache. Wenn jemand spricht, hältst du Klänge, bis sie Wörter werden. In der Musik ordnest du, was du gerade hörtest, und sagst voraus, was kommen kann, aus Tonart und Takt.",
       "p2": "Hören mit den Ohren (aural perception) geschieht, während der Klang ankommt. Audiation ist die kognitive Folge: Bedeutung geben. Ohne das bleibt Musik eine Kette von Reizen, oder Finger nachmachen.",
       "hApp": "Was diese App ist und nicht ist",
-      "p3": "Die App Audiation lehnt sich an diese Idee — innerliches Hören — in einem eigenen, einfachen Pfad aus zehn Schritten, ab etwa 7 Jahren. Sie ist kein Music-Learning-Theory-Kurs, keine GIML-Zertifizierung und kein Ersatz für eine Lehrkraft. Namen (Do oder 1) kommen nach dem Hören, außer beim Notensuchen. Singen oder ein Instrument ist eine Prüfung, nicht das Ziel.",
+      "p3": "Die App Audiation lehnt sich an diese Idee — innerliches Hören — in einem eigenen, einfachen Pfad aus zwölf Schritten, ab etwa 7 Jahren. Sie ist kein Music-Learning-Theory-Kurs, keine GIML-Zertifizierung und kein Ersatz für eine Lehrkraft. Namen (Do oder 1) kommen nach dem Hören, außer beim Notensuchen. Singen oder ein Instrument ist eine Prüfung, nicht das Ziel.",
       "p4": "Wer weiter will, zu Gordon und Music Learning Theory, findet unten eine kurze Liste. Diese Seiten gehören anderen; ich betreibe sie nicht.",
       "hLinks": "Wichtige Links",
       "l1": "Begriff, Typen und Stadien, vom Gordon Institute for Music Learning.",
@@ -813,17 +926,18 @@ window.SITE_I18N = {
       "l4": "Englischer Überblick zur Theorie und zum Ort der Audiation darin.",
       "l5": "Archiv von Gordons Papieren und Materialien, über die Universitätsbibliothek.",
       "toHome": "Zur Animation auf der Startseite",
-      "toEx": "Mehr zu Übung 1 bis 10"
+      "toEx": "Mehr zu Übung 1 bis 12"
     },
     "privacy": {
-      "updated": "Zuletzt aktualisiert: 4. September 2026. Verantwortlicher: Freek van Steijn. Kontakt: fvsteijn@gmail.com",
+      "updated": "Zuletzt aktualisiert: 13. Oktober 2026. Verantwortlicher: Freek van Steijn. Kontakt: fvsteijn@gmail.com",
       "p1": "Audiation ist eine Übungs-App. Es gibt kein Konto. Einstellungen (Sprache, Benennung, Übungsvorlieben, Klangcharakter) bleiben auf deinem Gerät oder im Browser, nicht auf einem Server von mir.",
       "p2": "Das Mikrofon wird nur genutzt, wenn du Vorsingen oder die Stimmprüfung einschaltest. Die Tonhöhe wird auf dem Gerät gemessen. Ton geht nicht zu mir.",
       "p3": "Einen Wunsch oder eine Änderung schickst du selbst per E-Mail (an fvsteijn+audiation-wens@gmail.com). Ich erhalte nur, was du in diese Mail setzt. Eine Antwortadresse ist nicht nötig.",
       "p4": "Diese Website läuft bei Cloudflare. Cloudflare kann technische Daten sehen, die zu jedem Besuch gehören (zum Beispiel IP-Adresse, Zeit, Seite). Ich nutze das nicht für Profile oder Werbung auf dieser Site.",
-      "p5": "In den App-Stores kann später ein einmaliger Kauf (Lizenz ohne Werbung) über Apple oder Google kommen. Die Zahlung läuft über sie. Später kann die Gratisversion Werbung auf dem Startbildschirm zeigen, über ein Werbenetz, nie während einer Übungsrunde. Dieser Hinweis wird dann ergänzt.",
+      "p5": "Die kostenlose App in Google Play und im App Store zeigt eine kurze Werbung, bevor eine Übung oder ein Werkzeug startet. Während der Übung selbst gibt es keine Werbung. Ein einmaliger Kauf in diesem Store entfernt die Werbung. Die Zahlung läuft über Google oder Apple, nicht über mich.",
       "p6": "Die App ist ab etwa 7 Jahren gedacht. Schick in einem Wunsch keine extra Personendaten von Kindern mit.",
-      "p7": "Fragen: fvsteijn@gmail.com"
+      "p7": "Fragen: fvsteijn@gmail.com",
+      "p8": "Google (AdMob) kann dabei technische Daten verarbeiten, etwa eine Werbe-ID, um Werbung zu zeigen. In der App kannst du im Einwilligungsfenster wählen. Auf dieser Website gibt es keine Werbung."
     },
     "steps": [
       {
@@ -843,6 +957,12 @@ window.SITE_I18N = {
         "level": "Offen",
         "levelClass": "",
         "body": "Zwei Töne. Halt den Abstand fest. Danach: andere Oktaven, später andere Tonarten."
+      },
+      {
+        "title": "Gleicher Ton",
+        "level": "Nächster Schritt",
+        "levelClass": "next",
+        "body": "Du hörst eine chromatische Note. Suche sie in anderen Oktaven mit dem Schieber. Pro gefundener Ton ein Kreis. Nach jeder Note sofort das Ergebnis: nochmal oder eine neue."
       },
       {
         "title": "Melodie",
@@ -882,9 +1002,15 @@ window.SITE_I18N = {
       },
       {
         "title": "Rhythmus",
-        "level": "Nächster Schritt",
-        "levelClass": "next",
+        "level": "Offen",
+        "levelClass": "",
         "body": "Hör einen Rhythmus und tippe ihn nach. Oder tippe selbst einen ein."
+      },
+      {
+        "title": "Tempo",
+        "level": "Offen",
+        "levelClass": "",
+        "body": "Stell das Metronom ein. Tippe einen Notenwert gegen diesen Schlag: Ganze bis Sechzehntel, oder Triole."
       }
     ],
     "homeCopy": [
@@ -918,7 +1044,7 @@ window.SITE_I18N = {
         "who": "Eine Einführung in Audiation für ein breites Publikum, ab etwa 7 Jahren. Du prüfst deine innere Musikalität und kannst sie durch Üben schärfen. Grundfähigkeiten, steigende Schwierigkeit.",
         "why": "Audiation ist Musik im Kopf hören. Der Ton ist auch da, wenn es still ist. Wer innerlich hört, kann nachspielen, singen und später Zusammenklang folgen. Ohne das bleibt Musik Finger nachmachen.",
         "can": "Die Identität eines Tons, eines Abstands und eines Zusammenklangs erkennen, auch wenn es still ist. Namen kommen nach dem Hören, außer beim Notensuchen.",
-        "how": "Zuerst diesen Block lesen. Dann zehn Schritte, von oben nach unten. Singen oder ein Instrument ist eine Prüfung, nicht das Ziel. Die einfachsten Einstellungen setzen alles auf den leichtesten Stand."
+        "how": "Zuerst diesen Block lesen. Dann zwölf Schritte, von oben nach unten. Singen oder ein Instrument ist eine Prüfung, nicht das Ziel. Die einfachsten Einstellungen setzen alles auf den leichtesten Stand."
       }
     ],
     "homeSteps": [
@@ -939,6 +1065,12 @@ window.SITE_I18N = {
         "why": "Musik ist nicht nur Punkte, sondern Abstände. Das Ziel ist, diesen Abstand innerlich zu halten, nicht die Namen Terz oder Quinte auswendig.",
         "can": "Zwei Töne hören und den Abstand bewahren, wenn es still ist. Später denselben Abstand in einer anderen Oktave oder Tonart.",
         "how": "Du hörst zwei Töne. Stille. Halt den Abstand. Optionen gehen von leicht zu offen: Oktaven, Tonarten."
+      },
+      {
+        "who": "Wer einen Abstand schon halten kann und jetzt denselben Klang höher oder tiefer erkennen will, auch außerhalb von C-Dur.",
+        "why": "Ein Ton bleibt dieselbe Tonklasse, wenn er um eine Oktave rückt. Das Ziel ist, diesen Klang chromatisch zu erkennen, ohne den Namen.",
+        "can": "Eine Note hören und denselben Ton in anderen Oktaven am Schieber festsetzen. Pro Oktave ein Kreis.",
+        "how": "Du hörst eine Note. Stille. Schieb zum selben Ton. Tippe einen Kreis, wenn es stimmt. Die Reihenfolge zählt nicht. Danach sofort das Ergebnis: nochmal oder eine neue Note. Leicht: in C4 hören, in C5 suchen."
       },
       {
         "who": "Wer Abstände schon halten kann und jetzt eine kurze Linie folgen will.",
@@ -981,6 +1113,12 @@ window.SITE_I18N = {
         "why": "Rhythmus ist Zeit zwischen Klängen. Das Ziel ist zuzuhören und nachzutippen, oder selbst einzutippen, dann zu vergleichen.",
         "can": "Ein 3/4- oder 4/4-Rhythmus hören und nachtippen, oder selbst einen eintippen und neben das Beispiel legen.",
         "how": "Hör zu. Tippe nach. Oder tippe selbst ein. Danach: Beispiel, deine Tipps, zusammen."
+      },
+      {
+        "who": "Wer Rhythmus schon übt und jetzt das Tempo des Schlags spüren will: wie viele Schläge pro Minute.",
+        "why": "Tempo ist die Geschwindigkeit des Pulses. Das Ziel ist, diesen Schlag innerlich zu halten und einen Notenwert dagegen zu tippen, nicht eine Zahl zu raten.",
+        "can": "Ein Metronom auf ein bekanntes Tempo stellen und einen gewählten Notenwert — Ganze bis Sechzehntel, oder Triole — auf den Schlag tippen.",
+        "how": "Stell den Schieber. Wähle, was du tippst. Der Schlag ist die Viertelnote in 4/4. Miss zuerst die Tippverzögerung, wenn Maus, Finger oder Bluetooth spät wirken."
       }
     ],
     "exercises": [
@@ -1001,6 +1139,12 @@ window.SITE_I18N = {
         "does": "Du hörst zwei Töne, dann Stille. Du hältst den Sprung, nicht zwei lose Namen. Später dürfen Oktave oder Tonart wechseln; die Aufgabe bleibt, denselben Abstand innerlich zu bewahren. Ein leiser Bordun kann den Ort in C spürbar machen, ist aber nicht Pflicht. Singen des zweiten Tons ist wieder eine Prüfung.",
         "achieve": "Du erkennst einen Abstand, wenn du ihn hörst, auch wenn die Namen noch nicht parat sind. Das ist die Brücke zur Melodie: eine Linie ist eine Kette von Sprüngen. Wer Intervalle in der Stille halten kann, hört später eine Stimme oder eine Basslinie als Bewegung, nicht als Reihe loser Noten.",
         "harder": "Beginne mit zwei Tönen in derselben Oktave, kleinem Abstand, ersten Ton anzeigen an, ohne Klavier und ohne Singen. Wenn der Sprung hält: ersten Ton anzeigen aus. Dann größerer Abstand, auch über Oktaven. Dann abwärts statt aufwärts. Optional erscheint eine Oktave zum Antippen des zweiten Tons, oder du singst ihn. Der erste Ton bleibt der Anker im Kopf."
+      },
+      {
+        "why": "Notensuchen koppelt einen Buchstaben an einen Ort. Musik benutzt denselben Klang auch eine Oktave höher oder tiefer, und nicht nur die sieben Töne von C-Dur. Diese Übung gibt es, weil wer nur diatonisch sucht, ein Fis oder ein B noch nicht als denselben Ton in einem anderen Register hört. Der Name kommt nach dem Klang.",
+        "does": "Du hörst eine von zwölf Noten, chromatisch, in der gewählten Oktave. Danach suchst du dieselbe Tonklasse in anderen Oktaven mit dem Schieber. Pro Such-Oktave tippst du einen Kreis, wenn der Schieber stimmt. Die Reihenfolge zählt nicht. Sind alle Kreise fest, kommt sofort das Ergebnis: nochmal dieselbe Note, oder eine neue.",
+        "achieve": "Du erkennst einen Ton, wenn er die Oktave wechselt, auch außerhalb der Tonleiter. Das hilft im Zusammenspiel, bei einer Stimme eine Oktave höher, und später beim Lesen: der Buchstabe ist dann ein Klang, den du schon in mehreren Höhen kennst.",
+        "harder": "Beginne mit Hören in C4 und Suchen in C5: ein Kreis. Wenn der Sprung hält: mehr Such-Oktaven, also mehr Kreise. Danach hörst du die Note aus mehr Oktaven, bis alle. Der Schieber folgt dem Ohr, nicht einem Tastenraster."
       },
       {
         "why": "Eine Melodie ist keine Notenliste, sondern eine Linie: auf, ab, bleiben. Diese Übung gibt es, weil wer Intervalle nur einzeln übt, die Folge noch nicht als Ganzes hört. Kein Notensystem, keine Namen: das Auge darf die Linie nicht vor dem Ohr einnehmen. Das Ziel ist, die Kontur innerlich zu folgen, wie du einem Satz folgst, ohne jedes Wort zu buchstabieren.",
@@ -1040,9 +1184,15 @@ window.SITE_I18N = {
       },
       {
         "why": "Ton, Abstand und Zusammenklang sind der Klang. Rhythmus ist die Zeit dazwischen. Diese Übung gibt es, weil Musik ohne Zeit ein Stapel von Ereignissen ist. Zuhören und Nach-Tippen, oder selbst Eintippen und Vergleichen, übt den Puls als etwas, das du innerlich hältst — nicht als Metronom, hinter dem du hertrottest.",
-        "does": "Du hörst einen Rhythmus in 3/4 oder 4/4 und tippst ihn nach, oder du tippst selbst einen ein. Danach: Beispiel, deine Tipps, zusammen. So hörst du, wo du zusammenfielst und wo nicht. Der zehnte Schritt im Pfad; Optionen bleiben von leicht zu offen. Das ist keine Schlagzeugstunde: die Prüfung ist Zeit, nicht Technik.",
+        "does": "Du hörst einen Rhythmus in 3/4 oder 4/4 und tippst ihn nach, oder du tippst selbst einen ein. Danach: Beispiel, deine Tipps, zusammen. So hörst du, wo du zusammenfielst und wo nicht. Der elfte Schritt im Pfad; Optionen bleiben von leicht zu offen. Das ist keine Schlagzeugstunde: die Prüfung ist Zeit, nicht Technik.",
         "achieve": "Du kannst einen kurzen Rhythmus innerlich halten und zurückgeben. Das ist Zusammenspiel ohne Zählen in Panik, eine Phrase atmen lassen und später Noten lesen, die auch Dauer haben. Wer Ton und Zeit innerlich hat, hört Musik als Ganzes: was klingt, und wann.",
         "harder": "Beginne in 4/4, einem Takt, einer Stimme, ein festes Muster nachklopfen. Wenn der Puls bleibt: 3/4, mehr Takte, zwei Stimmen. Dann selbst ein Rhythmus eintippen und das als Modell nutzen. Hören, halten, nachklopfen — in dieser Reihenfolge."
+      },
+      {
+        "why": "Rhythmus ist das Muster in der Zeit. Tempo ist, wie schnell diese Zeit läuft: Schläge pro Minute. Diese Übung existiert, weil wer nur Muster nachtippt, die Geschwindigkeit des Pulses noch nicht als Eigenes fühlt. 60 ist keine Zahl auf einem Bildschirm; es ist ein Schlag, den du innerlich halten kannst. Das Metronom bleibt klingen, damit du den Schlag vorwegnimmst, den du hörst.",
+        "does": "Du stellst das Metronom (40–180). Ein Schlag ist die Viertelnote in 4/4. Du tippst einen gewählten Wert: Ganze, Halbe, Viertel, Achtel, Sechzehntel oder Triole (drei Achtel pro Schlag). Die Runde dauert mindestens zehn Sekunden und endet auf einem Taktstrich. Optional ist das Metronom nach dem Zählzeit still. Miss die Tippverzögerung, wenn Maus, Finger oder Bluetooth spät ankommen: danach klingt der Klick so viel früher.",
+        "achieve": "Du spürst, was 60 oder 120 Schläge pro Minute sind, und kannst eine Unterteilung gegen diesen Schlag setzen. Das ist Dirigieren ohne Stock, Zusammenspiel ohne hinter dem Klick herzulaufen, und später ein Tempo halten, wenn das Metronom wegfällt. Wer Rhythmus und Tempo innerlich hat, hört wann — und wie schnell.",
+        "harder": "Beginne bei 60, Viertel, Metronom an. Wenn der Schlag hält: Halbe oder Achtel, dann Sechzehntel oder Triole. Dann ein anderes Tempo am Schieber. Schwerer: Metronom still nach dem Zählzeit. Miss die Tippverzögerung an jedem Gerät oder Kopfhörer; Bluetooth ist später."
       }
     ]
   },
@@ -1050,7 +1200,7 @@ window.SITE_I18N = {
     "ui": {
       "home": "Home",
       "about": "À propos de l'audiation",
-      "exercises": "Exercices 1-10",
+      "exercises": "Exercices 1-12",
       "privacy": "Privacy",
       "homeTitle": "Audiation",
       "aboutTitle": "À propos de l'audiation",
@@ -1060,15 +1210,15 @@ window.SITE_I18N = {
       "replay": "Rejouer l'animation",
       "hintPhone": "Suivant montre l'explication.",
       "hintText": "Suivant montre l'écran suivant.",
-      "homeLead": "Une app pour entendre la musique intérieurement. Pratiquer dès environ 7 ans. Ci-dessous l'app sur le téléphone : touche Suivant. À la fin, les dix exercices sont expliqués.",
-      "afterTitle": "Plus sur les exercices 1 à 10",
+      "homeLead": "Une app pour entendre la musique intérieurement. Pratiquer dès environ 7 ans. Ci-dessous l'app sur le téléphone : touche Suivant. À la fin, les douze exercices sont expliqués.",
+      "afterTitle": "Plus sur les exercices 1 à 12",
       "afterLead": "Chaque page utilise la même animation. Le texte dit pourquoi l'étape est là, ce que l'exercice fait, et ce que tu peux atteindre.",
       "aboutLink": "L'audiation en général",
       "aboutLinkTail": ", avec des liens vers des sources fiables.",
       "exLead": "Pourquoi cette étape est là, ce que l'exercice fait, et ce que tu peux atteindre.",
       "exAfter": "Plus sur les autres exercices",
       "backHome": "Retour à l'accueil",
-      "inPad": "Étape {n} sur dix : {title}. Travaille de haut en bas. Cette page dit pourquoi l'étape est là, ce qu'elle fait, et ce que tu peux en faire.",
+      "inPad": "Étape {n} sur douze : {title}. Travaille de haut en bas. Cette page dit pourquoi l'étape est là, ce qu'elle fait, et ce que tu peux en faire.",
       "step": "Étape",
       "labelsHome": {
         "who": "Qui",
@@ -1104,7 +1254,7 @@ window.SITE_I18N = {
       "why": "Pourquoi.",
       "whyBody": " Entendre intérieurement, pas copier les doigts.",
       "how": "Comment.",
-      "howBody": " Dix étapes, de haut en bas.",
+      "howBody": " Douze étapes, de haut en bas.",
       "practice": "Pratiquer",
       "practiceHint": "Travaille de haut en bas.",
       "octave": "Octave",
@@ -1144,7 +1294,20 @@ window.SITE_I18N = {
       "tagHarmony": "des sons en même temps",
       "tagExt": "9, 11 ou 13 sur un accord",
       "tagProg": "des accords l'un après l'autre",
-      "tagRhythm": "le temps entre les sons"
+      "tagRhythm": "le temps entre les sons",
+      "tagTempo": "battements par minute",
+      "tagSame": "la même note dans une autre octave",
+      "hearTone": "Son entendu",
+      "searchTone": "Chercher",
+      "bpm": "Battements par minute",
+      "tapValue": "Tape cette valeur",
+      "whole": "Ronde",
+      "half": "Blanche",
+      "quarter": "Noire",
+      "eighth": "Croche",
+      "sixteenth": "Double croche",
+      "triplet": "Triolet",
+      "tap": "Tape"
     },
     "about": {
       "h1": "À propos de l'audiation",
@@ -1153,7 +1316,7 @@ window.SITE_I18N = {
       "p1": "Edwin E. Gordon a utilisé audiation pour l'équivalent musical de penser dans une langue. Quand quelqu'un parle, tu retiens des sons jusqu'à ce qu'ils deviennent des mots. En musique tu organises ce que tu viens d'entendre, et tu prévois ce qui peut venir, d'après la tonalité et la mesure.",
       "p2": "Entendre avec les oreilles (aural perception) se passe pendant que le son arrive. L'audiation est la suite cognitive : donner du sens. Sans cela, la musique reste une suite de stimuli, ou copier les doigts.",
       "hApp": "Ce que cette app est et n'est pas",
-      "p3": "L'app Audiation s'appuie sur cette idée — entendre intérieurement — dans un parcours simple de dix étapes, dès environ 7 ans. Ce n'est pas un cours de Music Learning Theory, pas une certification GIML, et pas un remplacement d'un professeur. Les noms (Do ou 1) viennent après l'écoute, sauf pour trouver une note. Chanter ou un instrument est une vérification, pas le but.",
+      "p3": "L'app Audiation s'appuie sur cette idée — entendre intérieurement — dans un parcours simple de douze étapes, dès environ 7 ans. Ce n'est pas un cours de Music Learning Theory, pas une certification GIML, et pas un remplacement d'un professeur. Les noms (Do ou 1) viennent après l'écoute, sauf pour trouver une note. Chanter ou un instrument est une vérification, pas le but.",
       "p4": "Qui veut aller plus loin, vers Gordon et la Music Learning Theory, trouve ci-dessous une courte liste. Ces sites appartiennent à d'autres ; je ne les gère pas.",
       "hLinks": "Liens utiles",
       "l1": "Le terme, les types et les stades, du Gordon Institute for Music Learning.",
@@ -1162,17 +1325,18 @@ window.SITE_I18N = {
       "l4": "Aperçu en anglais de la théorie et de la place de l'audiation.",
       "l5": "Archives des papiers et matériaux de Gordon, via la bibliothèque universitaire.",
       "toHome": "Vers l'animation à l'accueil",
-      "toEx": "Plus sur les exercices 1 à 10"
+      "toEx": "Plus sur les exercices 1 à 12"
     },
     "privacy": {
-      "updated": "Dernière mise à jour : 4 septembre 2026. Responsable : Freek van Steijn. Contact : fvsteijn@gmail.com",
+      "updated": "Dernière mise à jour : 13 octobre 2026. Responsable : Freek van Steijn. Contact : fvsteijn@gmail.com",
       "p1": "Audiation est une app d'exercice. Il n'y a pas de compte. Les réglages (langue, nommage, préférences d'exercice, caractère du son) restent sur ton appareil ou dans le navigateur, pas sur un serveur à moi.",
       "p2": "Le micro n'est utilisé que si tu actives chanter-ou-jouer ou la vérification d'accord. La hauteur est mesurée sur l'appareil. Le son ne m'est pas envoyé.",
       "p3": "Un souhait ou un changement est un e-mail que tu envoies toi-même (à fvsteijn+audiation-wens@gmail.com). Je reçois seulement ce que tu mets dans ce mail. Une adresse de réponse n'est pas obligatoire.",
       "p4": "Ce site est hébergé chez Cloudflare. Cloudflare peut voir des données techniques liées à toute visite (par exemple adresse IP, heure, page). Je n'utilise pas cela pour des profils ou de la pub sur ce site.",
-      "p5": "Dans les boutiques d'apps, il pourra plus tard y avoir un achat unique (licence sans pub) via Apple ou Google. Ce paiement passe par eux. Plus tard, la version gratuite pourra montrer de la pub sur l'écran d'accueil via un réseau pub, jamais pendant un exercice. Cet avis sera alors complété.",
+      "p5": "L'app gratuite sur Google Play et l'App Store montre une courte pub avant qu'un exercice ou un outil commence. Pendant l'exercice lui-même, il n'y a pas de pub. Un achat unique dans cette boutique retire la pub. Ce paiement passe par Google ou Apple, pas par moi.",
       "p6": "L'app est destinée dès environ 7 ans. N'ajoute pas de données personnelles extra sur des enfants dans un souhait.",
-      "p7": "Questions : fvsteijn@gmail.com"
+      "p7": "Questions : fvsteijn@gmail.com",
+      "p8": "Google (AdMob) peut traiter des données techniques, comme un identifiant publicitaire, pour afficher la pub. Dans l'app tu peux choisir dans la fenêtre de consentement. Ce site n'a pas de pub."
     },
     "steps": [
       {
@@ -1192,6 +1356,12 @@ window.SITE_I18N = {
         "level": "Ouvert",
         "levelClass": "",
         "body": "Deux sons. Tiens la distance. Ensuite : d'autres octaves, plus tard d'autres tonalités."
+      },
+      {
+        "title": "Même son",
+        "level": "Étape suivante",
+        "levelClass": "next",
+        "body": "Tu entends une note chromatique. Cherche-la dans d’autres octaves avec le curseur. Un rond par son trouvé. Après chaque note, le résultat tout de suite : encore ou une nouvelle."
       },
       {
         "title": "Mélodie",
@@ -1231,9 +1401,15 @@ window.SITE_I18N = {
       },
       {
         "title": "Rythme",
-        "level": "Étape suivante",
-        "levelClass": "next",
+        "level": "Ouvert",
+        "levelClass": "",
         "body": "Écoute un rythme et retape-le. Ou tapes-en un toi-même."
+      },
+      {
+        "title": "Tempo",
+        "level": "Ouvert",
+        "levelClass": "",
+        "body": "Règle le métronome. Tape une valeur de note contre ce temps : ronde à double croche, ou triolet."
       }
     ],
     "homeCopy": [
@@ -1267,7 +1443,7 @@ window.SITE_I18N = {
         "who": "Une introduction à l'audiation pour un large public, dès environ 7 ans. Tu testes ta musicalité intérieure et tu peux l'affûter en pratiquant. Compétences de base, difficulté croissante.",
         "why": "L'audiation, c'est entendre la musique dans la tête. Le son est là aussi quand c'est silencieux. Qui entend intérieurement peut rejouer, chanter et plus tard suivre l'harmonie. Sans cela, la musique reste copier les doigts.",
         "can": "Reconnaître l'identité d'un son, d'une distance et d'un mélange, même quand c'est silencieux. Les noms viennent après l'écoute, sauf pour trouver une note.",
-        "how": "Lis d'abord ce bloc. Ensuite dix étapes, de haut en bas. Chanter ou un instrument est une vérification, pas le but. Les réglages les plus simples mettent tout au niveau le plus facile."
+        "how": "Lis d'abord ce bloc. Ensuite douze étapes, de haut en bas. Chanter ou un instrument est une vérification, pas le but. Les réglages les plus simples mettent tout au niveau le plus facile."
       }
     ],
     "homeSteps": [
@@ -1288,6 +1464,12 @@ window.SITE_I18N = {
         "why": "La musique n'est pas seulement des points, mais des distances. Le but est de tenir cette distance intérieurement, pas les noms tierce ou quinte par cœur.",
         "can": "Entendre deux sons et garder la distance quand c'est silencieux. Plus tard la même distance dans une autre octave ou une autre tonalité.",
         "how": "Tu entends deux sons. Silence. Tiens la distance. Les options vont du facile à l'ouvert : octaves, tonalités."
+      },
+      {
+        "who": "Qui peut déjà tenir une distance et veut maintenant reconnaître le même son plus haut ou plus bas, aussi hors de do majeur.",
+        "why": "Un son reste la même classe de hauteur quand il bouge d'une octave. Le but est de reconnaître ce son, chromatique, sans le nom.",
+        "can": "Entendre une note et fixer le même son dans d'autres octaves sur le curseur. Un rond par octave.",
+        "how": "Tu entends une note. Silence. Glisse vers le même son. Touche un rond quand cela convient. L'ordre ne compte pas. Puis le résultat tout de suite : encore, ou une nouvelle note. Facile : entendre en do4, chercher en do5."
       },
       {
         "who": "Qui peut déjà tenir des distances et veut maintenant suivre une courte ligne.",
@@ -1330,6 +1512,12 @@ window.SITE_I18N = {
         "why": "Le rythme est le temps entre les sons. Le but est d'écouter et de retaper, ou de taper soi-même, puis de comparer.",
         "can": "Entendre un rythme en 3/4 ou 4/4 et le retaper, ou en taper un toi-même et le poser à côté du modèle.",
         "how": "Écoute. Retape. Ou tape toi-même. Ensuite : modèle, tes tapements, ensemble."
+      },
+      {
+        "who": "Qui pratique déjà le rythme et veut maintenant sentir le tempo du temps : combien de battements par minute.",
+        "why": "Le tempo est la vitesse de la pulsation. Le but est de tenir ce temps intérieurement et de taper une valeur de note contre lui, pas de deviner un chiffre.",
+        "can": "Régler un métronome sur un tempo connu et taper une valeur choisie — ronde à double croche, ou triolet — sur le temps.",
+        "how": "Règle le curseur. Choisis ce que tu tapes. Le temps est la noire en 4/4. Mesure d’abord le délai du tap si souris, doigt ou Bluetooth semble tard."
       }
     ],
     "exercises": [
@@ -1350,6 +1538,12 @@ window.SITE_I18N = {
         "does": "Tu entends deux sons, puis le silence. Tu tiens le saut, pas deux noms séparés. Plus tard l'octave ou la tonalité peut changer ; la tâche reste de garder la même distance intérieurement. Un bourdon doux peut faire sentir la place en do, mais n'est pas obligatoire. Chanter le second son est encore une vérification.",
         "achieve": "Tu reconnais une distance quand tu l'entends, même si les noms ne sont pas encore prêts. C'est le pont vers la mélodie : une ligne est une chaîne de sauts. Qui peut tenir des intervalles dans le silence entend plus tard une partie ou une ligne de basse comme un mouvement, pas comme une rangée de notes détachées.",
         "harder": "Commence par deux sons dans la même octave, petite distance, première note affichée, sans piano et sans chant. Quand le saut tient : cache la première note. Puis plus grande distance, même d’une octave à l’autre. Puis vers le bas au lieu du haut. En option, une octave apparaît pour toucher le second son, ou tu le chantes. Le premier son reste l’ancre dans ta tête."
+      },
+      {
+        "why": "Trouver une note lie une lettre à un seul endroit. La musique utilise le même son une octave plus haut ou plus bas, et pas seulement les sept sons de do majeur. Cet exercice existe parce que qui ne cherche que diatoniquement n'entend pas encore un fa dièse ou un si bémol comme le même son dans un autre registre. Le nom vient après le son.",
+        "does": "Tu entends une des douze notes, chromatique, dans l'octave choisie. Ensuite tu cherches la même classe de hauteur dans d'autres octaves avec le curseur. Pour chaque octave de recherche tu touches un rond quand le curseur convient. L'ordre ne compte pas. Quand tous les ronds sont fixés, le résultat vient tout de suite : encore la même note, ou une nouvelle.",
+        "achieve": "Tu reconnais un son quand il change d'octave, aussi hors de la gamme. Cela sert en jouant ensemble, avec une partie écrite une octave plus haut, et plus tard en lisant : la lettre est alors un son que tu connais déjà à plusieurs hauteurs.",
+        "harder": "Commence en entendant en do4 et en cherchant en do5 : un rond. Quand ce saut tient : plus d'octaves de recherche, donc plus de ronds. Ensuite la note s'entend depuis plus d'octaves, jusqu'à toutes. Le curseur suit l'oreille, pas une grille de touches."
       },
       {
         "why": "Une mélodie n'est pas une liste de notes, mais une ligne : haut, bas, rester. Cet exercice existe parce que qui ne pratique les intervalles qu'un par un n'entend pas encore la suite comme un tout. Pas de portée, pas de noms : l'œil ne doit pas prendre la ligne avant l'oreille. Le but est de suivre le contour intérieurement, comme tu suis une phrase sans épeler chaque mot.",
@@ -1389,9 +1583,15 @@ window.SITE_I18N = {
       },
       {
         "why": "Son, distance et mélange sont le son. Le rythme est le temps entre. Cet exercice existe parce que la musique sans temps est une pile d'événements. Écouter et retaper, ou taper soi-même et comparer, pratique la pulsation comme quelque chose que tu tiens intérieurement — pas comme un métronome que tu suis en trottinant.",
-        "does": "Tu entends un rythme en 3/4 ou 4/4 et tu le retapes, ou tu en tapes un toi-même. Ensuite : modèle, tes tapements, ensemble. Ainsi tu entends où tu as coïncidé et où non. La dixième étape du parcours ; les options restent du facile à l'ouvert. Ce n'est pas une leçon de batterie : la vérification est le temps, pas la technique.",
+        "does": "Tu entends un rythme en 3/4 ou 4/4 et tu le retapes, ou tu en tapes un toi-même. Ensuite : modèle, tes tapements, ensemble. Ainsi tu entends où tu as coïncidé et où non. La onzième étape du parcours ; les options restent du facile à l'ouvert. Ce n'est pas une leçon de batterie : la vérification est le temps, pas la technique.",
         "achieve": "Tu peux tenir un court rythme intérieurement et le rendre. C'est jouer ensemble sans compter dans la panique, laisser une phrase respirer, et plus tard lire des notes qui ont aussi une durée. Qui a le son et le temps intérieurement entend la musique comme un tout : ce qui sonne, et quand.",
         "harder": "Commence en 4/4, une mesure, une voix, reproduire un motif fixe. Quand la pulsation tient : 3/4, plus de mesures, deux voix. Puis tape toi-même un rythme et prends-le comme modèle. Écouter, tenir, reproduire — dans cet ordre."
+      },
+      {
+        "why": "Le rythme est le motif dans le temps. Le tempo est la vitesse de ce temps : battements par minute. Cet exercice existe parce que qui ne fait que retaper des motifs ne sent pas encore la vitesse de la pulsation comme une chose à soi. 60 n’est pas un chiffre sur un écran ; c’est un temps que tu peux tenir intérieurement. Le métronome continue de sonner, pour que tu anticipes le temps que tu entends.",
+        "does": "Tu règles le métronome (40–180). Un temps est la noire en 4/4. Tu tapes une valeur choisie : ronde, blanche, noire, croche, double croche ou triolet (trois croches par temps). La manche dure au moins dix secondes et s’arrête sur une barre de mesure. En option le métronome est silencieux après le compte. Mesure le délai du tap si souris, doigt ou Bluetooth arrive tard : ensuite le clic sonne d’autant plus tôt.",
+        "achieve": "Tu sens ce que sont 60 ou 120 battements par minute, et tu peux poser une subdivision contre ce temps. C’est diriger sans baguette, jouer ensemble sans courir après le clic, et plus tard tenir un tempo quand le métronome s’arrête. Qui a rythme et tempo intérieurement entend quand — et à quelle vitesse.",
+        "harder": "Commence à 60, noires, métronome allumé. Quand ce temps tient : blanche ou croche, puis double croche ou triolet. Puis un autre tempo sur le curseur. Plus dur : métronome silencieux après le compte. Mesure le délai du tap sur chaque appareil ou casque ; le Bluetooth est plus tard."
       }
     ]
   },
@@ -1399,7 +1599,7 @@ window.SITE_I18N = {
     "ui": {
       "home": "Home",
       "about": "Sobre la audiación",
-      "exercises": "Ejercicios 1-10",
+      "exercises": "Ejercicios 1-12",
       "privacy": "Privacy",
       "homeTitle": "Audiation",
       "aboutTitle": "Sobre la audiación",
@@ -1409,15 +1609,15 @@ window.SITE_I18N = {
       "replay": "Repetir animación",
       "hintPhone": "Siguiente muestra la explicación.",
       "hintText": "Siguiente muestra la siguiente pantalla.",
-      "homeLead": "Una app para oír música por dentro. Practicar desde unos 7 años. Abajo la app en el teléfono: pulsa Siguiente. Al final están las diez prácticas explicadas.",
-      "afterTitle": "Más sobre los ejercicios 1 a 10",
+      "homeLead": "Una app para oír música por dentro. Practicar desde unos 7 años. Abajo la app en el teléfono: pulsa Siguiente. Al final están las doce prácticas explicadas.",
+      "afterTitle": "Más sobre los ejercicios 1 a 12",
       "afterLead": "Cada página usa la misma animación. El texto dice por qué está el paso, qué hace el ejercicio y qué puedes alcanzar.",
       "aboutLink": "La audiación en general",
       "aboutLinkTail": ", con enlaces a fuentes fiables.",
       "exLead": "Por qué está este paso, qué hace el ejercicio y qué puedes alcanzar.",
       "exAfter": "Más sobre los otros ejercicios",
       "backHome": "Volver al inicio",
-      "inPad": "Paso {n} de diez: {title}. Trabaja de arriba abajo. Esta página dice por qué está el paso, qué hace y qué puedes hacer con él.",
+      "inPad": "Paso {n} de doce: {title}. Trabaja de arriba abajo. Esta página dice por qué está el paso, qué hace y qué puedes hacer con él.",
       "step": "Paso",
       "labelsHome": {
         "who": "Quién",
@@ -1453,7 +1653,7 @@ window.SITE_I18N = {
       "why": "Por qué.",
       "whyBody": " Oír por dentro, no copiar los dedos.",
       "how": "Cómo.",
-      "howBody": " Diez pasos, de arriba abajo.",
+      "howBody": " Doce pasos, de arriba abajo.",
       "practice": "Practicar",
       "practiceHint": "Trabaja de arriba abajo.",
       "octave": "Octava",
@@ -1493,7 +1693,20 @@ window.SITE_I18N = {
       "tagHarmony": "sonidos a la vez",
       "tagExt": "9, 11 o 13 sobre un acorde",
       "tagProg": "acordes uno tras otro",
-      "tagRhythm": "tiempo entre sonidos"
+      "tagRhythm": "tiempo entre sonidos",
+      "tagTempo": "pulsos por minuto",
+      "tagSame": "la misma nota en otra octava",
+      "hearTone": "Tono oído",
+      "searchTone": "Buscar",
+      "bpm": "Pulsos por minuto",
+      "tapValue": "Marca este valor",
+      "whole": "Redonda",
+      "half": "Blanca",
+      "quarter": "Negra",
+      "eighth": "Corchea",
+      "sixteenth": "Semicorchea",
+      "triplet": "Tresillo",
+      "tap": "Marca"
     },
     "about": {
       "h1": "Sobre la audiación",
@@ -1502,7 +1715,7 @@ window.SITE_I18N = {
       "p1": "Edwin E. Gordon usó audiación para el equivalente musical de pensar en lenguaje. Cuando alguien habla, retienes sonidos hasta que se vuelven palabras. En música organizas lo que acabas de oír y prevés lo que puede venir, según tonalidad y compás.",
       "p2": "Oír con los oídos (aural perception) ocurre mientras llega el sonido. La audiación es la continuación cognitiva: dar sentido. Sin eso, la música queda una cadena de estímulos, o copiar los dedos.",
       "hApp": "Qué es esta app y qué no es",
-      "p3": "La app Audiation se apoya en esa idea — oír por dentro — en un camino propio de diez pasos, desde unos 7 años. No es un curso de Music Learning Theory, ni una certificación GIML, ni un sustituto de un profesor. Los nombres (Do o 1) vienen después de oír, salvo al buscar una nota. Cantar o un instrumento es una comprobación, no el objetivo.",
+      "p3": "La app Audiation se apoya en esa idea — oír por dentro — en un camino propio de doce pasos, desde unos 7 años. No es un curso de Music Learning Theory, ni una certificación GIML, ni un sustituto de un profesor. Los nombres (Do o 1) vienen después de oír, salvo al buscar una nota. Cantar o un instrumento es una comprobación, no el objetivo.",
       "p4": "Quien quiera ir más lejos, hacia Gordon y Music Learning Theory, encuentra abajo una lista breve. Esos sitios son de otros; yo no los gestiono.",
       "hLinks": "Enlaces útiles",
       "l1": "El término, tipos y etapas, del Gordon Institute for Music Learning.",
@@ -1511,17 +1724,18 @@ window.SITE_I18N = {
       "l4": "Resumen en inglés de la teoría y el lugar de la audiación.",
       "l5": "Archivo de papeles y materiales de Gordon, vía la biblioteca universitaria.",
       "toHome": "A la animación en inicio",
-      "toEx": "Más sobre ejercicios 1 a 10"
+      "toEx": "Más sobre ejercicios 1 a 12"
     },
     "privacy": {
-      "updated": "Última actualización: 4 de septiembre de 2026. Responsable: Freek van Steijn. Contacto: fvsteijn@gmail.com",
+      "updated": "Última actualización: 13 de octubre de 2026. Responsable: Freek van Steijn. Contacto: fvsteijn@gmail.com",
       "p1": "Audiation es una app de práctica. No hay cuenta. Los ajustes (idioma, nombres, preferencias de ejercicio, carácter del sonido) quedan en tu aparato o en el navegador, no en un servidor mío.",
       "p2": "El micrófono solo se usa si activas cantar-o-tocar o la comprobación de afinación. La altura se mide en el aparato. El sonido no se me envía.",
       "p3": "Un deseo o un cambio es un correo que envías tú (a fvsteijn+audiation-wens@gmail.com). Recibo solo lo que pones en ese correo. Una dirección de respuesta no es obligatoria.",
       "p4": "Este sitio está en Cloudflare. Cloudflare puede ver datos técnicos de cualquier visita (por ejemplo IP, hora, página). No uso eso para perfiles ni anuncios en este sitio.",
-      "p5": "En las tiendas de apps puede haber más adelante una compra única (licencia sin anuncios) por Apple o Google. Ese pago va por ellos. Más adelante la versión gratis puede mostrar anuncios en la pantalla de inicio por una red de anuncios, nunca durante un ejercicio. Este aviso se actualizará entonces.",
+      "p5": "La app gratis en Google Play y en la App Store muestra un anuncio corto antes de que empiece un ejercicio o una herramienta. Durante el ejercicio no hay anuncios. Una compra única en esa tienda quita los anuncios. Ese pago va por Google o Apple, no por mí.",
       "p6": "La app es para desde unos 7 años. No envíes datos personales extra de niños en un deseo.",
-      "p7": "Preguntas: fvsteijn@gmail.com"
+      "p7": "Preguntas: fvsteijn@gmail.com",
+      "p8": "Google (AdMob) puede tratar datos técnicos, como un identificador de publicidad, para mostrar anuncios. En la app puedes elegir en la ventana de consentimiento. Este sitio no tiene anuncios."
     },
     "steps": [
       {
@@ -1541,6 +1755,12 @@ window.SITE_I18N = {
         "level": "Abierto",
         "levelClass": "",
         "body": "Dos tonos. Sostén la distancia. Luego: otras octavas, más tarde otras tonalidades."
+      },
+      {
+        "title": "Mismo tono",
+        "level": "Siguiente paso",
+        "levelClass": "next",
+        "body": "Oyes una nota cromática. Búscala en otras octavas con el deslizador. Un círculo por tono encontrado. Tras cada nota, el resultado al momento: otra vez o una nueva."
       },
       {
         "title": "Melodía",
@@ -1580,9 +1800,15 @@ window.SITE_I18N = {
       },
       {
         "title": "Ritmo",
-        "level": "Siguiente paso",
-        "levelClass": "next",
+        "level": "Abierto",
+        "levelClass": "",
         "body": "Escucha un ritmo y márcalo. O marca uno tú."
+      },
+      {
+        "title": "Tempo",
+        "level": "Abierto",
+        "levelClass": "",
+        "body": "Ajusta el metrónomo. Marca un valor de nota contra ese pulso: redonda a semicorchea, o tresillo."
       }
     ],
     "homeCopy": [
@@ -1616,7 +1842,7 @@ window.SITE_I18N = {
         "who": "Una introducción a la audiación para un público amplio, desde unos 7 años. Pruebas tu musicalidad interior y puedes afilarla practicando. Habilidades básicas, dificultad creciente.",
         "why": "La audiación es oír música en la cabeza. El tono está también cuando hay silencio. Quien oye por dentro puede tocar de oído, cantar y más tarde seguir la armonía. Sin eso, la música sigue siendo copiar los dedos.",
         "can": "Reconocer la identidad de un tono, una distancia y una mezcla, también cuando hay silencio. Los nombres vienen después de oír, salvo al buscar una nota.",
-        "how": "Lee primero este bloque. Luego diez pasos, de arriba abajo. Cantar o un instrumento es una comprobación, no el objetivo. Los ajustes más simples ponen todo en el nivel más fácil."
+        "how": "Lee primero este bloque. Luego doce pasos, de arriba abajo. Cantar o un instrumento es una comprobación, no el objetivo. Los ajustes más simples ponen todo en el nivel más fácil."
       }
     ],
     "homeSteps": [
@@ -1637,6 +1863,12 @@ window.SITE_I18N = {
         "why": "La música no es solo puntos, sino distancias. El objetivo es sostener esa distancia por dentro, no los nombres tercera o quinta de memoria.",
         "can": "Oír dos tonos y guardar la distancia cuando hay silencio. Más tarde la misma distancia en otra octava u otra tonalidad.",
         "how": "Oyes dos tonos. Silencio. Sostén la distancia. Las opciones van de fácil a abierto: octavas, tonalidades."
+      },
+      {
+        "who": "Quien ya puede sostener una distancia y ahora quiere reconocer el mismo sonido más agudo o más grave, también fuera de do mayor.",
+        "why": "Un tono sigue siendo la misma clase de altura cuando se mueve una octava. El objetivo es reconocer ese sonido, cromático, sin el nombre.",
+        "can": "Oír una nota y fijar el mismo tono en otras octavas en el deslizador. Un círculo por octava.",
+        "how": "Oyes una nota. Silencio. Desliza al mismo tono. Pulsa un círculo cuando encaja. El orden no cuenta. Luego el resultado al momento: otra vez, o una nota nueva. Fácil: oír en C4, buscar en C5."
       },
       {
         "who": "Quien ya puede sostener distancias y ahora quiere seguir una línea corta.",
@@ -1679,6 +1911,12 @@ window.SITE_I18N = {
         "why": "El ritmo es tiempo entre sonidos. El objetivo es escuchar y marcar de vuelta, o marcar tú, luego comparar.",
         "can": "Oír un ritmo en 3/4 o 4/4 y marcarlo, o marcar uno tú y ponerlo junto al modelo.",
         "how": "Escucha. Marca. O marca tú. Luego: modelo, tus toques, juntos."
+      },
+      {
+        "who": "Quien ya practica el ritmo y ahora quiere sentir el tempo del pulso: cuántos pulsos por minuto.",
+        "why": "El tempo es la velocidad del pulso. El objetivo es sujetar ese pulso por dentro y marcar un valor de nota contra él, no adivinar un número.",
+        "can": "Poner un metrónomo a un tempo conocido y marcar un valor elegido — redonda a semicorchea, o tresillo — en el pulso.",
+        "how": "Ajusta el deslizador. Elige qué marcas. El pulso es la negra en 4/4. Primero mide el retraso del toque si ratón, dedo o Bluetooth se sienten tarde."
       }
     ],
     "exercises": [
@@ -1699,6 +1937,12 @@ window.SITE_I18N = {
         "does": "Oyes dos tonos, luego silencio. Sostienes el salto, no dos nombres sueltos. Más tarde pueden cambiar la octava o la tonalidad; la tarea sigue siendo guardar la misma distancia por dentro. Un bordón suave puede hacer sentir el lugar en do, pero no es obligatorio. Cantar el segundo tono es otra comprobación.",
         "achieve": "Reconoces una distancia al oírla, aunque los nombres aún no estén listos. Ese es el puente a la melodía: una línea es una cadena de saltos. Quien puede sostener intervalos en silencio oye más tarde una parte o una línea de bajo como movimiento, no como una fila de notas sueltas.",
         "harder": "Empieza con dos tonos en la misma octava, poca distancia, primer tono visible, sin piano y sin cantar. Cuando el salto se sostiene: oculta el primer tono. Luego más distancia, incluso entre octavas. Luego hacia abajo en vez de hacia arriba. Opcional: aparece una octava para pulsar el segundo tono, o lo cantas. El primer tono sigue siendo el ancla en la cabeza."
+      },
+      {
+        "why": "Buscar una nota une una letra a un solo lugar. La música usa el mismo sonido una octava más aguda o más grave, y no solo los siete tonos de do mayor. Este ejercicio existe porque quien solo busca en la escala aún no oye un fa sostenido o un si bemol como el mismo tono en otro registro. El nombre viene después del sonido.",
+        "does": "Oyes una de doce notas, cromática, en la octava elegida. Luego buscas la misma clase de altura en otras octavas con el deslizador. Por cada octava de búsqueda pulsas un círculo cuando el deslizador encaja. El orden no cuenta. Cuando todos los círculos están fijos, el resultado llega al momento: otra vez la misma nota, o una nueva.",
+        "achieve": "Reconoces un tono cuando cambia de octava, también fuera de la escala. Sirve al tocar juntos, con una parte escrita una octava más aguda, y más tarde al leer: la letra es entonces un sonido que ya conoces en varias alturas.",
+        "harder": "Empieza oyendo en C4 y buscando en C5: un círculo. Cuando ese salto se sostiene: más octavas de búsqueda, así más círculos. Luego la nota se oye desde más octavas, hasta todas. El deslizador sigue al oído, no a una rejilla de teclas."
       },
       {
         "why": "Una melodía no es una lista de notas, sino una línea: arriba, abajo, quedarse. Este ejercicio existe porque quien solo practica intervalos de uno en uno aún no oye la sucesión como un todo. Sin pentagrama, sin nombres: el ojo no debe tomar la línea antes que el oído. El objetivo es seguir el contorno por dentro, como sigues una frase sin deletrear cada palabra.",
@@ -1738,9 +1982,15 @@ window.SITE_I18N = {
       },
       {
         "why": "Tono, distancia y mezcla son el sonido. El ritmo es el tiempo entre. Este ejercicio existe porque la música sin tiempo es un montón de sucesos. Escuchar y marcar, o marcar tú y comparar, practica el pulso como algo que sostienes por dentro — no como un metrónomo al que sigues trotando.",
-        "does": "Oyes un ritmo en 3/4 o 4/4 y lo marcas, o marcas uno tú. Luego: modelo, tus toques, juntos. Así oyes dónde coincidiste y dónde no. El décimo paso del camino; las opciones siguen de fácil a abierto. Esto no es una clase de batería: la comprobación es el tiempo, no la técnica.",
+        "does": "Oyes un ritmo en 3/4 o 4/4 y lo marcas, o marcas uno tú. Luego: modelo, tus toques, juntos. Así oyes dónde coincidiste y dónde no. El undécimo paso del camino; las opciones siguen de fácil a abierto. Esto no es una clase de batería: la comprobación es el tiempo, no la técnica.",
         "achieve": "Puedes sostener un ritmo corto por dentro y devolverlo. Eso es tocar juntos sin contar en pánico, dejar respirar una frase, y más tarde leer notas que también tienen duración. Quien tiene tono y tiempo por dentro oye la música como un todo: qué suena, y cuándo.",
         "harder": "Empieza en 4/4, un compás, una voz, repetir un patrón fijo. Cuando el pulso se sostiene: 3/4, más compases, dos voces. Luego marca tú un ritmo y úsalo de modelo. Escuchar, retener, repetir — en ese orden."
+      },
+      {
+        "why": "El ritmo es el patrón en el tiempo. El tempo es lo rápido que corre ese tiempo: pulsos por minuto. Este ejercicio existe porque quien solo repite patrones aún no siente la velocidad del pulso como algo propio. 60 no es un número en una pantalla; es un pulso que puedes sujetar por dentro. El metrónomo sigue sonando, para que anticipes el pulso que oyes.",
+        "does": "Ajustas el metrónomo (40–180). Un pulso es la negra en 4/4. Marcas un valor elegido: redonda, blanca, negra, corchea, semicorchea o tresillo (tres corcheas por pulso). La ronda dura al menos diez segundos y termina en una barra de compás. Opcional: el metrónomo en silencio tras la cuenta. Mide el retraso del toque si ratón, dedo o Bluetooth llega tarde: luego el clic suena tanto antes.",
+        "achieve": "Sientes qué son 60 o 120 pulsos por minuto, y puedes poner una subdivisión contra ese pulso. Eso es dirigir sin batuta, tocar juntos sin ir detrás del clic, y más tarde mantener un tempo cuando el metrónomo desaparece. Quien tiene ritmo y tempo por dentro oye cuándo — y qué tan rápido.",
+        "harder": "Empieza en 60, negras, metrónomo encendido. Cuando ese pulso se sostiene: blanca o corchea, luego semicorchea o tresillo. Luego otro tempo en el deslizador. Más difícil: metrónomo en silencio tras la cuenta. Mide el retraso del toque en cada aparato o auriculares; Bluetooth es más tarde."
       }
     ]
   }

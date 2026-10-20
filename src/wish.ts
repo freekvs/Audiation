@@ -33,14 +33,20 @@ export function wishPlaceLabel(place: WishPlace, t: Strings): string {
   return t.practice[place].title;
 }
 
-export function wishMailto(
+export type WishMail = {
+  address: string;
+  subject: string;
+  body: string;
+};
+
+export function wishMail(
   kind: WishKind,
   place: WishPlace,
   text: string,
   reply: string,
   locale: LocaleId,
   t: Strings,
-): string {
+): WishMail {
   const subject = `Audiation: ${wishKindLabel(kind, t)} / ${wishPlaceLabel(place, t)}`;
   const lines = [
     `Soort: ${wishKindLabel(kind, t)}`,
@@ -52,6 +58,34 @@ export function wishMailto(
   if (reply.trim()) {
     lines.push('', `Antwoord naar: ${reply.trim()}`);
   }
-  const body = lines.join('\n');
-  return `mailto:${WISH_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  return { address: WISH_EMAIL, subject, body: lines.join('\n') };
+}
+
+/** Encode `+` in the local part; some mail apps treat a raw `+` as a space. */
+export function toMailto({ address, subject, body }: WishMail): string {
+  const at = address.lastIndexOf('@');
+  const local = encodeURIComponent(address.slice(0, at));
+  const domain = address.slice(at + 1);
+  return `mailto:${local}@${domain}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+}
+
+export function toGmail({ address, subject, body }: WishMail): string {
+  const url = new URL('https://mail.google.com/mail/');
+  url.searchParams.set('view', 'cm');
+  url.searchParams.set('fs', '1');
+  url.searchParams.set('to', address);
+  url.searchParams.set('su', subject);
+  url.searchParams.set('body', body);
+  return url.toString();
+}
+
+export function wishMailto(
+  kind: WishKind,
+  place: WishPlace,
+  text: string,
+  reply: string,
+  locale: LocaleId,
+  t: Strings,
+): string {
+  return toMailto(wishMail(kind, place, text, reply, locale, t));
 }

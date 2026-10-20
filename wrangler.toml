@@ -1,0 +1,11 @@
+name = "audiation"
+main = "worker/index.mjs"
+compatibility_date = "2026-09-01"
+
+# Deploy: npx wrangler deploy
+# The worker 301s http, ?lang=, .html and trailing-slash variants onto one URL per page.
+[assets]
+directory = "./site"
+binding = "ASSETS"
+html_handling = "auto-trailing-slash"
+run_worker_first = true

@@ -1,6 +1,7 @@
 import {
   createAudioPlayer,
   setAudioModeAsync,
+  type AudioPlayer,
   type AudioRecorder,
 } from 'expo-audio';
 
@@ -116,7 +117,13 @@ async function analyzeRecordingUri(
     player.volume = 0.12;
     if (player.isAudioSamplingSupported) {
       player.setAudioSamplingEnabled(true);
-      player.addListener('audioSampleUpdate', (sample) => {
+      const sampling = player as AudioPlayer & {
+        addListener: (
+          event: 'audioSampleUpdate',
+          listener: (sample: { channels: Array<{ frames?: ArrayLike<number> }> }) => void,
+        ) => { remove: () => void };
+      };
+      sampling.addListener('audioSampleUpdate', (sample) => {
         const frames = sample.channels[0]?.frames;
         if (!frames || frames.length < 512) {
           return;

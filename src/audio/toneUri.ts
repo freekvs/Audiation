@@ -5,14 +5,24 @@ import { encodeDualToneWav } from './encodeDualToneWav';
 import { encodeSustainWav } from './encodeSustainWav';
 import { encodeToneWav } from './encodeToneWav';
 import { getSoundingKlank, type KlankId } from './klank';
-import { createReadyPlayer, playUri, safePause } from './nativePlay';
+import { slideHz, stopSlide } from './slideTone';
+
+type NativePlay = typeof import('./nativePlay');
 
 const uriCache = new Map<string, string>();
 const pending = new Map<string, Promise<string>>();
 
-let tonePlayer: ReturnType<typeof createReadyPlayer> | null = null;
+let nativePlay: NativePlay | null = null;
+let tonePlayer: ReturnType<NativePlay['createReadyPlayer']> | null = null;
 let lastUri: string | null = null;
 let playSeq = 0;
+
+async function loadNativePlay(): Promise<NativePlay> {
+  if (!nativePlay) {
+    nativePlay = await import('./nativePlay');
+  }
+  return nativePlay;
+}
 
 export async function getToneUri(hz: number, klank: KlankId = getSoundingKlank()): Promise<string> {
   return getCachedUri(`tone-${klank}-${Math.round(hz * 100)}`, () => encodeToneWav(hz, klank));
@@ -74,52 +84,61 @@ async function createWavUri(key: string, bytes: Uint8Array): Promise<string> {
   return file.uri;
 }
 
-function getTonePlayer() {
+async function getTonePlayer() {
+  const audio = await loadNativePlay();
   if (!tonePlayer) {
-    tonePlayer = createReadyPlayer(false, 1);
+    tonePlayer = audio.createReadyPlayer(false, 1);
   }
-  return tonePlayer;
+  return { audio, player: tonePlayer };
 }
 
 export function stopTone() {
   playSeq += 1;
+  stopSlide();
   if (tonePlayer) {
     tonePlayer.loop = false;
   }
-  safePause(tonePlayer);
+  nativePlay?.safePause(tonePlayer);
 }
 
 export async function playHz(hz: number, options?: { loop?: boolean; klank?: KlankId }): Promise<void> {
-  const seq = (playSeq += 1);
   const loop = options?.loop === true;
+  if (loop) {
+    slideHz(hz);
+    return;
+  }
+  stopSlide();
+  const seq = (playSeq += 1);
   const klank = options?.klank ?? getSoundingKlank();
-  const uri = loop ? await getSustainUri(hz, klank) : await getToneUri(hz, klank);
+  const uri = await getToneUri(hz, klank);
   if (seq !== playSeq) {
     return;
   }
 
-  const player = getTonePlayer();
-  lastUri = await playUri(player, uri, lastUri, () => seq === playSeq, { loop });
+  const { audio, player } = await getTonePlayer();
+  lastUri = await audio.playUri(player, uri, lastUri, () => seq === playSeq, { loop: false });
 }
 
 export async function playDualHz(aHz: number, bHz: number, klank: KlankId = getSoundingKlank()): Promise<void> {
+  stopSlide();
   const seq = (playSeq += 1);
   const uri = await getDualUri(aHz, bHz, klank);
   if (seq !== playSeq) {
     return;
   }
 
-  const player = getTonePlayer();
-  lastUri = await playUri(player, uri, lastUri, () => seq === playSeq, { loop: false });
+  const { audio, player } = await getTonePlayer();
+  lastUri = await audio.playUri(player, uri, lastUri, () => seq === playSeq, { loop: false });
 }
 
 export async function playChordHz(notesHz: number[], klank: KlankId = getSoundingKlank()): Promise<void> {
+  stopSlide();
   const seq = (playSeq += 1);
   const uri = await getChordUri(notesHz, klank);
   if (seq !== playSeq) {
     return;
   }
 
-  const player = getTonePlayer();
-  lastUri = await playUri(player, uri, lastUri, () => seq === playSeq, { loop: false });
+  const { audio, player } = await getTonePlayer();
+  lastUri = await audio.playUri(player, uri, lastUri, () => seq === playSeq, { loop: false });
 }

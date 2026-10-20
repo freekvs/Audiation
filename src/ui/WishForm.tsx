@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Linking, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Linking, Platform, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 
 import { WISH_EMAIL } from '../about';
 import { fmt, useLocale, useT } from '../i18n';
@@ -7,8 +7,10 @@ import { COLORS } from '../theme';
 import {
   WISH_KINDS,
   WISH_PLACES,
+  toGmail,
+  toMailto,
   wishKindLabel,
-  wishMailto,
+  wishMail,
   wishPlaceLabel,
   type WishKind,
   type WishPlace,
@@ -24,13 +26,23 @@ export function WishForm() {
   const [reply, setReply] = useState('');
   const [status, setStatus] = useState<'idle' | 'opened' | 'need' | 'failed'>('idle');
 
+  const mail =
+    kind && place && text.trim() ? wishMail(kind, place, text, reply, locale, t) : null;
+  const webHref = mail ? toGmail(mail) : undefined;
+
   const send = () => {
-    if (!kind || !place || !text.trim()) {
+    if (!mail) {
       setStatus('need');
       return;
     }
-    const url = wishMailto(kind, place, text, reply, locale, t);
-    void Linking.openURL(url)
+    if (Platform.OS === 'web') {
+      if (webHref) {
+        void Linking.openURL(webHref);
+      }
+      setStatus('opened');
+      return;
+    }
+    void Linking.openURL(toMailto(mail))
       .then(() => setStatus('opened'))
       .catch(() => setStatus('failed'));
   };
@@ -117,7 +129,7 @@ export function WishForm() {
       />
 
       <Pressable
-        accessibilityRole="button"
+        accessibilityRole="link"
         accessibilityLabel={t.wish.sendA11y}
         onPress={send}
         style={({ pressed }) => [styles.send, pressed && styles.pressed]}

@@ -1,7 +1,12 @@
 import { createAudioPlayer, type AudioPlayer } from 'expo-audio';
 
-export function createReadyPlayer(loop = false, volume = 1): AudioPlayer {
-  const player = createAudioPlayer(null, { updateInterval: 50 });
+import { preparePlayback } from './playbackMode';
+
+export function createReadyPlayer(loop = false, volume = 1, keepSession = false): AudioPlayer {
+  const player = createAudioPlayer(null, {
+    updateInterval: keepSession ? 1000 : 50,
+    keepAudioSessionActive: keepSession,
+  });
   player.loop = loop;
   player.volume = volume;
   return player;
@@ -12,10 +17,7 @@ export function safePause(player: AudioPlayer | null): void {
     return;
   }
   try {
-    const result = player.pause();
-    if (result && typeof result === 'object' && 'catch' in result) {
-      void (result as Promise<unknown>).catch(() => undefined);
-    }
+    player.pause();
   } catch {
     // Op Android is de native speler soms al vrijgegeven.
   }
@@ -43,22 +45,30 @@ export async function playUri(
   stillValid: () => boolean,
   options: { loop: boolean },
 ): Promise<string | null> {
-  player.loop = options.loop;
-  if (lastUri !== uri) {
-    player.replace({ uri });
-    await waitLoaded(player);
+  try {
+    await preparePlayback().catch(() => undefined);
+    player.loop = options.loop;
+    if (lastUri !== uri) {
+      player.replace({ uri });
+      await waitLoaded(player);
+      if (!stillValid()) {
+        return lastUri;
+      }
+    } else if (options.loop) {
+      player.play();
+      return uri;
+    }
+    try {
+      await player.seekTo(0);
+    } catch {
+      // sommige webspelers hebben nog geen duur
+    }
     if (!stillValid()) {
       return lastUri;
     }
-  }
-  try {
-    await player.seekTo(0);
+    player.play();
+    return uri;
   } catch {
-    // sommige webspelers hebben nog geen duur
-  }
-  if (!stillValid()) {
     return lastUri;
   }
-  player.play();
-  return uri;
 }

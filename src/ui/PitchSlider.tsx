@@ -17,6 +17,7 @@ type Props = {
   markers?: Marker[];
   lowLabel?: string;
   highLabel?: string;
+  accessibilityLabel?: string;
 };
 
 export function PitchSlider({
@@ -27,6 +28,7 @@ export function PitchSlider({
   markers,
   lowLabel = 'Lager',
   highLabel = 'Hoger',
+  accessibilityLabel = 'Toonhoogte',
 }: Props) {
   const widthRef = useRef(1);
   const originXRef = useRef(0);
@@ -120,7 +122,7 @@ export function PitchSlider({
         ref={trackRef}
         collapsable={false}
         accessibilityRole="adjustable"
-        accessibilityLabel="Toonhoogte"
+        accessibilityLabel={accessibilityLabel}
         accessibilityState={{ disabled: !!disabled }}
         onLayout={onLayout}
         style={[styles.hit, disabled && styles.hitDisabled, webHitStyle]}

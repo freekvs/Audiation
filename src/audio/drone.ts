@@ -2,8 +2,9 @@ import { useEffect, useState } from 'react';
 import { Platform } from 'react-native';
 
 import { encodeDroneWav } from './encodeDroneWav';
-import { createReadyPlayer, playUri, safePause } from './nativePlay';
 import { DEFAULT_PIANO_OCTAVE, PIANO_OCTAVES } from '../notes';
+
+type NativePlay = typeof import('./nativePlay');
 
 const STORAGE_KEY = 'audiation.drone.v1';
 const FILE_NAME = 'audiation-drone-pref-v1.txt';
@@ -11,9 +12,17 @@ const FILE_NAME = 'audiation-drone-pref-v1.txt';
 const uriCache = new Map<number, string>();
 const pending = new Map<number, Promise<string>>();
 
-let dronePlayer: ReturnType<typeof createReadyPlayer> | null = null;
+let nativePlay: NativePlay | null = null;
+let dronePlayer: ReturnType<NativePlay['createReadyPlayer']> | null = null;
 let lastUri: string | null = null;
 let droneSeq = 0;
+
+async function loadNativePlay(): Promise<NativePlay> {
+  if (!nativePlay) {
+    nativePlay = await import('./nativePlay');
+  }
+  return nativePlay;
+}
 
 const DRONE_VOLUME = 0.12;
 
@@ -58,7 +67,7 @@ async function createDroneUri(octave: number): Promise<string> {
   const bytes = encodeDroneWav(droneChord(octave));
 
   if (Platform.OS === 'web') {
-    return URL.createObjectURL(new Blob([bytes], { type: 'audio/wav' }));
+    return URL.createObjectURL(new Blob([bytes.buffer as ArrayBuffer], { type: 'audio/wav' }));
   }
 
   const { File, Paths } = await import('expo-file-system');
@@ -70,11 +79,12 @@ async function createDroneUri(octave: number): Promise<string> {
   return file.uri;
 }
 
-function getDronePlayer() {
+async function getDronePlayer() {
+  const audio = await loadNativePlay();
   if (!dronePlayer) {
-    dronePlayer = createReadyPlayer(true, DRONE_VOLUME);
+    dronePlayer = audio.createReadyPlayer(true, DRONE_VOLUME);
   }
-  return dronePlayer;
+  return { audio, player: dronePlayer };
 }
 
 export async function startDrone(octave: number): Promise<void> {
@@ -84,19 +94,19 @@ export async function startDrone(octave: number): Promise<void> {
     return;
   }
 
-  const player = getDronePlayer();
+  const { audio, player } = await getDronePlayer();
   player.volume = DRONE_VOLUME;
-  lastUri = await playUri(player, uri, lastUri, () => seq === droneSeq, { loop: true });
+  lastUri = await audio.playUri(player, uri, lastUri, () => seq === droneSeq, { loop: true });
 }
 
 export function pauseDrone() {
   droneSeq += 1;
-  safePause(dronePlayer);
+  nativePlay?.safePause(dronePlayer);
 }
 
 export function stopDrone() {
   droneSeq += 1;
-  safePause(dronePlayer);
+  nativePlay?.safePause(dronePlayer);
   lastUri = null;
 }
 
